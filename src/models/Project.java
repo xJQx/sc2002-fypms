@@ -1,7 +1,9 @@
 package models;
 
+import enums.ProjectStatus;
+
 public class Project {
-	public static int lastProjectID;
+	private static int lastProjectID;
 	private int projectID;
 	private String title;
 	private ProjectStatus status;
@@ -12,9 +14,14 @@ public class Project {
 		this.title = title;
 		this.student = student;
 		this.supervisor = supervisor;
-		this.projectID = ++lastProjectID;
-		
+		this.projectID = ++Project.lastProjectID;
 	}
+	
+	// ---------- Getter and Setter Methods ---------- //
+	public int getProjectID() {
+		return this.projectID;
+	}
+	
 	public boolean setTitle(String title) {
 		this.title = title;
 		return true;
@@ -23,10 +30,12 @@ public class Project {
 	public String getTitle() {
 		return title;
 	}
+	
 	public boolean setStatus(ProjectStatus status) {
 		this.status = status;
 		return true;
 	}
+	
 	public ProjectStatus getStatus() {
 		return status;
 	}
@@ -35,15 +44,17 @@ public class Project {
 		this.supervisor = supervisor;
 		return true;
 	}
-	public Supervisor getSupervsior() {
-		return supervsior;
+	
+	public Supervisor getSupervisor() {
+		return this.supervisor;
 	}
 	
 	public boolean setStudent(Student student) {
 		this.student = student;
 		return true;
 	}
+	
 	public Student getStudent() {
-		return student;
+		return this.student;
 	}
 }
