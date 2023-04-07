@@ -18,6 +18,10 @@ public class User {
 		return this.userID;
 	}
 	
+	public String getPassword() {
+		return this.password;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -27,7 +31,7 @@ public class User {
 	}
 	
 	public Boolean setPassword(String oldPassword, String newPassword) {
-		if (oldPassword != this.password) return false;
+		if (!oldPassword.equals(this.password)) return false;
 		this.password = newPassword;
 		return true;
 	}

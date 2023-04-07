@@ -5,10 +5,10 @@ public class Supervisor extends User {
 	private int numOfProjects;
 	public static final int MAX_PROJECTS = 2;
 	
-	public Supervisor(String supervisorID, String name, String email, String password) {
+	public Supervisor(String supervisorID, String name, String email, String password, int numOfProjects) {
 		super(supervisorID, name, email, password);
 		this.supervisorID = supervisorID;
-		this.numOfProjects = 0;
+		this.numOfProjects = numOfProjects;
 	}
 	
 	public String getSupervisorID() {
