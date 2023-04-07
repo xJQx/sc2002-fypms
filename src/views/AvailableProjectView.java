@@ -1,14 +1,18 @@
 package views;
 
+import interfaces.IProjectView;
+import models.Project;
+import models.Supervisor;
+
 public class AvailableProjectView implements IProjectView{
 	
-	public void displayProjectInfo (Project project) {
+	public void displayProjectInfo(Project project) {
 		Supervisor supervisor = project.getSupervisor();
-		System.out.println("Project ID: " project.getProjectID());
-		System.out.println("Supervisor's name: " + supervisor.getName());
-		System.out.println("Supervisor's email address: " supervisor.getEmail());
-		System.out.println("Project Title: " + project.getTitle());
-		System.out.println("Project Status: " + project.getStatus());
 		
+		System.out.println("Project ID: " + project.getProjectID());
+		System.out.println("Supervisor's name: " + supervisor.getName());
+		System.out.println("Supervisor's email address: " + supervisor.getEmail());
+		System.out.println("Project Title: " + project.getTitle());
+		System.out.println("Project Status: " + project.getStatus());	
 	}
 }
