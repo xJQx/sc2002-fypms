@@ -4,9 +4,9 @@ public class Student extends User {
 	private String studentID;
 	private Boolean isRegistered;
 
-	public Student(String studentID, String name, String email, String password) {
+	public Student(String studentID, String name, String email, String password, boolean isRegistered) {
 		super(studentID, name, email, password);
-		this.isRegistered = false;
+		this.isRegistered = isRegistered;
 		this.studentID = studentID;
 	}
 	
