@@ -74,7 +74,6 @@ public abstract class Request {
 	}
 	
 	public User getReceiver() {
-		// FYP coordinator first because FYP coordinator is also a supervisor
 		Map<String, FYPCoordinator> fypcoordinatorsMap = AppStore.getFYPCoordinatorsData();
 		if (fypcoordinatorsMap.containsKey(this.receiverID)) return fypcoordinatorsMap.get(this.receiverID);
 		

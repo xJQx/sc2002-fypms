@@ -353,9 +353,10 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	// Projects
-	public Map<Integer, Project> importProjectData(String projectsFilePath, String usersFilePath, String studentsFilePath, String supervisorsFilePath) {
+	public Map<Integer, Project> importProjectData(String projectsFilePath, String usersFilePath, String studentsFilePath, String supervisorsFilePath, String fypCoordinatorsFilePath) {
 		Map<String, Student> studentsMap = this.importStudentData(usersFilePath, studentsFilePath);
 		Map<String, Supervisor> supervisorsMap = this.importSupervisorData(usersFilePath, supervisorsFilePath);
+		Map<String, FYPCoordinator> fypCoordinatorsMap = this.importFYPCoordinatorData(usersFilePath, supervisorsFilePath, fypCoordinatorsFilePath);
 		Map<Integer, Project> projectsMap = new HashMap<Integer, Project>();
 		
 		List<String[]> projectsRows = this.readCsvFile(projectsFilePath, projectCsvHeaders);
@@ -364,7 +365,7 @@ public class CsvDataService implements IFileDataService {
 			int projectID = Integer.parseInt(projectRow[0]);
 			String title = projectRow[1];
 			ProjectStatus status = ProjectStatus.valueOf(projectRow[2]);
-			Supervisor supervisor = supervisorsMap.get(projectRow[3]);
+			Supervisor supervisor = supervisorsMap.containsKey(projectRow[3]) ? supervisorsMap.get(projectRow[3]) : fypCoordinatorsMap.get(projectRow[3]); // FYP Coordinator is also a supervisor
 			Student student = projectRow.length > 4 ? studentsMap.get(projectRow[4]) : null;
 			
 			Project project = new Project(projectID, title, supervisor, student, status);
@@ -407,9 +408,9 @@ public class CsvDataService implements IFileDataService {
 			RequestStatus status = RequestStatus.valueOf(requestRow[4]);
 			ArrayList<String> history = new ArrayList<String>(Arrays.asList(requestRow[5].split(";")));
 			
-			Request request = new Request(senderID, receiverID, projectID, requestID, status, history);
+			// Request request = new Request(senderID, receiverID, projectID, requestID, status, history);
 			
-			requestsMap.put(requestID, request);
+			// requestsMap.put(requestID, request);
 		}
 		
 		return requestsMap;
