@@ -26,6 +26,6 @@ public interface IFileDataService {
 	boolean exportProjectData(String projectsFilePath, Map<Integer, Project> projectMap);
 
 	// ---------- Request ---------- //
-	Map<String, Request> importRequestData(String requestsFilePath);
-	boolean exportRequestData(String requestsFilePath, Map<String, Request> requestMap);
+	Map<Integer, Request> importRequestData(String requestsFilePath);
+	boolean exportRequestData(String requestsFilePath, Map<Integer, Request> requestMap);
 }
