@@ -22,7 +22,7 @@ public interface IFileDataService {
 	boolean exportFYPCoordinatorData(String usersFilePath, String supervisorsFilePath, String fypCoordinatorsFilePath, Map<String, FYPCoordinator> fypCoordinatorMap);
 
 	// ---------- Project ---------- //
-	Map<Integer, Project> importProjectData(String projectsFilePath, String usersFilePath, String studentsFilePath, String supervisorsFilePath);
+	Map<Integer, Project> importProjectData(String projectsFilePath, String usersFilePath, String studentsFilePath, String supervisorsFilePath, String fypCoordinatorsFilePath);
 	boolean exportProjectData(String projectsFilePath, Map<Integer, Project> projectMap);
 
 	// ---------- Request ---------- //
