@@ -2,7 +2,6 @@ package store;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import interfaces.IFileDataService;
 import models.FYPCoordinator;
@@ -40,6 +39,16 @@ public class AppStore {
 		AppStore.fypcoordinatorsData = fileDataService.importFYPCoordinatorData(filePathsMap.get("user"), filePathsMap.get("supervisor"), filePathsMap.get("fypcoordinator"));
 		AppStore.projectsData = fileDataService.importProjectData(filePathsMap.get("project"), filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("supervisor"), filePathsMap.get("fypcoordinator"));
 		AppStore.requestData = fileDataService.importRequestData(filePathsMap.get("request"));
+		
+		return true;
+	}
+	
+	public static boolean saveData() {
+		AppStore.setStudentsData(studentsData);
+		AppStore.setSupervisorsData(supervisorsData);
+		AppStore.setFYPCoordinatorsData(fypcoordinatorsData);
+		AppStore.setProjectsData(projectsData);
+		AppStore.setRequestsData(requestData);;
 		
 		return true;
 	}
