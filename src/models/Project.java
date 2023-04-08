@@ -3,19 +3,34 @@ package models;
 import enums.ProjectStatus;
 
 public class Project {
-	private static int lastProjectID;
+	private static int lastProjectID = 0;
 	private int projectID;
 	private String title;
-	private ProjectStatus status;
-	private Supervisor supervisor;
 	private Student student;
+	private Supervisor supervisor;
+	private ProjectStatus status;
 	
-	public Project(String title, Supervisor supervisor, Student student) {
+	// For Initializing Existing Projects
+	public Project(int projectID, String title, Supervisor supervisor, Student student, ProjectStatus status) {
 		this.title = title;
+		this.status = status;
+		this.student = student;
+		this.supervisor = supervisor;
+		this.projectID = projectID;
+		
+		// update lastProjectID
+		if (projectID > Project.lastProjectID) Project.lastProjectID = projectID;
+	}
+	
+	// Constructor for Creating New Projects
+	public Project(String title, Supervisor supervisor, Student student, ProjectStatus status) {
+		this.title = title;
+		this.status = status;
 		this.student = student;
 		this.supervisor = supervisor;
 		this.projectID = ++Project.lastProjectID;
 	}
+	
 	
 	// ---------- Getter and Setter Methods ---------- //
 	public int getProjectID() {
