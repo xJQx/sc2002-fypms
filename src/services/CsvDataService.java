@@ -13,11 +13,15 @@ import java.util.Map;
 import enums.ProjectStatus;
 import enums.RequestStatus;
 import interfaces.IFileDataService;
+import models.AllocateProjectRequest;
+import models.ChangeProjectTitleRequest;
+import models.DeregisterProjectRequest;
 import models.FYPCoordinator;
 import models.Project;
 import models.Request;
 import models.Student;
 import models.Supervisor;
+import models.TransferStudentRequest;
 
 public class CsvDataService implements IFileDataService {
 	private static List<String> userCsvHeaders = new ArrayList<String>();
@@ -26,9 +30,12 @@ public class CsvDataService implements IFileDataService {
 	private static List<String> fypCoordinatorCsvHeaders = new ArrayList<String>();
 	private static List<String> projectCsvHeaders = new ArrayList<String>();
 	private static List<String> requestCsvHeaders = new ArrayList<String>();
+
+	private static List<String> transferStudentRequestCsvHeaders = new ArrayList<String>();
+	private static List<String> changeProjectTitleRequestCsvHeaders = new ArrayList<String>();
 	
 	// ---------- Helper Function ---------- //
-	private List<String[]> readCsvFile(String filePath, List<String> headers) {
+	public List<String[]> readCsvFile(String filePath, List<String> headers) {
 		List<String[]> dataList = new ArrayList<String[]>();
 		headers.clear();
 		
@@ -53,7 +60,7 @@ public class CsvDataService implements IFileDataService {
 		return dataList;
 	}
 	
-	private boolean writeCsvFile(String filePath, List<String> headers, List<String> lines) {
+	public boolean writeCsvFile(String filePath, List<String> headers, List<String> lines) {
 		try (FileWriter writer = new FileWriter(filePath)) {
 			// Write Headers
 			String headerLine = String.join(",", headers);
@@ -393,9 +400,11 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	// Requests
-	public Map<Integer, Request> importRequestData(String requestsFilePath) {
+	public Map<Integer, Request> importRequestData(String requestsFilePath, String transferStudentRequestsFilePath, String changeProjectTitleRequestsFilePath) {
 		Map<Integer, Request> requestsMap = new HashMap<Integer, Request>();
 		List<String[]> requestsRows = this.readCsvFile(requestsFilePath, requestCsvHeaders);
+		List<String[]> transferStudentRequestsRows = this.readCsvFile(transferStudentRequestsFilePath, transferStudentRequestCsvHeaders);
+		List<String[]> changeProjectTitleRequestsRows = this.readCsvFile(changeProjectTitleRequestsFilePath, changeProjectTitleRequestCsvHeaders);
 		
 		for (String[] requestRow : requestsRows) {
 			int requestID = Integer.parseInt(requestRow[0]);
@@ -404,32 +413,92 @@ public class CsvDataService implements IFileDataService {
 			String receiverID = requestRow[3];
 			RequestStatus status = RequestStatus.valueOf(requestRow[4]);
 			ArrayList<String> history = new ArrayList<String>(Arrays.asList(requestRow[5].split(";")));
+			String type = requestRow[6];
 			
-			// Request request = new Request(senderID, receiverID, projectID, requestID, status, history);
-			
-			// requestsMap.put(requestID, request);
+			// Handle different Requests subclasses
+			if (type.equals("transferStudent")) { // TransferStudentRequest
+				for (String[] transferStudentRequestRow: transferStudentRequestsRows) {
+					if (requestID != Integer.parseInt(transferStudentRequestRow[0])) continue;
+					
+					String replacementSupervisorID = transferStudentRequestRow[1];
+					Request transferStudentRequest = new TransferStudentRequest(senderID, receiverID, projectID, requestID, status, history, replacementSupervisorID);
+					
+					requestsMap.put(requestID, transferStudentRequest);
+					break;
+				}
+			} else if (type.equals("changeProjectTitle")) { // ChangeProjectTitleRequest
+				for (String[] changeProjectTitleRequestRow: changeProjectTitleRequestsRows) {
+					if (requestID != Integer.parseInt(changeProjectTitleRequestRow[0])) continue;
+					
+					String newTitle = changeProjectTitleRequestRow[1];
+					Request changeProjectTitleRequest = new ChangeProjectTitleRequest(senderID, receiverID, projectID, requestID, status, history, newTitle);
+					
+					requestsMap.put(requestID, changeProjectTitleRequest);
+					break;
+				}
+			} else if (type.equals("allocateProject")) { // AllocateProjectRequest
+				Request allocateProjectRequest = new AllocateProjectRequest(senderID, receiverID, projectID, requestID, status, history);
+				requestsMap.put(requestID, allocateProjectRequest);
+			} else if (type.equals("deregisterProject")) { // DeregisterProjectRequest
+				Request deregisterProjectRequest = new DeregisterProjectRequest(senderID, receiverID, projectID, requestID, status, history);
+				requestsMap.put(requestID, deregisterProjectRequest);
+			}
 		}
 		
 		return requestsMap;
 	}
 	
-	public boolean exportRequestData(String requestsFilePath, Map<Integer, Request> requestMap) {
+	public boolean exportRequestData(String requestsFilePath, String transferStudentRequestsFilePath, String changeProjectTitleRequestsFilePath, Map<Integer, Request> requestMap) {
 		List<String> requestLines = new ArrayList<String>();
+		List<String> transferStudentRequestLines = new ArrayList<String>();
+		List<String> changeProjectTitleLines = new ArrayList<String>();
 		
 		// Request
 		for (Request request: requestMap.values()) {
-			String requestLine = String.format("%d,%d,%s,%s,%s,%s",
+			String requestType = "";
+			
+			// To handle different Requests subclasses
+			if (request instanceof TransferStudentRequest) {
+				requestType = "transferStudent";
+				
+				TransferStudentRequest transferStudentRequest = (TransferStudentRequest) request;
+				String transferStudentRequestLine = String.format("%d,%s",
+						transferStudentRequest.getRequestID(),
+						transferStudentRequest.getReplacementSupervisorID());
+				
+				transferStudentRequestLines.add(transferStudentRequestLine);
+			} else if (request instanceof ChangeProjectTitleRequest) {
+				requestType = "changeProjectTitle";
+				
+				ChangeProjectTitleRequest changeProjectTitleRequest = (ChangeProjectTitleRequest) request;
+				String changeProjectTitleRequestLine = String.format("%d,%s",
+						changeProjectTitleRequest.getRequestID(),
+						changeProjectTitleRequest.getNewTitle());
+				
+				changeProjectTitleLines.add(changeProjectTitleRequestLine);
+			} else if (request instanceof AllocateProjectRequest) {
+				requestType = "allocateProject";
+			} else if (request instanceof DeregisterProjectRequest) {
+				requestType = "deregisterProject";
+			}
+			
+			// Request base class
+			String requestLine = String.format("%d,%d,%s,%s,%s,%s,%s",
 					request.getRequestID(),
 					request.getProject().getProjectID(),
 					request.getSender().getUserID(),
 					request.getReceiver().getUserID(),
 					request.getStatus(),
-					String.join(";", request.getHistory()));
+					String.join(";", request.getHistory()),
+					requestType);
 			
 			requestLines.add(requestLine);
 		}
 		
 		// Write to CSV
-		return this.writeCsvFile(requestsFilePath, requestCsvHeaders, requestLines);
+		boolean success1 = this.writeCsvFile(requestsFilePath, requestCsvHeaders, requestLines);
+		boolean success2 = this.writeCsvFile(transferStudentRequestsFilePath, transferStudentRequestCsvHeaders, transferStudentRequestLines);
+		boolean success3 = this.writeCsvFile(changeProjectTitleRequestsFilePath, changeProjectTitleRequestCsvHeaders, changeProjectTitleLines);
+		return success1 && success2 && success3;
 	}
 }

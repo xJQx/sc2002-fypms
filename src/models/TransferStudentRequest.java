@@ -41,4 +41,9 @@ public class TransferStudentRequest extends Request {
 		// Save to CSV
 		return AppStore.saveData();
 	}
+	
+	// ---------- Getters and Setters ---------- //
+	public String getReplacementSupervisorID() {
+		return this.replacementSupervisorID;
+	}
 }

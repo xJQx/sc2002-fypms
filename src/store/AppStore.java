@@ -32,13 +32,15 @@ public class AppStore {
 		filePathsMap.put("fypcoordinator", "data/fypcoordinator.csv");
 		filePathsMap.put("project", "data/project.csv");
 		filePathsMap.put("request", "data/request.csv");
+		filePathsMap.put("transferStudentRequest", "data/request_transfer_student.csv");
+		filePathsMap.put("changeProjectTitleRequest", "data/request_change_project_title.csv");
 		
 		// Import data
 		AppStore.studentsData = fileDataService.importStudentData(filePathsMap.get("user"), filePathsMap.get("student"));
 		AppStore.supervisorsData = fileDataService.importSupervisorData(filePathsMap.get("user"), filePathsMap.get("supervisor"));
 		AppStore.fypcoordinatorsData = fileDataService.importFYPCoordinatorData(filePathsMap.get("user"), filePathsMap.get("supervisor"), filePathsMap.get("fypcoordinator"));
 		AppStore.projectsData = fileDataService.importProjectData(filePathsMap.get("project"), filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("supervisor"), filePathsMap.get("fypcoordinator"));
-		AppStore.requestData = fileDataService.importRequestData(filePathsMap.get("request"));
+		AppStore.requestData = fileDataService.importRequestData(filePathsMap.get("request"), filePathsMap.get("transferStudentRequest"), filePathsMap.get("changeProjectTitleRequest"));
 		
 		return true;
 	}
@@ -100,6 +102,6 @@ public class AppStore {
 	
 	public static void setRequestsData(Map<Integer, Request> requestData) {
 		AppStore.requestData = requestData;
-		fileDataService.exportRequestData(filePathsMap.get("request"), requestData);
+		fileDataService.exportRequestData(filePathsMap.get("request"), filePathsMap.get("transferStudentRequest"), filePathsMap.get("changeProjectTitleRequest"), requestData);
 	}
 }

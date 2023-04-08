@@ -41,4 +41,9 @@ public class ChangeProjectTitleRequest extends Request {
 		// Save to CSV
 		return AppStore.saveData();
 	}
+	
+	// ---------- Getters and Setters ---------- //
+	public String getNewTitle() {
+		return this.newTitle;
+	}
 }
