@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import enums.ProjectStatus;
 import interfaces.IFileDataService;
 import models.FYPCoordinator;
 import models.Project;
@@ -172,11 +173,11 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	// Supervisor
-	public Map<String, Supervisor> importSupervisorData(String usersFilePath, String supervisorFilePath) {
+	public Map<String, Supervisor> importSupervisorData(String usersFilePath, String supervisorsFilePath) {
 		Map<String, Supervisor> supervisorsMap = new HashMap<String, Supervisor>();
 		
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
-		List<String[]> supervisorsRows = this.readCsvFile(supervisorFilePath, supervisorCsvHeaders);
+		List<String[]> supervisorsRows = this.readCsvFile(supervisorsFilePath, supervisorCsvHeaders);
 		
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
@@ -350,14 +351,45 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	// Projects
-	public Map<String, Project> importProjectData(String projectsFilePath) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<Integer, Project> importProjectData(String projectsFilePath, String usersFilePath, String studentsFilePath, String supervisorsFilePath) {
+		Map<String, Student> studentsMap = this.importStudentData(usersFilePath, studentsFilePath);
+		Map<String, Supervisor> supervisorsMap = this.importSupervisorData(usersFilePath, supervisorsFilePath);
+		Map<Integer, Project> projectsMap = new HashMap<Integer, Project>();
+		
+		List<String[]> projectsRows = this.readCsvFile(projectsFilePath, projectCsvHeaders);
+		
+		for (String[] projectRow : projectsRows) {
+			int projectID = Integer.parseInt(projectRow[0]);
+			String title = projectRow[1];
+			ProjectStatus status = ProjectStatus.valueOf(projectRow[2]);
+			Supervisor supervisor = supervisorsMap.get(projectRow[3]);
+			Student student = projectRow.length > 4 ? studentsMap.get(projectRow[4]) : null;
+			
+			Project project = new Project(projectID, title, supervisor, student, status);
+			
+			projectsMap.put(projectID, project);
+		}
+		
+		return projectsMap;
 	}
 	
-	public boolean exportProjectData(String projectsFilePath, Map<String, Project> projectMap) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean exportProjectData(String projectsFilePath, Map<Integer, Project> projectMap) {
+		List<String> projectLines = new ArrayList<String>();
+		
+		// Project
+		for (Project project: projectMap.values()) {
+			String projectLine = String.format("%d,%s,%s,%s,%s",
+					project.getProjectID(),
+					project.getTitle(),
+					project.getStatus(),
+					project.getSupervisor().getSupervisorID(),
+					project.getStudent() != null ? project.getStudent().getStudentID() : "");
+			
+			projectLines.add(projectLine);
+		}
+		
+		// Write to CSV
+		return this.writeCsvFile(projectsFilePath, projectCsvHeaders, projectLines);
 	}
 
 	// Requests
