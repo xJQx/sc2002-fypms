@@ -5,11 +5,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import enums.ProjectStatus;
+import enums.RequestStatus;
 import interfaces.IFileDataService;
 import models.FYPCoordinator;
 import models.Project;
@@ -393,13 +395,43 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	// Requests
-	public boolean exportRequestData(String requestsFilePath, Map<String, Request> requestMap) {
-		// TODO Auto-generated method stub
-		return false;
+	public Map<Integer, Request> importRequestData(String requestsFilePath) {
+		Map<Integer, Request> requestsMap = new HashMap<Integer, Request>();
+		List<String[]> requestsRows = this.readCsvFile(requestsFilePath, requestCsvHeaders);
+		
+		for (String[] requestRow : requestsRows) {
+			int requestID = Integer.parseInt(requestRow[0]);
+			int projectID = Integer.parseInt(requestRow[1]);
+			String senderID = requestRow[2];
+			String receiverID = requestRow[3];
+			RequestStatus status = RequestStatus.valueOf(requestRow[4]);
+			ArrayList<String> history = new ArrayList<String>(Arrays.asList(requestRow[5].split(";")));
+			
+			Request request = new Request(senderID, receiverID, projectID, requestID, status, history);
+			
+			requestsMap.put(requestID, request);
+		}
+		
+		return requestsMap;
 	}
-
-	public Map<String, Request> importRequestData(String requestsFilePath) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public boolean exportRequestData(String requestsFilePath, Map<Integer, Request> requestMap) {
+		List<String> requestLines = new ArrayList<String>();
+		
+		// Request
+		for (Request request: requestMap.values()) {
+			String requestLine = String.format("%d,%d,%s,%s,%s,%s",
+					request.getRequestID(),
+					request.getProject().getProjectID(),
+					request.getSender().getUserID(),
+					request.getReceiver().getUserID(),
+					request.getStatus(),
+					String.join(";", request.getHistory()));
+			
+			requestLines.add(requestLine);
+		}
+		
+		// Write to CSV
+		return this.writeCsvFile(requestsFilePath, requestCsvHeaders, requestLines);
 	}
 }
