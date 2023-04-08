@@ -2,20 +2,20 @@ package models;
 
 public class Student extends User {
 	private String studentID;
-	private Boolean isRegistered;
+	private Boolean isDeregistered;
 
-	public Student(String studentID, String name, String email, String password, boolean isRegistered) {
+	public Student(String studentID, String name, String email, String password, boolean isDeregistered) {
 		super(studentID, name, email, password);
-		this.isRegistered = isRegistered;
+		this.isDeregistered = isDeregistered;
 		this.studentID = studentID;
 	}
 	
-	public Boolean getIsRegistered() {
-		return this.isRegistered;
+	public Boolean getIsDeregistered() {
+		return this.isDeregistered;
 	}
 	
-	public void setIsRegistered(Boolean isRegistered) {
-		this.isRegistered = isRegistered;
+	public void setIsDeregistered(Boolean isDeregistered) {
+		this.isDeregistered = isDeregistered;
 	}
 	
 	public String getStudentID() {

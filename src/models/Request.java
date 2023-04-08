@@ -34,19 +34,29 @@ public abstract class Request {
 		this.requestID = ++Request.lastRequestID;
 		this.status = RequestStatus.PENDING;
 		this.history = new ArrayList<String>();
+		this.history.add(this.formatHistory(new Date(), this.status));
 		this.senderID = senderID;
 		this.receiverID = receiverID;
 		this.projectID = projectID;
 	}
 	
 	// ---------- Methods ---------- //
-	public abstract boolean approve();
+	public boolean approve() {
+		// Update Request's status and history
+		this.setStatus(RequestStatus.APPROVED);
+		this.addHistory(new Date(), RequestStatus.APPROVED);
+
+		// Save to CSV
+		return AppStore.saveData();
+	}
 	
 	public boolean reject() {
-		this.status = RequestStatus.REJECTED;
-		this.history.add(this.formatHistory(new Date(), this.status));
+		// Update Request's status and history
+		this.setStatus(RequestStatus.REJECTED);
+		this.addHistory(new Date(), this.status);
 		
-		return true;
+		// Save to CSV
+		return AppStore.saveData();
 	}
 	
 	// ---------- Getter and Setters ---------- //
