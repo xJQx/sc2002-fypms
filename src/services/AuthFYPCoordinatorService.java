@@ -4,13 +4,13 @@ import java.util.Map;
 
 import models.FYPCoordinator;
 
-import store.AppStore;
+import store.DataStore;
 import store.AuthStore;
 
 public class AuthFYPCoordinatorService extends AuthService {
     @Override
     public boolean login(String userID, String password) {
-        Map<String, FYPCoordinator> fypCoordinatorData = AppStore.getFYPCoordinatorsData();
+        Map<String, FYPCoordinator> fypCoordinatorData = DataStore.getFYPCoordinatorsData();
 
         FYPCoordinator fypCoordinator = fypCoordinatorData.get(userID);
 

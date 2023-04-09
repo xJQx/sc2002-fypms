@@ -1,7 +1,7 @@
 package models;
 
 import enums.ProjectStatus;
-import store.AppStore;
+import store.DataStore;
 
 public class Project {
 	private static int lastProjectID = 0;
@@ -57,10 +57,10 @@ public class Project {
 	}
 	
 	public Supervisor getSupervisor() {
-		if (AppStore.getSupervisorsData().containsKey(this.supervisorID)) {
-			return AppStore.getSupervisorsData().get(this.supervisorID);
-		} else if (AppStore.getFYPCoordinatorsData().containsKey(this.supervisorID)) {
-			return AppStore.getFYPCoordinatorsData().get(this.supervisorID);
+		if (DataStore.getSupervisorsData().containsKey(this.supervisorID)) {
+			return DataStore.getSupervisorsData().get(this.supervisorID);
+		} else if (DataStore.getFYPCoordinatorsData().containsKey(this.supervisorID)) {
+			return DataStore.getFYPCoordinatorsData().get(this.supervisorID);
 		}
 		
 		return null;
@@ -72,7 +72,7 @@ public class Project {
 	}
 	
 	public Student getStudent() {
-		return AppStore.getStudentsData().get(this.studentID);
+		return DataStore.getStudentsData().get(this.studentID);
 	}
 	
 	public boolean setStudent(String studentID) {

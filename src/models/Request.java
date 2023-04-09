@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import enums.RequestStatus;
-import store.AppStore;
+import store.DataStore;
 
 public abstract class Request {
 	private static int lastRequestID = 0;
@@ -47,7 +47,7 @@ public abstract class Request {
 		this.addHistory(new Date(), RequestStatus.APPROVED);
 
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 	
 	public boolean reject() {
@@ -56,7 +56,7 @@ public abstract class Request {
 		this.addHistory(new Date(), this.status);
 		
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 	
 	// ---------- Getter and Setters ---------- //
@@ -74,27 +74,27 @@ public abstract class Request {
 	}
 	
 	public User getSender() {
-		Map<String, Student> studentsMap = AppStore.getStudentsData();
+		Map<String, Student> studentsMap = DataStore.getStudentsData();
 		if (studentsMap.containsKey(this.senderID)) return studentsMap.get(this.senderID);
 		
-		Map<String, Supervisor> supervisorsMap = AppStore.getSupervisorsData();
+		Map<String, Supervisor> supervisorsMap = DataStore.getSupervisorsData();
 		if (supervisorsMap.containsKey(this.senderID)) return supervisorsMap.get(this.senderID);
 		
 		return null;
 	}
 	
 	public User getReceiver() {
-		Map<String, FYPCoordinator> fypcoordinatorsMap = AppStore.getFYPCoordinatorsData();
+		Map<String, FYPCoordinator> fypcoordinatorsMap = DataStore.getFYPCoordinatorsData();
 		if (fypcoordinatorsMap.containsKey(this.receiverID)) return fypcoordinatorsMap.get(this.receiverID);
 		
-		Map<String, Supervisor> supervisorsMap = AppStore.getSupervisorsData();
+		Map<String, Supervisor> supervisorsMap = DataStore.getSupervisorsData();
 		if (supervisorsMap.containsKey(this.receiverID)) return supervisorsMap.get(this.receiverID);
 		
 		return null;
 	}
 	
 	public Project getProject() {
-		Map<Integer, Project> projectsMap = AppStore.getProjectsData();
+		Map<Integer, Project> projectsMap = DataStore.getProjectsData();
 		return projectsMap.get(this.projectID);
 	}
 	

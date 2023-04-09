@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import enums.ProjectStatus;
 import enums.RequestStatus;
-import store.AppStore;
+import store.DataStore;
 
 public class AllocateProjectRequest extends Request {
 
@@ -43,7 +43,7 @@ public class AllocateProjectRequest extends Request {
 		supervisor.setNumOfProjects(supervisor.getNumOfProjects()+1);
 		
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 	
 	@Override
@@ -56,6 +56,6 @@ public class AllocateProjectRequest extends Request {
 		project.setStatus(ProjectStatus.AVAILABLE);
 		
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 }
