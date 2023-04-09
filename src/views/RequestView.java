@@ -1,5 +1,5 @@
 package view;
-import Model.Request;
+import models.Request;
 import interfaces.IRequestView;
 
 public class RequestView implements IRequestView{
