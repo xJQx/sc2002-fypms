@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import enums.ProjectStatus;
 import enums.RequestStatus;
-import store.AppStore;
+import store.DataStore;
 
 public class DeregisterProjectRequest extends Request {
 
@@ -37,9 +37,9 @@ public class DeregisterProjectRequest extends Request {
 		supervisor.setNumOfProjects(supervisor.getNumOfProjects()-1);
 		
 		// Update Student - Deregister the student (i.e.: student cannot select projects anymore)
-		AppStore.getStudentsData().get(studentID).setIsDeregistered(true);
+		DataStore.getStudentsData().get(studentID).setIsDeregistered(true);
 		
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 }

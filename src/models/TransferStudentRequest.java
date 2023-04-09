@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import enums.RequestStatus;
-import store.AppStore;
+import store.DataStore;
 
 public class TransferStudentRequest extends Request {
 	private String replacementSupervisorID; 
@@ -39,7 +39,7 @@ public class TransferStudentRequest extends Request {
 		project.setSupervisor(this.replacementSupervisorID);
 		
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 	
 	// ---------- Getters and Setters ---------- //

@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import enums.RequestStatus;
-import store.AppStore;
+import store.DataStore;
 
 public class ChangeProjectTitleRequest extends Request {
 	private String newTitle;
@@ -39,7 +39,7 @@ public class ChangeProjectTitleRequest extends Request {
 		project.setTitle(this.newTitle);
 		
 		// Save to CSV
-		return AppStore.saveData();
+		return DataStore.saveData();
 	}
 	
 	// ---------- Getters and Setters ---------- //
