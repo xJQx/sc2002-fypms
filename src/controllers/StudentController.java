@@ -5,22 +5,27 @@ import java.util.Scanner;
 
 import interfaces.IProjectStudentService;
 import interfaces.IProjectView;
+import interfaces.IRequestStudentService;
 
 import models.Project;
+import models.Request;
 import models.Student;
+
 import services.ProjectStudentService;
+import services.RequestStudentService;
 
 import store.AuthStore;
-
+import store.DataStore;
 import views.AvailableProjectView;
 import views.AllocatedProjectView;
 
 public class StudentController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
-    private static final IProjectStudentService studentService = new ProjectStudentService();
+    private static final IProjectStudentService projectStudentService = new ProjectStudentService();
+    private static final IRequestStudentService requestStudentService = new RequestStudentService();
 
     private void viewAllocatedProject(IProjectView projectView) {
-        Project project = studentService.getAllocatedProject(AuthStore.getCurrentUser().getUserID());
+        Project project = projectStudentService.getAllocatedProject(AuthStore.getCurrentUser().getUserID());
 
         if (project == null) {
             System.out.println("You have not registered a project.");
@@ -36,8 +41,8 @@ public class StudentController extends UserController {
             return;
         }
 
-        Project allocatedProject = studentService.getAllocatedProject(student.getStudentID());
-        ArrayList<Project> availableProjects = studentService.getAvailableProjects();
+        Project allocatedProject = projectStudentService.getAllocatedProject(student.getStudentID());
+        ArrayList<Project> availableProjects = projectStudentService.getAvailableProjects();
 
         if (allocatedProject != null) {
             String message = "You are currently allocated to a FYP and do not have access to available project list.";
@@ -48,6 +53,58 @@ public class StudentController extends UserController {
                 System.out.println();
             }
         }
+    }
+
+    private void viewRequests() {
+        ArrayList<Request> requests = requestStudentService.getStudentRequests(AuthStore.getCurrentUser().getUserID());
+
+        // TODO: viewRequests
+        throw new UnsupportedOperationException("Method not implemented");
+    }
+
+    private void sendProjectToCoordinator() {
+        String studentID = AuthStore.getCurrentUser().getUserID();
+        Project project = projectStudentService.getAllocatedProject(studentID);
+
+        if (project == null) {
+            System.out.println("You have not reserved a project!");
+            return;
+        }
+
+        String coordinatorID = DataStore.getFYPCoordinatorsData().keySet().iterator().next();
+        requestStudentService.createAllocateProjectRequest(studentID, coordinatorID, project.getProjectID());
+
+        System.out.println("Request sent to FYP coordinator successfully!");
+    }
+
+    private void requestTitleChange() {
+        String studentID = AuthStore.getCurrentUser().getUserID();
+        Project project = projectStudentService.getAllocatedProject(studentID);
+
+        if (project == null) {
+            System.out.println("You have not registered a project.");
+            return;
+        }
+
+        String supervisorID = project.getSupervisor().getUserID();
+        int projectID = project.getProjectID();
+
+        System.out.print("Enter new project title: ");
+        String newTitle = sc.nextLine();
+
+        requestStudentService.createChangeProjectTitleRequest(
+                studentID,
+                supervisorID,
+                projectID,
+                newTitle);
+
+        System.out.println("Title request sent successfully!");
+    }
+
+    private void requestFYPDeregistration() {
+        // TODO: requestFYPDeregistration
+        System.out.println("FYP deregistration request sent successfully!");
+        throw new UnsupportedOperationException("Method not implemented");
     }
 
     public void start() {
@@ -66,11 +123,12 @@ public class StudentController extends UserController {
             System.out.println("8. Exit");
 
             choice = sc.nextInt();
+            sc.nextLine(); // consume the remaining newline character
 
             switch (choice) {
                 case 1:
                     if (changePassword()) {
-                        // reset session
+                        // TODO: reset session
                     }
                     break;
                 case 2:
@@ -82,18 +140,24 @@ public class StudentController extends UserController {
                     viewAllocatedProject(projectView);
                     break;
                 case 4:
+                    viewRequests();
                     break;
                 case 5:
+                    sendProjectToCoordinator();
                     break;
                 case 6:
+                    requestTitleChange();
                     break;
                 case 7:
+                    requestFYPDeregistration();
                     break;
                 case 8:
                     System.out.println("Exiting student menu");
                     return;
+                default:
+                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
+                    break;
             }
-        } while (choice < 1 || choice > 3);
-
+        } while (true);
     }
 }
