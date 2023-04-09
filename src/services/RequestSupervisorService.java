@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import enums.UserRole;
 import interfaces.IRequestSupervisorService;
 import models.Request;
-import models.Student;
 import models.TransferStudentRequest;
 import store.DataStore;
 
@@ -19,7 +19,7 @@ public class RequestSupervisorService implements IRequestSupervisorService {
 		
 		ArrayList<Request> studentPendingRequests = requestsData.values().stream()
 				.filter(request -> request.getReceiver().getUserID().equals(supervisorID) &&
-						request.getSender() instanceof Student)
+						request.getSender().getRole() == UserRole.STUDENT)
 				.collect(Collectors.toCollection(ArrayList::new));
 		
 		return studentPendingRequests;

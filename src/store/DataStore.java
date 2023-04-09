@@ -57,7 +57,6 @@ public class DataStore {
 		DataStore.setFYPCoordinatorsData(fypcoordinatorsData);
 		DataStore.setProjectsData(projectsData);
 		DataStore.setRequestsData(requestData);
-		;
 
 		return true;
 	}

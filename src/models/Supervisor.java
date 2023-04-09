@@ -1,5 +1,7 @@
 package models;
 
+import enums.UserRole;
+
 public class Supervisor extends User {
 	private String supervisorID;
 	private int numOfProjects;
@@ -7,6 +9,7 @@ public class Supervisor extends User {
 	
 	public Supervisor(String supervisorID, String name, String email, String password, int numOfProjects) {
 		super(supervisorID, name, email, password);
+		super.setRole(UserRole.SUPERVISOR);
 		this.supervisorID = supervisorID;
 		this.numOfProjects = numOfProjects;
 	}
