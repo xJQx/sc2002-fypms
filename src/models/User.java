@@ -1,10 +1,13 @@
 package models;
 
+import enums.UserRole;
+
 public class User {
 	private String userID;
 	private String password;
 	private String name;
 	private String email;
+	private UserRole role;
 	
 	
 	public User(String userID, String name, String email, String password) {
@@ -28,6 +31,15 @@ public class User {
 	
 	public String getEmail() {
 		return this.email;
+	}
+	
+	public UserRole getRole() {
+		return this.role;
+	}
+	
+	public Boolean setRole(UserRole role) {
+		this.role = role;
+		return true;
 	}
 	
 	public Boolean setPassword(String oldPassword, String newPassword) {
