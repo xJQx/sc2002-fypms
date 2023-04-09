@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import enums.ProjectStatus;
 import models.Project;
 
-public interface IProjectFYPCoordinatorService {
+public interface IProjectFYPCoordinatorService extends IProjectSupervisorService {
     public ArrayList<Project> getAllProjects();
 
     public ArrayList<Project> getAllProjectsByStatus(ProjectStatus projectStatus);
