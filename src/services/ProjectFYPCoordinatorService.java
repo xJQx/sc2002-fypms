@@ -9,7 +9,7 @@ import interfaces.IProjectFYPCoordinatorService;
 import models.Project;
 import store.DataStore;
 
-public class ProjectFYPCoordinatorService implements IProjectFYPCoordinatorService {
+public class ProjectFYPCoordinatorService extends ProjectSupervisorService implements IProjectFYPCoordinatorService {
 
     @Override
     public ArrayList<Project> getAllProjects() {
