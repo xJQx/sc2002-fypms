@@ -1,6 +1,6 @@
 package interfaces;
 
-import Model.Request;
+import models.Request;
 
 public interface IRequestView {
 	public void displayRequestInfo(Request request);
