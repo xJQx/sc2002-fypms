@@ -57,10 +57,7 @@ public class AuthController {
     }
 
     public static void endSession() {
-        System.out.println("Endind session...");
         authService.logout();
         System.out.println("User logged out!");
-
     }
-
 }
