@@ -2,6 +2,7 @@ package test;
 
 import java.util.Map;
 
+import interfaces.IRequestView;
 import models.AllocateProjectRequest;
 import models.ChangeProjectTitleRequest;
 import models.DeregisterProjectRequest;
@@ -13,6 +14,7 @@ import models.Supervisor;
 import models.TransferStudentRequest;
 import services.CsvDataService;
 import store.DataStore;
+import views.RequestAllocateProjectView;
 
 public class AppTest {
 	public static void main(String[] args) {
@@ -33,6 +35,9 @@ public class AppTest {
 		// requestsMap.put(newRequest.getRequestID(), newRequest);
 		// DataStore.setRequestsData(requestsMap);
 		// newRequest.approve();
+		 
+		// IRequestView requestAllocateProjectView = new RequestAllocateProjectView();
+		// requestAllocateProjectView.displayRequestInfo(newRequest);
 
 		// DeregisterProjectRequest - Student to FYPCoordinator
 		// Map<Integer, Request> requestsMap2 = DataStore.getRequestsData();

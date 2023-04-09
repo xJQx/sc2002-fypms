@@ -1,27 +1,41 @@
-package view;
+package views;
 
-import java.util.ArrayList;
-
+import models.Project;
 import models.Request;
-import enums.RequestStatus;
+import models.TransferStudentRequest;
+import store.DataStore;
+import utils.RequestViewUtils;
 import interfaces.IRequestView;
 
 public class RequestTransferStudentView implements IRequestView{
 
-
+	@Override
 	public void displayRequestInfo(Request request) {
-		System.out.println("RequestID: " + request.getRequestID());
-		System.out.println("Request to Transfer Student to a Replacement Supervisor.");
+		if (!(request instanceof TransferStudentRequest)) return;
+		String replacementSupervisorID = ((TransferStudentRequest) request).getReplacementSupervisorID();
+		String replacementSupervisorName = DataStore.getSupervisorsData().containsKey(replacementSupervisorID) ?
+				DataStore.getSupervisorsData().get(replacementSupervisorID).getName() :
+				DataStore.getFYPCoordinatorsData().get(replacementSupervisorID).getName();
+		Project project = request.getProject();
 		
-		System.out.println("ProjectID: " + request.getProject().getProjectID());
-		System.out.println("StudentID: " + request.getSender().getUserID());
-		System.out.println("Replacement SupervisorID: " + request.getReplacementSupervisorID());
+		// ----- Display ----- //
+		RequestViewUtils.printRequestHeader(request, "Request to Transfer Student to a Replacement Supervisor");
+		RequestViewUtils.printSenderInfo(request.getSender());
+		RequestViewUtils.printReceiverInfo(request.getReceiver());
 		
-		System.out.println("History and Status: ");
+		RequestViewUtils.printSubHeader("Details");
+		System.out.println("Project:");
+		System.out.println(" > ProjectID: " + project.getProjectID());
+		System.out.println(" > Title: " + project.getTitle());
+		System.out.println(" > Supervisor: " + project.getSupervisor().getName());
+		System.out.println(" > Student: " + project.getStudent().getName());
+		System.out.println();
+		System.out.println("Requested Changes:");
+		System.out.println(" > Supervisor (Replacement): " + replacementSupervisorName);
 		
-		for (String hist : request.getHistory()) {
-			System.out.println(hist);
-		}
+		RequestViewUtils.printRequestHistory(request);
+		
+		System.out.println();
 	}
 
 }
