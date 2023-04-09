@@ -1,29 +1,38 @@
-package view;
+package views;
 
-import java.util.ArrayList;
-
+import models.ChangeProjectTitleRequest;
+import models.Project;
 import models.Request;
-import enums.RequestStatus;
+import utils.RequestViewUtils;
 import interfaces.IRequestView;
 
 
 public class RequestChangeProjectTitleView implements IRequestView {
 
+	@Override
 	public void displayRequestInfo(Request request) {
-		System.out.println("RequestID: " + request.getRequestID());
-		System.out.println("Request to Change Project Title.");
+		if (!(request instanceof ChangeProjectTitleRequest)) return;
+		String newTitle = ((ChangeProjectTitleRequest) request).getNewTitle();
+		Project project = request.getProject();
 		
-		System.out.println("ProjectID: " + request.getProject().getProjectID());
-		System.out.println("StudentID: " + request.getSender.getUserID());
-		System.out.println("New Project Title: " + request.getNewTitle());
+		// ----- Display ----- //
+		RequestViewUtils.printRequestHeader(request, "Request to Change Project Title");
+		RequestViewUtils.printSenderInfo(request.getSender());
+		RequestViewUtils.printReceiverInfo(request.getReceiver());
 		
-		System.out.println("History and Status: ");
+		RequestViewUtils.printSubHeader("Details");
+		System.out.println("Original Project:");
+		System.out.println(" > ProjectID: " + project.getProjectID());
+		System.out.println(" > Title: " + project.getTitle());
+		System.out.println(" > Supervisor: " + project.getSupervisor().getName());
+		System.out.println(" > Student: " + project.getStudent().getName());
+		System.out.println();
+		System.out.println("Requested Changes:");
+		System.out.println(" > Title (New): " + newTitle);
 		
-		for (String hist : request.getHistory()) {
-			System.out.println(hist);
-		}
+		RequestViewUtils.printRequestHistory(request);
 		
-		
+		System.out.println();
 	}
 
 }
