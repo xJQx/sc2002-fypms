@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
+import enums.ProjectStatus;
 import models.Project;
 import models.Supervisor;
 
@@ -58,6 +59,31 @@ public class SelectorUtils {
             }
 
             sc.nextLine();
+        }
+    }
+
+    public static ProjectStatus projectStatusSelector() {
+        while (true) {
+            System.out.println("Select Project Status (Enter non-int to return)");
+            System.out.println("1. AVAILABLE");
+            System.out.println("2. RESERVED");
+            System.out.println("3. UNAVAILABLE");
+            System.out.println("4. ALLOCATED");
+
+            if (!sc.hasNextInt()) {
+                sc.nextLine();
+                return null;
+            }
+
+            int option = sc.nextInt();
+            sc.nextLine();
+
+            if (option < 1 || option > 4) {
+                System.out.println("Invalid option!");
+                continue;
+            }
+
+            return ProjectStatus.values()[option - 1];
         }
     }
 }
