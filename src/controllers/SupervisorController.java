@@ -116,10 +116,18 @@ public class SupervisorController extends UserController {
 
                 switch (option) {
                     case 1:
-                        selectedRequest.approve();
+                        if (selectedRequest.approve()) {
+                            System.out.println("Request approved!");
+                        } else {
+                            System.out.println("Approval failed!");
+                        }
                         break;
                     case 2:
-                        selectedRequest.reject();
+                        if (selectedRequest.reject()) {
+                            System.out.println("Request rejected!");
+                        } else {
+                            System.out.println("Rejection failed!");
+                        }
                         break;
                 }
                 return;
@@ -157,7 +165,7 @@ public class SupervisorController extends UserController {
         }
     }
 
-    private void displayRequests(ArrayList<Request> requests) {
+    protected void displayRequests(ArrayList<Request> requests) {
         for (Request request : requests) {
             if (request instanceof AllocateProjectRequest) {
                 requestView = new RequestAllocateProjectView();
