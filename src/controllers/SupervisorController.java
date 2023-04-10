@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 import enums.ProjectStatus;
 import interfaces.IProjectSupervisorService;
+import interfaces.IProjectView;
 import models.Project;
 import services.ProjectSupervisorService;
 import store.AuthStore;
+import views.SubmittedProjectView;
 
 public class SupervisorController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
@@ -68,6 +70,22 @@ public class SupervisorController extends UserController {
         }
     }
 
+    protected void viewProjects() {
+        IProjectView projectView = new SubmittedProjectView();
+        String supervisorID = AuthStore.getCurrentUser().getUserID();
+        ArrayList<Project> projects = projectSupervisorService.getSubmittedProjects(supervisorID);
+
+        System.out.println("Projects:\n");
+        for (Project project : projects) {
+            projectView.displayProjectInfo(project);
+            System.out.println();
+        }
+    }
+
+    protected void viewApproveRejectPendingRequest() {
+        
+    }
+
     public void start() {
         int choice;
 
@@ -95,8 +113,10 @@ public class SupervisorController extends UserController {
                     createProjects();
                     break;
                 case 3:
+                    updateProject();
                     break;
                 case 4:
+                    viewProjects();
                     break;
                 case 5:
                     break;
