@@ -9,12 +9,19 @@ import interfaces.IProjectSupervisorService;
 import interfaces.IProjectView;
 import interfaces.IRequestSupervisorService;
 import interfaces.IRequestView;
+import models.AllocateProjectRequest;
+import models.ChangeProjectTitleRequest;
+import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
+import models.TransferStudentRequest;
 import services.ProjectSupervisorService;
 import services.RequestSupervisorService;
 import store.AuthStore;
+import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
+import views.RequestDeregisterProjectView;
+import views.RequestTransferStudentView;
 import views.SubmittedProjectView;
 
 public class SupervisorController extends UserController {
@@ -139,6 +146,52 @@ public class SupervisorController extends UserController {
         }
     }
 
+    protected void viewRequests() {
+        String supervisorID = AuthStore.getCurrentUser().getUserID();
+        ArrayList<Request> incomingRequests = requestSupervisorService.getIncomingRequests(supervisorID);
+        ArrayList<Request> outgoingRequests = requestSupervisorService.getOutgoingRequests(supervisorID);
+
+        System.out.println("View incoming/outgoing requests");
+        System.out.println("1. Incoming requests");
+        System.out.println("2. Outgoing requests");
+        System.out.println("(Enter non-int to exit)");
+
+        if (!sc.hasNextInt()) {
+            sc.nextLine();
+            return;
+        }
+
+        int option = sc.nextInt();
+        sc.nextLine();
+
+        switch (option) {
+            case 1:
+                displayRequests(incomingRequests);
+                break;
+            case 2:
+                displayRequests(outgoingRequests);
+                break;
+        }
+    }
+
+    private void displayRequests(ArrayList<Request> requests) {
+        for (Request request : requests) {
+            if (request instanceof AllocateProjectRequest) {
+                requestView = new RequestAllocateProjectView();
+            } else if (request instanceof ChangeProjectTitleRequest) {
+                requestView = new RequestChangeProjectTitleView();
+            } else if (request instanceof DeregisterProjectRequest) {
+                requestView = new RequestDeregisterProjectView();
+            } else if (request instanceof TransferStudentRequest) {
+                requestView = new RequestTransferStudentView();
+            } else {
+                continue;
+            }
+
+            requestView.displayRequestInfo(request);
+        }
+    }
+
     public void start() {
         int choice;
 
@@ -172,8 +225,10 @@ public class SupervisorController extends UserController {
                     viewProjects();
                     break;
                 case 5:
+                    viewApproveRejectPendingRequest();
                     break;
                 case 6:
+                    viewRequests();
                     break;
                 case 7:
                     break;
