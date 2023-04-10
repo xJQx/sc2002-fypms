@@ -138,17 +138,31 @@ public class FYPCoordinatorController extends SupervisorController {
 
                 switch (choice) {
                     case 1:
-                        request.approve();
-                        System.out.println("Request approved!");
+                        if (request.approve()) {
+                            System.out.println("Request approved!");
+                        } else {
+                            System.out.println("Approval failed!");
+                        }
                         break;
                     case 2:
-                        request.reject();
-                        System.out.println("Request rejected!");
+                        if (request.reject()) {
+                            System.out.println("Request rejected!");
+                        } else {
+                            System.out.println("Approval failed!");
+                        }
                         break;
                 }
                 return;
             }
         }
+    }
+
+    @Override
+    protected void viewProjects() {
+        ArrayList<Request> allRequests = requestFYPCoordinatorService.getAllRequests();
+        System.out.println("Displaying all requests:\n");
+        displayRequests(allRequests);
+        System.out.println("\nDisplayed all requests:");
     }
 
     @Override
@@ -165,7 +179,7 @@ public class FYPCoordinatorController extends SupervisorController {
             System.out.println("6. View request history");
             System.out.println("7. Request student transfer");
             System.out.println("8. View projects by filters");
-            System.out.println("8. Exit");
+            System.out.println("9. Exit");
 
             choice = sc.nextInt();
             sc.nextLine(); // consume the remaining newline character
@@ -195,7 +209,10 @@ public class FYPCoordinatorController extends SupervisorController {
                     requestStudentTransfer();
                     break;
                 case 8:
-                    System.out.println("Exiting supervisor menu");
+                    viewProjectsByFilter();
+                    break;
+                case 9:
+                    System.out.println("Exiting FYP coordinator menu");
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a number from 1 to 8.");
