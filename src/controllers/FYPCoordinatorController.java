@@ -2,15 +2,20 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import enums.ProjectStatus;
 import interfaces.IProjectFYPCoordinatorService;
 import interfaces.IProjectView;
 import interfaces.IRequestFYPCoordinatorService;
+import models.AllocateProjectRequest;
+import models.DeregisterProjectRequest;
 import models.Project;
+import models.Request;
 import models.Supervisor;
 import services.ProjectFYPCoordinatorService;
 import services.RequestFYPCoordinatorService;
+import store.AuthStore;
 import store.DataStore;
 import utils.SelectorUtils;
 import views.SubmittedProjectView;
@@ -63,6 +68,87 @@ public class FYPCoordinatorController extends SupervisorController {
         }
 
         projects.forEach(project -> projectView.displayProjectInfo(project));
+    }
+
+    @Override
+    protected void viewApproveRejectPendingRequest() {
+        String fypCoordinatorID = AuthStore.getCurrentUser().getUserID();
+
+        while (true) {
+            System.out.println("Select request option (Enter non-int to exit):");
+            System.out.println("1. Supervisor requests");
+            System.out.println("2. Allocation requests");
+            System.out.println("3. Deallocation requests");
+
+            if (!sc.hasNextInt()) {
+                sc.nextLine();
+                return;
+            }
+
+            int option = sc.nextInt();
+            sc.nextLine();
+
+            if (option < 1 || option > 3) {
+                System.out.println("Invalid option!");
+                continue;
+            }
+            ArrayList<Request> requests;
+
+            switch (option) {
+                case 1:
+                    requests = requestFYPCoordinatorService
+                            .getSupervisorPendingRequests(fypCoordinatorID);
+                    break;
+                case 2:
+                    requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
+                            .filter(request -> request instanceof AllocateProjectRequest)
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    break;
+                case 3:
+                    requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
+                            .filter(request -> request instanceof DeregisterProjectRequest)
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    break;
+                default:
+                    requests = null;
+            }
+
+            Request request = SelectorUtils.requestSelector(requests);
+            if (request == null) {
+                return;
+            }
+
+            while (true) {
+                System.out.println("Select approve/reject (Enter non-int to exit)");
+                System.out.println("1. Approve");
+                System.out.println("2. Reject");
+
+                if (!sc.hasNextInt()) {
+                    sc.nextLine();
+                    return;
+                }
+
+                int choice = sc.nextInt();
+                sc.nextLine();
+
+                if (choice < 1 || choice > 2) {
+                    System.out.println("Invalid option!");
+                    continue;
+                }
+
+                switch (choice) {
+                    case 1:
+                        request.approve();
+                        System.out.println("Request approved!");
+                        break;
+                    case 2:
+                        request.reject();
+                        System.out.println("Request rejected!");
+                        break;
+                }
+                return;
+            }
+        }
     }
 
     @Override
