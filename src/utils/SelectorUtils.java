@@ -6,8 +6,18 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import enums.ProjectStatus;
+import interfaces.IRequestView;
+import models.AllocateProjectRequest;
+import models.ChangeProjectTitleRequest;
+import models.DeregisterProjectRequest;
 import models.Project;
+import models.Request;
 import models.Supervisor;
+import models.TransferStudentRequest;
+import views.RequestAllocateProjectView;
+import views.RequestChangeProjectTitleView;
+import views.RequestDeregisterProjectView;
+import views.RequestTransferStudentView;
 
 public class SelectorUtils {
     private static final Scanner sc = new Scanner(System.in);
@@ -84,6 +94,49 @@ public class SelectorUtils {
             }
 
             return ProjectStatus.values()[option - 1];
+        }
+    }
+
+    public static Request requestSelector(ArrayList<Request> requests) {
+        if (requests == null) {
+            return null;
+        }
+
+        IRequestView requestView;
+
+        while (true) {
+            for (Request request : requests) {
+                if (request instanceof AllocateProjectRequest) {
+                    requestView = new RequestAllocateProjectView();
+                } else if (request instanceof ChangeProjectTitleRequest) {
+                    requestView = new RequestChangeProjectTitleView();
+                } else if (request instanceof DeregisterProjectRequest) {
+                    requestView = new RequestDeregisterProjectView();
+                } else if (request instanceof TransferStudentRequest) {
+                    requestView = new RequestTransferStudentView();
+                } else {
+                    continue;
+                }
+                requestView.displayRequestInfo(request);
+            }
+
+            System.out.println("Select request ID (Enter non-int to exit):");
+            if (!sc.hasNextInt()) {
+                sc.nextLine();
+                return null;
+            }
+            int requestID = sc.nextInt();
+            sc.nextLine();
+
+            Optional<Request> optionalSelectedRequest = requests.stream()
+                    .filter(request -> request.getRequestID() == requestID)
+                    .findFirst();
+
+            if (optionalSelectedRequest.isPresent()) {
+                return optionalSelectedRequest.get();
+            } else {
+                System.out.println("Invalid requestID!");
+            }
         }
     }
 }
