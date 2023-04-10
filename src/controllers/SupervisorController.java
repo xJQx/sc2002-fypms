@@ -14,10 +14,13 @@ import models.ChangeProjectTitleRequest;
 import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
+import models.Supervisor;
 import models.TransferStudentRequest;
 import services.ProjectSupervisorService;
 import services.RequestSupervisorService;
 import store.AuthStore;
+import store.DataStore;
+import utils.SelectorUtils;
 import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
 import views.RequestDeregisterProjectView;
@@ -55,33 +58,13 @@ public class SupervisorController extends UserController {
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         ArrayList<Project> projects = projectSupervisorService.getSubmittedProjects(supervisorID);
 
-        while (true) {
-            System.out.println("projectID\tTitle");
-            projects.forEach(project -> System.out.printf("%d\t%s\n", project.getProjectID(), project.getTitle()));
-
-            System.out.println("Select projectID (Enter non-int to exit)");
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
-                return;
-            }
-            int projectID = sc.nextInt();
-            sc.nextLine();
-
-            Optional<Project> optionalSelectedProject = projects.stream()
-                    .filter(project -> project.getProjectID() == projectID)
-                    .findFirst();
-
-            if (optionalSelectedProject.isPresent()) {
-                Project selectedProject = optionalSelectedProject.get();
-                System.out.printf("Editing project %d - %s\n", projectID, selectedProject.getTitle());
-                System.out.print("Enter new title: ");
-                String newTitle = sc.nextLine();
-                boolean success = projectSupervisorService.updateProjectTitle(selectedProject, newTitle, supervisorID);
-                System.out.println(success ? "Project updated successfully!" : "Project update fail!");
-                return;
-            } else {
-                System.out.println("Invalid project ID!");
-            }
+        Project selectedProject = SelectorUtils.projectSelector(projects);
+        if (selectedProject != null) {
+            System.out.printf("Editing project %d - %s\n", selectedProject.getProjectID(), selectedProject.getTitle());
+            System.out.print("Enter new title: ");
+            String newTitle = sc.nextLine();
+            boolean success = projectSupervisorService.updateProjectTitle(selectedProject, newTitle, supervisorID);
+            System.out.println(success ? "Project updated successfully!" : "Project update fail!");
         }
     }
 
@@ -192,6 +175,32 @@ public class SupervisorController extends UserController {
         }
     }
 
+    protected void requestStudentTransfer() {
+        String supervisorID = AuthStore.getCurrentUser().getUserID();
+        String coordinatorID = DataStore.getFYPCoordinatorsData().keySet().iterator().next();
+        ArrayList<Project> projects = projectSupervisorService.getSubmittedProjects(supervisorID);
+        Project selectedProject = SelectorUtils.projectSelector(projects);
+
+        if (selectedProject == null) {
+            return;
+        }
+
+        System.out.printf("Selected project %d - %s\n", selectedProject.getProjectID(), selectedProject.getTitle());
+        System.out.println("Select replacement supervisor");
+        Supervisor replacementSupervisor = SelectorUtils.supervisorSelector(DataStore.getSupervisorsData());
+
+        if (replacementSupervisor == null) {
+            return;
+        }
+
+        System.out.printf("Selected supervisor %d - %s\n",
+                replacementSupervisor.getSupervisorID(), replacementSupervisor.getName());
+        requestSupervisorService.createTransferStudentRequest(supervisorID, coordinatorID,
+                selectedProject.getProjectID(),
+                replacementSupervisor.getSupervisorID());
+        System.out.println("Transfer request made successfully!");
+    }
+
     public void start() {
         int choice;
 
@@ -231,6 +240,7 @@ public class SupervisorController extends UserController {
                     viewRequests();
                     break;
                 case 7:
+                    requestStudentTransfer();
                     break;
                 case 8:
                     System.out.println("Exiting supervisor menu");
