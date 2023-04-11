@@ -19,6 +19,7 @@ import services.RequestStudentService;
 
 import store.AuthStore;
 import store.DataStore;
+import utils.SelectorUtils;
 import views.AvailableProjectView;
 import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
@@ -140,10 +141,10 @@ public class StudentController extends UserController {
 
     private void sendProjectToCoordinator() {
         String studentID = AuthStore.getCurrentUser().getUserID();
-        Project project = projectStudentService.getAllocatedProject(studentID);
+        ArrayList<Project> projects = projectStudentService.getAvailableProjects();
+        Project project = SelectorUtils.projectSelector(projects);
 
         if (project == null) {
-            System.out.println("You have not reserved a project!");
             return;
         }
 
