@@ -8,7 +8,7 @@ import services.UserService;
 public class UserController {
     private static final Scanner sc = new Scanner(System.in);
 
-    public boolean changePassword() {
+    protected boolean changePassword() {
         String oldPassword, newPassword;
         boolean success;
         IUserService userService = new UserService();

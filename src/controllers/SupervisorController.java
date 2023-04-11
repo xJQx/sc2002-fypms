@@ -35,6 +35,61 @@ public class SupervisorController extends UserController {
     protected static IProjectView projectView;
     protected static IRequestView requestView;
 
+    public void start() {
+        int choice;
+
+        do {
+            System.out.println("Supervisor Menu");
+            System.out.println("1. Change password");
+            System.out.println("2. Create projects");
+            System.out.println("3. Update project");
+            System.out.println("4. View projects");
+            System.out.println("5. View/Approve/Reject pending requests");
+            System.out.println("6. View request history");
+            System.out.println("7. Request student transfer");
+            System.out.println("8. Exit");
+
+            choice = sc.nextInt();
+            sc.nextLine(); // consume the remaining newline character
+
+            switch (choice) {
+                case 1:
+                    if (changePassword()) {
+                    	// Restart session by logging out
+                        AuthController.endSession();
+                        return;
+                    }
+                    break;
+                case 2:
+                    createProjects();
+                    break;
+                case 3:
+                    updateProject();
+                    break;
+                case 4:
+                    viewProjects();
+                    break;
+                case 5:
+                    viewApproveRejectPendingRequest();
+                    break;
+                case 6:
+                    viewRequests();
+                    break;
+                case 7:
+                    requestStudentTransfer();
+                    break;
+                case 8:
+                    System.out.println("Exiting supervisor menu");
+                    AuthController.endSession();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
+                    break;
+            }
+        } while (true);
+    }
+    
+    // ---------- Helper Methods ---------- //
     protected void createProjects() {
         System.out.print("Enter the number of projects to create: ");
         int projectCount = sc.nextInt();
@@ -207,56 +262,5 @@ public class SupervisorController extends UserController {
                 selectedProject.getProjectID(),
                 replacementSupervisor.getSupervisorID());
         System.out.println("Transfer request made successfully!");
-    }
-
-    public void start() {
-        int choice;
-
-        do {
-            System.out.println("Supervisor Menu");
-            System.out.println("1. Change password");
-            System.out.println("2. Create projects");
-            System.out.println("3. Update project");
-            System.out.println("4. View projects");
-            System.out.println("5. View/Approve/Reject pending requests");
-            System.out.println("6. View request history");
-            System.out.println("7. Request student transfer");
-            System.out.println("8. Exit");
-
-            choice = sc.nextInt();
-            sc.nextLine(); // consume the remaining newline character
-
-            switch (choice) {
-                case 1:
-                    if (changePassword()) {
-                        // TODO: reset session
-                    }
-                    break;
-                case 2:
-                    createProjects();
-                    break;
-                case 3:
-                    updateProject();
-                    break;
-                case 4:
-                    viewProjects();
-                    break;
-                case 5:
-                    viewApproveRejectPendingRequest();
-                    break;
-                case 6:
-                    viewRequests();
-                    break;
-                case 7:
-                    requestStudentTransfer();
-                    break;
-                case 8:
-                    System.out.println("Exiting supervisor menu");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
-                    break;
-            }
-        } while (true);
     }
 }

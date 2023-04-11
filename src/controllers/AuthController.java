@@ -19,15 +19,19 @@ public class AuthController {
         do {
 
             do {
+                System.out.println("<Enter 0 to shutdown system>\n");
                 System.out.println("Login as:");
                 System.out.println("1. Student");
                 System.out.println("2. Supervisor");
                 System.out.println("3. FYP Coordinator");
 
                 choice = sc.nextInt();
-            } while (choice < 1 || choice > 3);
+            } while (choice < 0 || choice > 3);
 
             switch (choice) {
+            	case 0:
+            		System.out.println("Shutting down FYPMS...");
+            		return;
                 case 1:
                     authService = new AuthStudentService();
                     break;
@@ -51,7 +55,7 @@ public class AuthController {
             if (!authenticated) {
                 // We do not specify whether the userID or password is incorrect to make it more
                 // secure
-                System.out.println("Credentials invalid!");
+                System.out.println("Credentials invalid! Note that UserID and Password are case-sensitive.\n");
             }
         } while (!authenticated);
     }

@@ -24,6 +24,64 @@ public class StudentController extends UserController {
     private static final IProjectStudentService projectStudentService = new ProjectStudentService();
     private static final IRequestStudentService requestStudentService = new RequestStudentService();
 
+    public void start() {
+        IProjectView projectView;
+        int choice;
+
+        do {
+            System.out.println("Menu");
+            System.out.println("1. Change password");
+            System.out.println("2. View available projects");
+            System.out.println("3. View allocated projects");
+            System.out.println("4. View requests status and history");
+            System.out.println("5. Send project to coordinator");
+            System.out.println("6. Request project title change");
+            System.out.println("7. Request FYP deregistration");
+            System.out.println("8. Exit");
+
+            choice = sc.nextInt();
+            sc.nextLine(); // consume the remaining newline character
+
+            switch (choice) {
+                case 1:
+                    if (changePassword()) {
+                    	// Restart session by logging out
+                        AuthController.endSession();
+                        return;
+                    }
+                    break;
+                case 2:
+                    projectView = new AvailableProjectView();
+                    viewAvailableProject(projectView);
+                    break;
+                case 3:
+                    projectView = new AllocatedProjectView();
+                    viewAllocatedProject(projectView);
+                    break;
+                case 4:
+                    viewRequests();
+                    break;
+                case 5:
+                    sendProjectToCoordinator();
+                    break;
+                case 6:
+                    requestTitleChange();
+                    break;
+                case 7:
+                    requestFYPDeregistration();
+                    break;
+                case 8:
+                    System.out.println("Exiting student menu");
+                    AuthController.endSession();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
+                    break;
+            }
+        } while (true);
+    }
+    
+    // ---------- Helper Methods ---------- //
     private void viewAllocatedProject(IProjectView projectView) {
         Project project = projectStudentService.getAllocatedProject(AuthStore.getCurrentUser().getUserID());
 
@@ -105,59 +163,5 @@ public class StudentController extends UserController {
         // TODO: requestFYPDeregistration
         System.out.println("FYP deregistration request sent successfully!");
         throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    public void start() {
-        IProjectView projectView;
-        int choice;
-
-        do {
-            System.out.println("Menu");
-            System.out.println("1. Change password");
-            System.out.println("2. View available projects");
-            System.out.println("3. View allocated projects");
-            System.out.println("4. View requests status and history");
-            System.out.println("5. Send project to coordinator");
-            System.out.println("6. Request project title change");
-            System.out.println("7. Request FYP deregistration");
-            System.out.println("8. Exit");
-
-            choice = sc.nextInt();
-            sc.nextLine(); // consume the remaining newline character
-
-            switch (choice) {
-                case 1:
-                    if (changePassword()) {
-                        // TODO: reset session
-                    }
-                    break;
-                case 2:
-                    projectView = new AvailableProjectView();
-                    viewAvailableProject(projectView);
-                    break;
-                case 3:
-                    projectView = new AllocatedProjectView();
-                    viewAllocatedProject(projectView);
-                    break;
-                case 4:
-                    viewRequests();
-                    break;
-                case 5:
-                    sendProjectToCoordinator();
-                    break;
-                case 6:
-                    requestTitleChange();
-                    break;
-                case 7:
-                    requestFYPDeregistration();
-                    break;
-                case 8:
-                    System.out.println("Exiting student menu");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
-                    break;
-            }
-        } while (true);
     }
 }

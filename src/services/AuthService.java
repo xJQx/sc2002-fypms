@@ -5,6 +5,8 @@ import models.User;
 import store.AuthStore;
 
 public abstract class AuthService implements IAuthService {
+	public abstract boolean login(String userID, String password);
+	
     @Override
     public boolean logout() {
         AuthStore.setCurrentUser(null);

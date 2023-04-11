@@ -26,6 +26,66 @@ public class FYPCoordinatorController extends SupervisorController {
     private static final IRequestFYPCoordinatorService requestFYPCoordinatorService = new RequestFYPCoordinatorService();
     private static final IProjectFYPCoordinatorService projectFYPCoordinatorService = new ProjectFYPCoordinatorService();
 
+    @Override
+    public void start() {
+        int choice;
+
+        do {
+            System.out.println("FYP Coordinator Menu");
+            System.out.println("1. Change password");
+            System.out.println("2. Create projects");
+            System.out.println("3. Update project");
+            System.out.println("4. View projects");
+            System.out.println("5. View/Approve/Reject pending requests");
+            System.out.println("6. View request history");
+            System.out.println("7. Request student transfer");
+            System.out.println("8. View projects by filters");
+            System.out.println("9. Exit");
+
+            choice = sc.nextInt();
+            sc.nextLine(); // consume the remaining newline character
+
+            switch (choice) {
+                case 1:
+                    if (changePassword()) {
+                    	// Restart session by logging out
+                        AuthController.endSession();
+                        return;
+                    }
+                    break;
+                case 2:
+                    createProjects();
+                    break;
+                case 3:
+                    updateProject();
+                    break;
+                case 4:
+                    viewProjects();
+                    break;
+                case 5:
+                    viewApproveRejectPendingRequest();
+                    break;
+                case 6:
+                    viewRequests();
+                    break;
+                case 7:
+                    requestStudentTransfer();
+                    break;
+                case 8:
+                    viewProjectsByFilter();
+                    break;
+                case 9:
+                    System.out.println("Exiting FYP coordinator menu");
+                    AuthController.endSession();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
+                    break;
+            }
+        } while (true);
+    }
+    
+    // ---------- Helper Methods ---------- //
     private void viewProjectsByFilter() {
         System.out.println("\nSelect project by filter menu");
         System.out.println("Choose an option");
@@ -164,61 +224,4 @@ public class FYPCoordinatorController extends SupervisorController {
         displayRequests(allRequests);
         System.out.println("\nDisplayed all requests:");
     }
-
-    @Override
-    public void start() {
-        int choice;
-
-        do {
-            System.out.println("FYP Coordinator Menu");
-            System.out.println("1. Change password");
-            System.out.println("2. Create projects");
-            System.out.println("3. Update project");
-            System.out.println("4. View projects");
-            System.out.println("5. View/Approve/Reject pending requests");
-            System.out.println("6. View request history");
-            System.out.println("7. Request student transfer");
-            System.out.println("8. View projects by filters");
-            System.out.println("9. Exit");
-
-            choice = sc.nextInt();
-            sc.nextLine(); // consume the remaining newline character
-
-            switch (choice) {
-                case 1:
-                    if (changePassword()) {
-                        // TODO: reset session
-                    }
-                    break;
-                case 2:
-                    createProjects();
-                    break;
-                case 3:
-                    updateProject();
-                    break;
-                case 4:
-                    viewProjects();
-                    break;
-                case 5:
-                    viewApproveRejectPendingRequest();
-                    break;
-                case 6:
-                    viewRequests();
-                    break;
-                case 7:
-                    requestStudentTransfer();
-                    break;
-                case 8:
-                    viewProjectsByFilter();
-                    break;
-                case 9:
-                    System.out.println("Exiting FYP coordinator menu");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
-                    break;
-            }
-        } while (true);
-    }
-
 }
