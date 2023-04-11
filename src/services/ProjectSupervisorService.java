@@ -62,4 +62,17 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
         return true;
     }
 
+    @Override
+    public boolean updateUnavailableProjectsToAvailable(String supervisorID) {
+        ArrayList<Project> submittedProjects = this.getSubmittedProjects(supervisorID);
+
+        for (Project project : submittedProjects) {
+            if (project.getStatus() == ProjectStatus.UNAVAILABLE) {
+                project.setStatus(ProjectStatus.AVAILABLE);
+            }
+        }
+
+        return true;
+    }
+
 }

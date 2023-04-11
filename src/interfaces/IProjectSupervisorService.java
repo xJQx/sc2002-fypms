@@ -12,4 +12,6 @@ public interface IProjectSupervisorService {
     public boolean updateProjectTitle(Project project, String title, String supervisorID);
 
     public boolean updateRemainingProjectsToUnavailable(String supervisorID);
+
+    public boolean updateUnavailableProjectsToAvailable(String supervisorID);
 }
