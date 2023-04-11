@@ -6,7 +6,10 @@ import java.util.Scanner;
 import interfaces.IProjectStudentService;
 import interfaces.IProjectView;
 import interfaces.IRequestStudentService;
-
+import interfaces.IRequestView;
+import models.AllocateProjectRequest;
+import models.ChangeProjectTitleRequest;
+import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
 import models.Student;
@@ -17,12 +20,16 @@ import services.RequestStudentService;
 import store.AuthStore;
 import store.DataStore;
 import views.AvailableProjectView;
+import views.RequestAllocateProjectView;
+import views.RequestChangeProjectTitleView;
+import views.RequestDeregisterProjectView;
 import views.AllocatedProjectView;
 
 public class StudentController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
     private static final IProjectStudentService projectStudentService = new ProjectStudentService();
     private static final IRequestStudentService requestStudentService = new RequestStudentService();
+    protected static IRequestView requestView;
 
     public void start() {
         IProjectView projectView;
@@ -45,7 +52,7 @@ public class StudentController extends UserController {
             switch (choice) {
                 case 1:
                     if (changePassword()) {
-                    	// Restart session by logging out
+                        // Restart session by logging out
                         AuthController.endSession();
                         return;
                     }
@@ -80,7 +87,7 @@ public class StudentController extends UserController {
             }
         } while (true);
     }
-    
+
     // ---------- Helper Methods ---------- //
     private void viewAllocatedProject(IProjectView projectView) {
         Project project = projectStudentService.getAllocatedProject(AuthStore.getCurrentUser().getUserID());
@@ -114,10 +121,21 @@ public class StudentController extends UserController {
     }
 
     private void viewRequests() {
+        System.out.println("Displaying all student requests");
         ArrayList<Request> requests = requestStudentService.getStudentRequests(AuthStore.getCurrentUser().getUserID());
 
-        // TODO: viewRequests
-        throw new UnsupportedOperationException("Method not implemented");
+        for (Request request : requests) {
+            if (request instanceof AllocateProjectRequest) {
+                requestView = new RequestAllocateProjectView();
+            } else if (request instanceof ChangeProjectTitleRequest) {
+                requestView = new RequestChangeProjectTitleView();
+            } else if (request instanceof DeregisterProjectRequest) {
+                requestView = new RequestDeregisterProjectView();
+            } else {
+                continue;
+            }
+            requestView.displayRequestInfo(request);
+        }
     }
 
     private void sendProjectToCoordinator() {
@@ -160,8 +178,34 @@ public class StudentController extends UserController {
     }
 
     private void requestFYPDeregistration() {
-        // TODO: requestFYPDeregistration
+        String studentID = AuthStore.getCurrentUser().getUserID();
+        String fypCoordinatorID = DataStore.getFYPCoordinatorsData().keySet().iterator().next();
+        Project project = projectStudentService.getAllocatedProject(studentID);
+
+        if (project == null) {
+            System.out.println("Deregistration not allowed! You have not registered a project.");
+            return;
+        }
+
+        AllocatedProjectView projectView = new AllocatedProjectView();
+        projectView.displayProjectInfo(project);
+
+        String option;
+
+        do {
+            System.out.println("\nAre you sure you want to deregister this project?");
+            System.out.printf("Enter Y to confirm or N to cancel: ");
+            option = sc.next();
+            sc.nextLine();
+
+        } while (!option.equalsIgnoreCase("y") && !option.equalsIgnoreCase("n"));
+
+        if (option.equalsIgnoreCase("n")) {
+            System.out.println("FYP deregistration request cancelled.");
+            return;
+        }
+
+        requestStudentService.createDeregisterProjectRequest(studentID, fypCoordinatorID, project.getProjectID());
         System.out.println("FYP deregistration request sent successfully!");
-        throw new UnsupportedOperationException("Method not implemented");
     }
 }
