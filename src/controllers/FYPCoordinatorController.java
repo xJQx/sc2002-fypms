@@ -19,6 +19,7 @@ import services.RequestFYPCoordinatorService;
 import store.AuthStore;
 import store.DataStore;
 import utils.SelectorUtils;
+import views.CommonView;
 import views.SubmittedProjectView;
 
 public class FYPCoordinatorController extends SupervisorController {
@@ -32,15 +33,15 @@ public class FYPCoordinatorController extends SupervisorController {
         int choice;
 
         do {
-            System.out.println("FYP Coordinator Menu");
+        	CommonView.printNavbar("FYPMS > FYP Coordinator Menu");
             System.out.println("1. Change password");
             System.out.println("2. Create projects");
             System.out.println("3. Update project");
             System.out.println("4. View projects");
-            System.out.println("5. View/Approve/Reject pending requests");
-            System.out.println("6. View request history");
-            System.out.println("7. Request student transfer");
-            System.out.println("8. View projects by filters");
+            System.out.println("5. View projects by filters");
+            System.out.println("6. View/Approve/Reject pending requests");
+            System.out.println("7. View request history");
+            System.out.println("8. Request student transfer");
             System.out.println("9. Exit");
 
             choice = sc.nextInt();
@@ -48,6 +49,7 @@ public class FYPCoordinatorController extends SupervisorController {
 
             switch (choice) {
                 case 1:
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Change Password");
                     if (changePassword()) {
                     	// Restart session by logging out
                         AuthController.endSession();
@@ -55,33 +57,44 @@ public class FYPCoordinatorController extends SupervisorController {
                     }
                     break;
                 case 2:
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Create Projects");
                     createProjects();
                     break;
                 case 3:
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Update Submitted Project");
                     updateProject();
                     break;
                 case 4:
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects");
                     viewProjects();
                     break;
                 case 5:
-                    viewApproveRejectPendingRequest();
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects (with filtering)");
+                    viewProjectsByFilter();
                     break;
                 case 6:
-                    viewRequests();
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Pending Requests (View/Approve/Reject)");
+                    viewApproveRejectPendingRequest();
                     break;
                 case 7:
-                    requestStudentTransfer();
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Requests");
+                    viewRequests();
                     break;
                 case 8:
-                    viewProjectsByFilter();
+                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Request to Transfer Student");
+                    requestStudentTransfer();
                     break;
                 case 9:
                     System.out.println("Exiting FYP coordinator menu");
                     AuthController.endSession();
                     return;
                 default:
-                    System.out.println("Invalid choice. Please select a number from 1 to 8.");
+                    System.out.println("Invalid choice. Please select a number from 1 to 9.");
                     break;
+            }
+
+            if (2 <= choice && choice <= 8) {
+            	CommonView.pressEnterToContinue();
             }
         } while (true);
     }
@@ -128,7 +141,10 @@ public class FYPCoordinatorController extends SupervisorController {
                 projects = projectFYPCoordinatorService.getAllProjects();
         }
 
-        projects.forEach(project -> projectView.displayProjectInfo(project));
+        projects.forEach(project -> {
+        	projectView.displayProjectInfo(project);
+        	System.out.println();
+        });
     }
 
     @Override

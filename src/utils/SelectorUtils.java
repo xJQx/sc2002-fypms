@@ -24,8 +24,8 @@ public class SelectorUtils {
 
     public static Project projectSelector(ArrayList<Project> projects) {
         while (true) {
-            System.out.println("projectID\tTitle");
-            projects.forEach(project -> System.out.printf("%d\t%s\n", project.getProjectID(), project.getTitle()));
+            System.out.println("projectID\t\tTitle");
+            projects.forEach(project -> System.out.printf("%-20d\t%s\n", project.getProjectID(), project.getTitle()));
 
             System.out.println("Select projectID (Enter non-int to exit)");
             if (!sc.hasNextInt()) {
@@ -49,12 +49,12 @@ public class SelectorUtils {
 
     public static Supervisor supervisorSelector(Map<String, Supervisor> supervisors) {
         while (true) {
-            System.out.println("supervisorID\tName");
+            System.out.println("supervisorID\t\tName");
             supervisors.values().forEach(supervisor -> {
-                System.out.printf("%s\t%s\n", supervisor.getSupervisorID(), supervisor.getName());
+                System.out.printf("%-20s\t%s\n", supervisor.getSupervisorID(), supervisor.getName());
             });
 
-            System.out.println("Select supervisorID (Enter to return)");
+            System.out.println("\nSelect supervisorID (Enter to return)");
             String supervisorID = sc.nextLine().trim();
 
             if (supervisorID.isEmpty()) {
