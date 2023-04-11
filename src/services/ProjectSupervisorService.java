@@ -43,7 +43,8 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
     public boolean updateProjectTitle(Project project, String title, String supervisorID) {
         if (project.getSupervisor() != null && project.getSupervisor().getSupervisorID().equals(supervisorID)) {
             project.setTitle(title);
-            return true;
+            
+            return DataStore.saveData();
         } else {
             return false;
         }
@@ -58,8 +59,8 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
                 project.setStatus(ProjectStatus.UNAVAILABLE);
             }
         }
-
-        return true;
+        
+        return DataStore.saveData();
     }
 
     @Override
@@ -72,7 +73,7 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
             }
         }
 
-        return true;
+        return DataStore.saveData();
     }
 
 }
