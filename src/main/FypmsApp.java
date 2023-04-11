@@ -4,7 +4,6 @@ import controllers.AuthController;
 import controllers.FYPCoordinatorController;
 import controllers.StudentController;
 import controllers.SupervisorController;
-import enums.UserRole;
 import models.User;
 import store.AuthStore;
 import store.DataStore;
@@ -25,12 +24,16 @@ public class FypmsApp {
 			
 			// Start session
 			User user = AuthStore.getCurrentUser();
-			if (user.getRole() == UserRole.STUDENT) {
-				new StudentController().start();
-			} else if (user.getRole() == UserRole.SUPERVISOR) {
-				new SupervisorController().start();
-			} else if (user.getRole() == UserRole.FYPCOORDINATOR) {
-				new FYPCoordinatorController().start();
+			switch (user.getRole()) {
+				case STUDENT:
+					new StudentController().start();
+					break;
+				case SUPERVISOR:
+					new SupervisorController().start();
+					break;
+				case FYPCOORDINATOR:
+					new FYPCoordinatorController().start();
+					break;
 			}
 		} while (true);
 	}

@@ -21,6 +21,7 @@ import services.RequestSupervisorService;
 import store.AuthStore;
 import store.DataStore;
 import utils.SelectorUtils;
+import views.CommonView;
 import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
 import views.RequestDeregisterProjectView;
@@ -39,11 +40,11 @@ public class SupervisorController extends UserController {
         int choice;
 
         do {
-            System.out.println("Supervisor Menu");
+        	CommonView.printNavbar("FYPMS > Supervisor Menu");
             System.out.println("1. Change password");
             System.out.println("2. Create projects");
-            System.out.println("3. Update project");
-            System.out.println("4. View projects");
+            System.out.println("3. Update submitted project");
+            System.out.println("4. View submitted projects");
             System.out.println("5. View/Approve/Reject pending requests");
             System.out.println("6. View request history");
             System.out.println("7. Request student transfer");
@@ -54,6 +55,7 @@ public class SupervisorController extends UserController {
 
             switch (choice) {
                 case 1:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > Change Password");
                     if (changePassword()) {
                     	// Restart session by logging out
                         AuthController.endSession();
@@ -61,21 +63,27 @@ public class SupervisorController extends UserController {
                     }
                     break;
                 case 2:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > Create Projects");
                     createProjects();
                     break;
                 case 3:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > Update Submitted Project");
                     updateProject();
                     break;
                 case 4:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > View Submitted Projects");
                     viewProjects();
                     break;
                 case 5:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > Pending Requests (View/Approve/Reject)");
                     viewApproveRejectPendingRequest();
                     break;
                 case 6:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > View Requests");
                     viewRequests();
                     break;
                 case 7:
+                	CommonView.printNavbar("FYPMS > Supervisor Menu > Request to Transfer Student");
                     requestStudentTransfer();
                     break;
                 case 8:
@@ -85,6 +93,10 @@ public class SupervisorController extends UserController {
                 default:
                     System.out.println("Invalid choice. Please select a number from 1 to 8.");
                     break;
+            }
+
+            if (2 <= choice && choice <= 7) {
+            	CommonView.pressEnterToContinue();
             }
         } while (true);
     }
@@ -128,7 +140,6 @@ public class SupervisorController extends UserController {
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         ArrayList<Project> projects = projectSupervisorService.getSubmittedProjects(supervisorID);
 
-        System.out.println("Projects:\n");
         for (Project project : projects) {
             projectView.displayProjectInfo(project);
             System.out.println();
@@ -249,14 +260,14 @@ public class SupervisorController extends UserController {
         }
 
         System.out.printf("Selected project %d - %s\n", selectedProject.getProjectID(), selectedProject.getTitle());
-        System.out.println("Select replacement supervisor");
+        System.out.println("Select replacement supervisor\n");
         Supervisor replacementSupervisor = SelectorUtils.supervisorSelector(DataStore.getSupervisorsData());
 
         if (replacementSupervisor == null) {
             return;
         }
 
-        System.out.printf("Selected supervisor %d - %s\n",
+        System.out.printf("Selected supervisor %s - %s\n",
                 replacementSupervisor.getSupervisorID(), replacementSupervisor.getName());
         requestSupervisorService.createTransferStudentRequest(supervisorID, coordinatorID,
                 selectedProject.getProjectID(),
