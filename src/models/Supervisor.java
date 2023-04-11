@@ -23,7 +23,6 @@ public class Supervisor extends User {
 	}
 	
 	public Boolean setNumOfProjects(int numOfProjects) {
-		// TODO - if numOfProjects exceed the max, update the remaining submitted projects to UNAVAILABLE
 		if (numOfProjects > Supervisor.MAX_PROJECTS) {
 			System.out.println("MAX number of projects reached!");
 			return false;

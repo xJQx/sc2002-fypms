@@ -13,6 +13,7 @@ import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
 import models.Supervisor;
+import models.TransferStudentRequest;
 import services.ProjectFYPCoordinatorService;
 import services.RequestFYPCoordinatorService;
 import store.AuthStore;
@@ -200,6 +201,7 @@ public class FYPCoordinatorController extends SupervisorController {
                     case 1:
                         if (request.approve()) {
                             System.out.println("Request approved!");
+                            updateSupervisorProjectCount(request);
                         } else {
                             System.out.println("Approval failed!");
                         }
@@ -215,6 +217,77 @@ public class FYPCoordinatorController extends SupervisorController {
                 return;
             }
         }
+    }
+
+    private void updateSupervisorProjectCount(Request request) {
+        if (request instanceof TransferStudentRequest) {
+            TransferStudentRequest transferRequest = (TransferStudentRequest) request;
+            Supervisor supervisor = (Supervisor) transferRequest.getSender();
+
+            logSupervisorStatus(supervisor.getName(),
+                    supervisor.getSupervisorID(),
+                    supervisor.getNumOfProjects());
+
+            if (supervisor.getNumOfProjects() < Supervisor.MAX_PROJECTS) {
+                projectSupervisorService.updateUnavailableProjectsToAvailable(supervisor.getSupervisorID());
+                logMaxCapacityUnreached();
+            }
+
+            String replacementSupervisorID = transferRequest.getReplacementSupervisorID();
+            Supervisor replacementSupervisor = DataStore.getSupervisorsData().get(replacementSupervisorID);
+
+            if (replacementSupervisor == null) {
+                return;
+            }
+
+            logSupervisorStatus(replacementSupervisor.getName(),
+                    replacementSupervisor.getSupervisorID(),
+                    replacementSupervisor.getNumOfProjects());
+
+            if (replacementSupervisor.getNumOfProjects() >= Supervisor.MAX_PROJECTS) {
+                projectSupervisorService.updateRemainingProjectsToUnavailable(replacementSupervisorID);
+                logMaxCapacityReached();
+            }
+        } else if (request instanceof AllocateProjectRequest) {
+            AllocateProjectRequest allocateRequest = (AllocateProjectRequest) request;
+            Supervisor supervisor = allocateRequest.getProject().getSupervisor();
+            String supervisorID = supervisor.getSupervisorID();
+
+            logSupervisorStatus(supervisor.getName(),
+                    supervisor.getSupervisorID(),
+                    supervisor.getNumOfProjects());
+
+            if (supervisor.getNumOfProjects() >= Supervisor.MAX_PROJECTS) {
+                projectSupervisorService.updateRemainingProjectsToUnavailable(supervisorID);
+                logMaxCapacityReached();
+            }
+        } else if (request instanceof DeregisterProjectRequest) {
+            DeregisterProjectRequest deregisterRequest = (DeregisterProjectRequest) request;
+            Supervisor supervisor = deregisterRequest.getProject().getSupervisor();
+            String supervisorID = supervisor.getSupervisorID();
+
+            logSupervisorStatus(supervisor.getName(),
+                    supervisor.getSupervisorID(),
+                    supervisor.getNumOfProjects());
+
+            if (supervisor.getNumOfProjects() < Supervisor.MAX_PROJECTS) {
+                projectSupervisorService.updateUnavailableProjectsToAvailable(supervisorID);
+                logMaxCapacityUnreached();
+            }
+        }
+    }
+
+    private void logSupervisorStatus(String name, String id, int numOfProjects) {
+        System.out.printf("\n%s (%s) is now supervising %d projects.\n", name, id, numOfProjects);
+    }
+
+    private void logMaxCapacityReached() {
+        System.out.println("Max supervising projects reached!");
+        System.out.println("Remaining available projects are now unavailable.");
+    }
+
+    private void logMaxCapacityUnreached() {
+        System.out.println("Unavailable projects are now available.");
     }
 
     @Override
