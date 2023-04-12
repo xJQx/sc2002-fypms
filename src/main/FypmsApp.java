@@ -13,20 +13,21 @@ import views.CommonView;
 
 public class FypmsApp {
 	public static void main(String[] args) {
-		do {
-			// Initialize DataStore
-			DataStore.initDataStore(new CsvDataService(), FilePathsUtils.csvFilePaths());
-			
-			// Display Splash Screen
-			CommonView.printSplashScreen();
-			
-			// Authentication - Log In
-			AuthController.startSession();
-			if(!AuthStore.isLoggedIn()) return;
-			
-			// Start session
-			User user = AuthStore.getCurrentUser();
-			switch (user.getRole()) {
+		try {
+			do {
+				// Initialize DataStore
+				DataStore.initDataStore(new CsvDataService(), FilePathsUtils.csvFilePaths());
+				
+				// Display Splash Screen
+				CommonView.printSplashScreen();
+				
+				// Authentication - Log In
+				AuthController.startSession();
+				if(!AuthStore.isLoggedIn()) return;
+				
+				// Start session
+				User user = AuthStore.getCurrentUser();
+				switch (user.getRole()) {
 				case STUDENT:
 					new StudentController().start();
 					break;
@@ -36,7 +37,16 @@ public class FypmsApp {
 				case FYPCOORDINATOR:
 					new FYPCoordinatorController().start();
 					break;
-			}
-		} while (true);
+				}
+			} while (true);
+		} catch (Exception e) {
+			// Save Data and Logout user
+			DataStore.saveData();
+			AuthController.endSession();
+			
+			// Print message
+			System.out.println("FYPMS crashed. Please restart the system.");
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 }
