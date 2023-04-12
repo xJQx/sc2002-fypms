@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import enums.RequestStatus;
+import enums.RequestType;
 import stores.DataStore;
 
 public class ChangeProjectTitleRequest extends Request {
@@ -12,12 +13,14 @@ public class ChangeProjectTitleRequest extends Request {
 	// For initializing existing requests
 	public ChangeProjectTitleRequest(String senderID, String receiverID, int projectID, int requestID, RequestStatus status, ArrayList<String> history, String newTitle) {
 		super(senderID, receiverID, projectID, requestID, status, history);
+		super.setType(RequestType.CHANGE_PROJECT_TITLE);
 		this.newTitle = newTitle;
 	}
 	
 	// For creating new requests
 	public ChangeProjectTitleRequest(String senderID, String receiverID, int projectID, String newTitle) {
 		super(senderID, receiverID, projectID);
+		super.setType(RequestType.CHANGE_PROJECT_TITLE);
 		this.newTitle = newTitle;
 	}
 

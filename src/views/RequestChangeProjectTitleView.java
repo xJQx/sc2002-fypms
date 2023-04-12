@@ -4,6 +4,7 @@ import models.ChangeProjectTitleRequest;
 import models.Project;
 import models.Request;
 import utils.RequestViewUtils;
+import enums.RequestType;
 import interfaces.IRequestView;
 
 
@@ -11,7 +12,7 @@ public class RequestChangeProjectTitleView implements IRequestView {
 
 	@Override
 	public void displayRequestInfo(Request request) {
-		if (!(request instanceof ChangeProjectTitleRequest)) return;
+		if (!(request.getType() == RequestType.CHANGE_PROJECT_TITLE)) return;
 		String newTitle = ((ChangeProjectTitleRequest) request).getNewTitle();
 		Project project = request.getProject();
 		

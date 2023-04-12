@@ -5,17 +5,14 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import enums.ProjectStatus;
+import enums.RequestType;
 import interfaces.IProjectSupervisorService;
 import interfaces.IProjectView;
 import interfaces.IRequestSupervisorService;
 import interfaces.IRequestView;
-import models.AllocateProjectRequest;
-import models.ChangeProjectTitleRequest;
-import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
 import models.Supervisor;
-import models.TransferStudentRequest;
 import services.ProjectSupervisorService;
 import services.RequestSupervisorService;
 import stores.AuthStore;
@@ -233,13 +230,13 @@ public class SupervisorController extends UserController {
 
     protected void displayRequests(ArrayList<Request> requests) {
         for (Request request : requests) {
-            if (request instanceof AllocateProjectRequest) {
+            if (request.getType() == RequestType.ALLOCATE_PROJECT) {
                 requestView = new RequestAllocateProjectView();
-            } else if (request instanceof ChangeProjectTitleRequest) {
+            } else if (request.getType() == RequestType.CHANGE_PROJECT_TITLE) {
                 requestView = new RequestChangeProjectTitleView();
-            } else if (request instanceof DeregisterProjectRequest) {
+            } else if (request.getType() == RequestType.DEREGISTER_PROJECT) {
                 requestView = new RequestDeregisterProjectView();
-            } else if (request instanceof TransferStudentRequest) {
+            } else if (request.getType() == RequestType.TRANSFER_STUDENT) {
                 requestView = new RequestTransferStudentView();
             } else {
                 continue;

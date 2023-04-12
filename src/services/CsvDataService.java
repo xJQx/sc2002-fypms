@@ -12,6 +12,7 @@ import java.util.Map;
 
 import enums.ProjectStatus;
 import enums.RequestStatus;
+import enums.RequestType;
 import interfaces.IFileDataService;
 import models.AllocateProjectRequest;
 import models.ChangeProjectTitleRequest;
@@ -265,7 +266,7 @@ public class CsvDataService implements IFileDataService {
 		
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
 		List<String[]> supervisorsRows = this.readCsvFile(supervisorsFilePath, supervisorCsvHeaders);
-		List<String[]> fypCoordinatorsRows = this.readCsvFile(fypCoordinatorsFilePath, fypCoordinatorCsvHeaders);
+		this.readCsvFile(fypCoordinatorsFilePath, fypCoordinatorCsvHeaders);
 		
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
@@ -277,11 +278,6 @@ public class CsvDataService implements IFileDataService {
 			String password = userInfoMap.get("password");
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
-			
-			// get the associated fypcoordinator data
-			// for (String[] fypCoordinatorRow: fypCoordinatorsRows) {
-			//	if (!fypCoordinatorRow[0].equals(userID)) continue;
-			// }
 			
 			// get the associated supervisor data since a FYP Coordinator is also a Supervisor
 			int numOfProjects = 0;
@@ -413,10 +409,10 @@ public class CsvDataService implements IFileDataService {
 			String receiverID = requestRow[3];
 			RequestStatus status = RequestStatus.valueOf(requestRow[4]);
 			ArrayList<String> history = new ArrayList<String>(Arrays.asList(requestRow[5].split(";")));
-			String type = requestRow[6];
+			RequestType type = RequestType.valueOf(requestRow[6]);
 			
 			// Handle different Requests subclasses
-			if (type.equals("transferStudent")) { // TransferStudentRequest
+			if (type == RequestType.TRANSFER_STUDENT) { // TransferStudentRequest
 				for (String[] transferStudentRequestRow: transferStudentRequestsRows) {
 					if (requestID != Integer.parseInt(transferStudentRequestRow[0])) continue;
 					
@@ -426,7 +422,7 @@ public class CsvDataService implements IFileDataService {
 					requestsMap.put(requestID, transferStudentRequest);
 					break;
 				}
-			} else if (type.equals("changeProjectTitle")) { // ChangeProjectTitleRequest
+			} else if (type == RequestType.CHANGE_PROJECT_TITLE) { // ChangeProjectTitleRequest
 				for (String[] changeProjectTitleRequestRow: changeProjectTitleRequestsRows) {
 					if (requestID != Integer.parseInt(changeProjectTitleRequestRow[0])) continue;
 					
@@ -436,10 +432,10 @@ public class CsvDataService implements IFileDataService {
 					requestsMap.put(requestID, changeProjectTitleRequest);
 					break;
 				}
-			} else if (type.equals("allocateProject")) { // AllocateProjectRequest
+			} else if (type == RequestType.ALLOCATE_PROJECT) { // AllocateProjectRequest
 				Request allocateProjectRequest = new AllocateProjectRequest(senderID, receiverID, projectID, requestID, status, history);
 				requestsMap.put(requestID, allocateProjectRequest);
-			} else if (type.equals("deregisterProject")) { // DeregisterProjectRequest
+			} else if (type == RequestType.DEREGISTER_PROJECT) { // DeregisterProjectRequest
 				Request deregisterProjectRequest = new DeregisterProjectRequest(senderID, receiverID, projectID, requestID, status, history);
 				requestsMap.put(requestID, deregisterProjectRequest);
 			}
@@ -455,31 +451,21 @@ public class CsvDataService implements IFileDataService {
 		
 		// Request
 		for (Request request: requestMap.values()) {
-			String requestType = "";
-			
 			// To handle different Requests subclasses
-			if (request instanceof TransferStudentRequest) {
-				requestType = "transferStudent";
-				
+			if (request.getType() == RequestType.TRANSFER_STUDENT) {
 				TransferStudentRequest transferStudentRequest = (TransferStudentRequest) request;
 				String transferStudentRequestLine = String.format("%d,%s",
 						transferStudentRequest.getRequestID(),
 						transferStudentRequest.getReplacementSupervisorID());
 				
 				transferStudentRequestLines.add(transferStudentRequestLine);
-			} else if (request instanceof ChangeProjectTitleRequest) {
-				requestType = "changeProjectTitle";
-				
+			} else if (request.getType() == RequestType.CHANGE_PROJECT_TITLE) {
 				ChangeProjectTitleRequest changeProjectTitleRequest = (ChangeProjectTitleRequest) request;
 				String changeProjectTitleRequestLine = String.format("%d,%s",
 						changeProjectTitleRequest.getRequestID(),
 						changeProjectTitleRequest.getNewTitle());
 				
 				changeProjectTitleLines.add(changeProjectTitleRequestLine);
-			} else if (request instanceof AllocateProjectRequest) {
-				requestType = "allocateProject";
-			} else if (request instanceof DeregisterProjectRequest) {
-				requestType = "deregisterProject";
 			}
 			
 			// Request base class
@@ -490,7 +476,7 @@ public class CsvDataService implements IFileDataService {
 					request.getReceiver().getUserID(),
 					request.getStatus(),
 					String.join(";", request.getHistory()),
-					requestType);
+					request.getType());
 			
 			requestLines.add(requestLine);
 		}

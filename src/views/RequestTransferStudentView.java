@@ -5,13 +5,14 @@ import models.Request;
 import models.TransferStudentRequest;
 import stores.DataStore;
 import utils.RequestViewUtils;
+import enums.RequestType;
 import interfaces.IRequestView;
 
 public class RequestTransferStudentView implements IRequestView{
 
 	@Override
 	public void displayRequestInfo(Request request) {
-		if (!(request instanceof TransferStudentRequest)) return;
+		if (!(request.getType() == RequestType.TRANSFER_STUDENT)) return;
 		String replacementSupervisorID = ((TransferStudentRequest) request).getReplacementSupervisorID();
 		String replacementSupervisorName = DataStore.getSupervisorsData().containsKey(replacementSupervisorID) ?
 				DataStore.getSupervisorsData().get(replacementSupervisorID).getName() :

@@ -1,0 +1,8 @@
+package enums;
+
+public enum RequestType {
+	TRANSFER_STUDENT,
+	CHANGE_PROJECT_TITLE,
+	ALLOCATE_PROJECT,
+	DEREGISTER_PROJECT
+}

@@ -5,13 +5,15 @@ import java.util.Date;
 import java.util.Map;
 
 import enums.RequestStatus;
+import enums.RequestType;
 import stores.DataStore;
 
 public abstract class Request {
 	private static int lastRequestID = 0;
 	private int requestID;
+	private RequestType type;
 	private RequestStatus status;
-	private ArrayList<String> history; // <DateTime1 - Status1>; <DateTime2 - Status2>;
+	private ArrayList<String> history;
 	private String senderID;
 	private String receiverID;
 	private int projectID;
@@ -62,6 +64,15 @@ public abstract class Request {
 	// ---------- Getter and Setters ---------- //
 	public int getRequestID() {
 		return this.requestID;
+	}
+	
+	public RequestType getType() {
+		return this.type;
+	}
+	
+	public boolean setType(RequestType type) {
+		this.type = type;
+		return true;
 	}
 	
 	public RequestStatus getStatus() {

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import enums.ProjectStatus;
+import enums.RequestType;
 import interfaces.IProjectFYPCoordinatorService;
 import interfaces.IProjectView;
 import interfaces.IRequestFYPCoordinatorService;
@@ -178,12 +179,12 @@ public class FYPCoordinatorController extends SupervisorController {
                     break;
                 case 2:
                     requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
-                            .filter(request -> request instanceof AllocateProjectRequest)
+                            .filter(request -> request.getType() == RequestType.ALLOCATE_PROJECT)
                             .collect(Collectors.toCollection(ArrayList::new));
                     break;
                 case 3:
                     requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
-                            .filter(request -> request instanceof DeregisterProjectRequest)
+                            .filter(request -> request.getType() == RequestType.DEREGISTER_PROJECT)
                             .collect(Collectors.toCollection(ArrayList::new));
                     break;
                 default:
@@ -236,7 +237,7 @@ public class FYPCoordinatorController extends SupervisorController {
     }
 
     private void updateSupervisorProjectCount(Request request) {
-        if (request instanceof TransferStudentRequest) {
+        if (request.getType() == RequestType.TRANSFER_STUDENT) {
             TransferStudentRequest transferRequest = (TransferStudentRequest) request;
             Supervisor supervisor = (Supervisor) transferRequest.getSender();
 
@@ -264,7 +265,7 @@ public class FYPCoordinatorController extends SupervisorController {
                 projectSupervisorService.updateRemainingProjectsToUnavailable(replacementSupervisorID);
                 logMaxCapacityReached();
             }
-        } else if (request instanceof AllocateProjectRequest) {
+        } else if (request.getType() == RequestType.ALLOCATE_PROJECT) {
             AllocateProjectRequest allocateRequest = (AllocateProjectRequest) request;
             Supervisor supervisor = allocateRequest.getProject().getSupervisor();
             String supervisorID = supervisor.getSupervisorID();
@@ -277,7 +278,7 @@ public class FYPCoordinatorController extends SupervisorController {
                 projectSupervisorService.updateRemainingProjectsToUnavailable(supervisorID);
                 logMaxCapacityReached();
             }
-        } else if (request instanceof DeregisterProjectRequest) {
+        } else if (request.getType() == RequestType.DEREGISTER_PROJECT) {
             DeregisterProjectRequest deregisterRequest = (DeregisterProjectRequest) request;
             Supervisor supervisor = deregisterRequest.getProject().getSupervisor();
             String supervisorID = supervisor.getSupervisorID();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import enums.ProjectStatus;
 import enums.RequestStatus;
+import enums.RequestType;
 import stores.DataStore;
 
 public class AllocateProjectRequest extends Request {
@@ -12,11 +13,13 @@ public class AllocateProjectRequest extends Request {
 	// For initializing existing requests
 	public AllocateProjectRequest(String senderID, String receiverID, int projectID, int requestID, RequestStatus status, ArrayList<String> history) {
 		super(senderID, receiverID, projectID, requestID, status, history);
+		super.setType(RequestType.ALLOCATE_PROJECT);
 	}
 	
 	// For creating new requests
 	public AllocateProjectRequest(String senderID, String receiverID, int projectID) {
 		super(senderID, receiverID, projectID);
+		super.setType(RequestType.ALLOCATE_PROJECT);
 	}
 
 	// ---------- Methods ---------- //

@@ -3,13 +3,11 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import enums.RequestType;
 import interfaces.IProjectStudentService;
 import interfaces.IProjectView;
 import interfaces.IRequestStudentService;
 import interfaces.IRequestView;
-import models.AllocateProjectRequest;
-import models.ChangeProjectTitleRequest;
-import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
 import models.Student;
@@ -137,11 +135,11 @@ public class StudentController extends UserController {
         ArrayList<Request> requests = requestStudentService.getStudentRequests(AuthStore.getCurrentUser().getUserID());
 
         for (Request request : requests) {
-            if (request instanceof AllocateProjectRequest) {
+            if (request.getType() == RequestType.ALLOCATE_PROJECT) {
                 requestView = new RequestAllocateProjectView();
-            } else if (request instanceof ChangeProjectTitleRequest) {
+            } else if (request.getType() == RequestType.CHANGE_PROJECT_TITLE) {
                 requestView = new RequestChangeProjectTitleView();
-            } else if (request instanceof DeregisterProjectRequest) {
+            } else if (request.getType() == RequestType.DEREGISTER_PROJECT) {
                 requestView = new RequestDeregisterProjectView();
             } else {
                 continue;

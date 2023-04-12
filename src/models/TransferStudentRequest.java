@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import enums.RequestStatus;
+import enums.RequestType;
 import stores.DataStore;
 
 public class TransferStudentRequest extends Request {
@@ -12,12 +13,14 @@ public class TransferStudentRequest extends Request {
 	// For initializing existing requests
 	public TransferStudentRequest(String senderID, String receiverID, int projectID, int requestID, RequestStatus status, ArrayList<String> history, String replacementSupervisorID) {
 		super(senderID, receiverID, projectID, requestID, status, history);
+		super.setType(RequestType.TRANSFER_STUDENT);
 		this.replacementSupervisorID = replacementSupervisorID;
 	}
 	
 	// For creating new requests
 	public TransferStudentRequest(String senderID, String receiverID, int projectID, String replacementSupervisorID) {
 		super(senderID, receiverID, projectID);
+		super.setType(RequestType.TRANSFER_STUDENT);
 		this.replacementSupervisorID = replacementSupervisorID;
 	}
 
