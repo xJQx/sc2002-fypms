@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import enums.ProjectStatus;
+import enums.RequestStatus;
 import enums.RequestType;
 import interfaces.IProjectFYPCoordinatorService;
 import interfaces.IProjectView;
@@ -179,12 +180,14 @@ public class FYPCoordinatorController extends SupervisorController {
                     break;
                 case 2:
                     requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
-                            .filter(request -> request.getType() == RequestType.ALLOCATE_PROJECT)
+                            .filter(request -> request.getType() == RequestType.ALLOCATE_PROJECT &&
+                                    request.getStatus() == RequestStatus.PENDING)
                             .collect(Collectors.toCollection(ArrayList::new));
                     break;
                 case 3:
                     requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
-                            .filter(request -> request.getType() == RequestType.DEREGISTER_PROJECT)
+                            .filter(request -> request.getType() == RequestType.DEREGISTER_PROJECT &&
+                                    request.getStatus() == RequestStatus.PENDING)
                             .collect(Collectors.toCollection(ArrayList::new));
                     break;
                 default:
@@ -309,6 +312,18 @@ public class FYPCoordinatorController extends SupervisorController {
 
     @Override
     protected void viewProjects() {
+        ArrayList<Project> allProjects = projectFYPCoordinatorService.getAllProjects();
+        System.out.println("Displaying all projects:\n");
+        projectView = new ProjectSubmittedView();
+        allProjects.forEach(project -> {
+            projectView.displayProjectInfo(project);
+            System.out.println();
+        });
+        System.out.println("\nDisplayed all projects:");
+    }
+
+    @Override
+    protected void viewRequests() {
         ArrayList<Request> allRequests = requestFYPCoordinatorService.getAllRequests();
         System.out.println("Displaying all requests:\n");
         displayRequests(allRequests);
