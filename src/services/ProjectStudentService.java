@@ -27,7 +27,7 @@ public class ProjectStudentService implements IProjectStudentService {
         Map<Integer, Project> projectsData = DataStore.getProjectsData();
 
         Project allocatedProject = projectsData.values().stream()
-                .filter(project -> project.getStatus() == ProjectStatus.AVAILABLE
+                .filter(project -> project.getStatus() == ProjectStatus.ALLOCATED
                         && project.getStudent() != null
                         && Objects.equals(project.getStudent().getStudentID(), studentID))
                 .findFirst()

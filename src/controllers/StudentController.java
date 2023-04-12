@@ -35,7 +35,7 @@ public class StudentController extends UserController {
         int choice;
 
         do {
-        	CommonView.printNavbar("FYPMS > Student Menu");
+            CommonView.printNavbar("FYPMS > Student Menu");
             System.out.println("1. Change password");
             System.out.println("2. View available projects");
             System.out.println("3. View allocated projects");
@@ -50,7 +50,7 @@ public class StudentController extends UserController {
 
             switch (choice) {
                 case 1:
-                	CommonView.printNavbar("FYPMS > Student Menu > Change Password");
+                    CommonView.printNavbar("FYPMS > Student Menu > Change Password");
                     if (changePassword()) {
                         // Restart session by logging out
                         AuthController.endSession();
@@ -58,29 +58,29 @@ public class StudentController extends UserController {
                     }
                     break;
                 case 2:
-                	CommonView.printNavbar("FYPMS > Student Menu > Available Projects");
+                    CommonView.printNavbar("FYPMS > Student Menu > Available Projects");
                     projectView = new ProjectAvailableView();
                     viewAvailableProject(projectView);
                     break;
                 case 3:
-                	CommonView.printNavbar("FYPMS > Student Menu > Allocated Project");
+                    CommonView.printNavbar("FYPMS > Student Menu > Allocated Project");
                     projectView = new ProjectAllocatedView();
                     viewAllocatedProject(projectView);
                     break;
                 case 4:
-                	CommonView.printNavbar("FYPMS > Student Menu > Requests");
+                    CommonView.printNavbar("FYPMS > Student Menu > Requests");
                     viewRequests();
                     break;
                 case 5:
-                	CommonView.printNavbar("FYPMS > Student Menu > Send Project to Coordinator for Allocation");
+                    CommonView.printNavbar("FYPMS > Student Menu > Send Project to Coordinator for Allocation");
                     sendProjectToCoordinator();
                     break;
                 case 6:
-                	CommonView.printNavbar("FYPMS > Student Menu > Request to Change Project Title");
+                    CommonView.printNavbar("FYPMS > Student Menu > Request to Change Project Title");
                     requestTitleChange();
                     break;
                 case 7:
-                	CommonView.printNavbar("FYPMS > Student Menu > Request to Deregister from FYP");
+                    CommonView.printNavbar("FYPMS > Student Menu > Request to Deregister from FYP");
                     requestFYPDeregistration();
                     break;
                 case 8:
@@ -91,9 +91,9 @@ public class StudentController extends UserController {
                     System.out.println("Invalid choice. Please select a number from 1 to 8.");
                     break;
             }
-            
+
             if (2 <= choice && choice <= 7) {
-            	CommonView.pressEnterToContinue();
+                CommonView.pressEnterToContinue();
             }
         } while (true);
     }
@@ -150,6 +150,19 @@ public class StudentController extends UserController {
 
     private void sendProjectToCoordinator() {
         String studentID = AuthStore.getCurrentUser().getUserID();
+        Project reservedProject = projectStudentService.getReservedProject(studentID);
+        Project allocatedProject = projectStudentService.getAllocatedProject(studentID);
+
+        if (reservedProject != null) {
+            System.out.println("You have already reserved a project! You are not allowed to register another project!");
+            return;
+        }
+
+        if (allocatedProject != null) {
+            System.out.println("You are already allocated to a FYP.");
+            return;
+        }
+
         ArrayList<Project> projects = projectStudentService.getAvailableProjects();
         Project project = SelectorUtils.projectSelector(projects);
 
