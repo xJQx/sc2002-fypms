@@ -5,15 +5,17 @@ import controllers.FYPCoordinatorController;
 import controllers.StudentController;
 import controllers.SupervisorController;
 import models.User;
+import services.CsvDataService;
 import stores.AuthStore;
 import stores.DataStore;
+import utils.FilePathsUtils;
 import views.CommonView;
 
 public class FypmsApp {
 	public static void main(String[] args) {
 		do {
 			// Initialize DataStore
-			DataStore.initDataStore();
+			DataStore.initDataStore(new CsvDataService(), FilePathsUtils.csvFilePaths());
 			
 			// Display Splash Screen
 			CommonView.printSplashScreen();

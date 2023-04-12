@@ -9,11 +9,10 @@ import models.Project;
 import models.Request;
 import models.Student;
 import models.Supervisor;
-import services.CsvDataService;
 
 public class DataStore {
-	private static IFileDataService fileDataService = new CsvDataService();
-	private static Map<String, String> filePathsMap = new HashMap<String, String>();
+	private static IFileDataService fileDataService;
+	private static Map<String, String> filePathsMap;
 
 	private static Map<String, Student> studentsData = new HashMap<String, Student>();
 	private static Map<String, Supervisor> supervisorsData = new HashMap<String, Supervisor>();
@@ -24,16 +23,10 @@ public class DataStore {
 	private DataStore() {
 	}
 
-	public static boolean initDataStore() {
-		// Initialize filePathsMap
-		filePathsMap.put("user", "data/user.csv");
-		filePathsMap.put("student", "data/student.csv");
-		filePathsMap.put("supervisor", "data/faculty.csv");
-		filePathsMap.put("fypcoordinator", "data/fypcoordinator.csv");
-		filePathsMap.put("project", "data/project.csv");
-		filePathsMap.put("request", "data/request.csv");
-		filePathsMap.put("transferStudentRequest", "data/request_transfer_student.csv");
-		filePathsMap.put("changeProjectTitleRequest", "data/request_change_project_title.csv");
+	public static boolean initDataStore(IFileDataService fileDataService, Map<String, String> filePathsMap) {
+		// Initialize fileDataService and filePathsMap
+		DataStore.filePathsMap = filePathsMap;
+		DataStore.fileDataService = fileDataService;
 
 		// Import data
 		DataStore.studentsData = fileDataService.importStudentData(filePathsMap.get("user"),
