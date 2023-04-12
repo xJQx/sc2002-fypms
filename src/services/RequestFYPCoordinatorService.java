@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import enums.RequestStatus;
 import enums.UserRole;
 import interfaces.IRequestFYPCoordinatorService;
 import models.Request;
@@ -20,12 +21,13 @@ public class RequestFYPCoordinatorService extends RequestSupervisorService imple
 	@Override
 	public ArrayList<Request> getSupervisorPendingRequests(String fypCoordinatorID) {
 		Map<Integer, Request> requestsData = DataStore.getRequestsData();
-		
+
 		ArrayList<Request> supervisorPendingRequests = requestsData.values().stream()
 				.filter(request -> request.getReceiver().getUserID().equals(fypCoordinatorID) &&
-						request.getSender().getRole() == UserRole.SUPERVISOR)
+						request.getSender().getRole() == UserRole.SUPERVISOR &&
+						request.getStatus() == RequestStatus.PENDING)
 				.collect(Collectors.toCollection(ArrayList::new));
-		
+
 		return supervisorPendingRequests;
 	}
 
