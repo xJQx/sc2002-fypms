@@ -35,11 +35,25 @@ public class TransferStudentRequest extends Request {
 			return false;
 		}
 		
+		Supervisor supervisor = project.getSupervisor();
+  		Supervisor replacementSupervisor = DataStore.getSupervisorsData().get(replacementSupervisorID);
+
+		// Validation - Supervisors can only supervisor at most 2 projects
+		if (replacementSupervisor.getNumOfProjects() >= 2) {
+			System.out.println(
+					"Cannot approve request. Replacement supervisor has reached the maximum number of projects he/she can supervise!");
+			return false;
+		}
+		
 		// Update Request
 		super.approve();
 		
 		// Update Project's Supervisor
 		project.setSupervisor(this.replacementSupervisorID);
+
+		// Update Supervisor
+		supervisor.setNumOfProjects(supervisor.getNumOfProjects() - 1);
+		replacementSupervisor.setNumOfProjects(replacementSupervisor.getNumOfProjects() + 1);
 		
 		// Save to CSV
 		return DataStore.saveData();

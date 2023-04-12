@@ -34,7 +34,7 @@ public class FYPCoordinatorController extends SupervisorController {
         int choice;
 
         do {
-        	CommonView.printNavbar("FYPMS > FYP Coordinator Menu");
+            CommonView.printNavbar("FYPMS > FYP Coordinator Menu");
             System.out.println("1. Change password");
             System.out.println("2. Create projects");
             System.out.println("3. Update project");
@@ -50,39 +50,39 @@ public class FYPCoordinatorController extends SupervisorController {
 
             switch (choice) {
                 case 1:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Change Password");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Change Password");
                     if (changePassword()) {
-                    	// Restart session by logging out
+                        // Restart session by logging out
                         AuthController.endSession();
                         return;
                     }
                     break;
                 case 2:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Create Projects");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Create Projects");
                     createProjects();
                     break;
                 case 3:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Update Submitted Project");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Update Submitted Project");
                     updateProject();
                     break;
                 case 4:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects");
                     viewProjects();
                     break;
                 case 5:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects (with filtering)");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects (with filtering)");
                     viewProjectsByFilter();
                     break;
                 case 6:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Pending Requests (View/Approve/Reject)");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Pending Requests (View/Approve/Reject)");
                     viewApproveRejectPendingRequest();
                     break;
                 case 7:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Requests");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Requests");
                     viewRequests();
                     break;
                 case 8:
-                	CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Request to Transfer Student");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > Request to Transfer Student");
                     requestStudentTransfer();
                     break;
                 case 9:
@@ -95,11 +95,11 @@ public class FYPCoordinatorController extends SupervisorController {
             }
 
             if (2 <= choice && choice <= 8) {
-            	CommonView.pressEnterToContinue();
+                CommonView.pressEnterToContinue();
             }
         } while (true);
     }
-    
+
     // ---------- Helper Methods ---------- //
     private void viewProjectsByFilter() {
         System.out.println("\nSelect project by filter menu");
@@ -143,8 +143,8 @@ public class FYPCoordinatorController extends SupervisorController {
         }
 
         projects.forEach(project -> {
-        	projectView.displayProjectInfo(project);
-        	System.out.println();
+            projectView.displayProjectInfo(project);
+            System.out.println();
         });
     }
 
@@ -218,7 +218,7 @@ public class FYPCoordinatorController extends SupervisorController {
                     case 1:
                         if (request.approve()) {
                             System.out.println("Request approved!");
-                            updateSupervisorProjectCount(request);
+                            updateAvailabilityOfProjects(request);
                         } else {
                             System.out.println("Approval failed!");
                         }
@@ -236,7 +236,7 @@ public class FYPCoordinatorController extends SupervisorController {
         }
     }
 
-    private void updateSupervisorProjectCount(Request request) {
+    private void updateAvailabilityOfProjects(Request request) {
         if (request.getType() == RequestType.TRANSFER_STUDENT) {
             TransferStudentRequest transferRequest = (TransferStudentRequest) request;
             Supervisor supervisor = (Supervisor) transferRequest.getSender();
