@@ -8,18 +8,21 @@ import enums.RequestType;
 import stores.DataStore;
 
 public class DeregisterProjectRequest extends Request {
+	private String studentID;
 
 	// ---------- Constructor ---------- //
 	// For initializing existing requests
 	public DeregisterProjectRequest(String senderID, String receiverID, int projectID, int requestID, RequestStatus status, ArrayList<String> history) {
 		super(senderID, receiverID, projectID, requestID, status, history);
 		super.setType(RequestType.DEREGISTER_PROJECT);
+		this.studentID = senderID;
 	}
 	
 	// For creating new requests
 	public DeregisterProjectRequest(String senderID, String receiverID, int projectID) {
 		super(senderID, receiverID, projectID);
 		super.setType(RequestType.DEREGISTER_PROJECT);
+		this.studentID = senderID;
 	}
 	
 	// ---------- Methods ---------- //
@@ -44,5 +47,10 @@ public class DeregisterProjectRequest extends Request {
 		
 		// Save to CSV
 		return DataStore.saveData();
+	}
+	
+	// ---------- Getters ----- //
+	public Student getStudent() {
+		return DataStore.getStudentsData().get(this.studentID);
 	}
 }

@@ -1,14 +1,18 @@
 package views;
 
+import models.DeregisterProjectRequest;
 import models.Project;
 import models.Request;
 import utils.RequestViewUtils;
+import enums.RequestType;
 import interfaces.IRequestView;
 
 public class RequestDeregisterProjectView implements IRequestView{
 
 	@Override
 	public void displayRequestInfo(Request request) {
+		if (!(request.getType() == RequestType.DEREGISTER_PROJECT)) return;
+		String studentName = ((DeregisterProjectRequest) request).getSender().getName();
 		Project project = request.getProject();
 		
 		// ----- Display ----- //
@@ -21,7 +25,7 @@ public class RequestDeregisterProjectView implements IRequestView{
 		System.out.println(" > ProjectID: " + project.getProjectID());
 		System.out.println(" > Title: " + project.getTitle());
 		System.out.println(" > Supervisor: " + project.getSupervisor().getName());
-		System.out.println(" > Student (to be deregistered): " + project.getStudent().getName());
+		System.out.println(" > Student (to be deregistered): " + studentName);
 		
 		RequestViewUtils.printRequestHistory(request);
 		
