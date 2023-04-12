@@ -4,8 +4,9 @@ import interfaces.IProjectView;
 import models.Project;
 import models.Supervisor;
 
-public class AvailableProjectView implements IProjectView{
-	
+public class ProjectAvailableView implements IProjectView{
+
+	@Override
 	public void displayProjectInfo(Project project) {
 		Supervisor supervisor = project.getSupervisor();
 		

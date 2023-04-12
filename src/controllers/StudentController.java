@@ -19,12 +19,12 @@ import services.RequestStudentService;
 import stores.AuthStore;
 import stores.DataStore;
 import utils.SelectorUtils;
-import views.AvailableProjectView;
+import views.ProjectAvailableView;
 import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
 import views.RequestDeregisterProjectView;
 import views.CommonView;
-import views.AllocatedProjectView;
+import views.ProjectAllocatedView;
 
 public class StudentController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
@@ -61,12 +61,12 @@ public class StudentController extends UserController {
                     break;
                 case 2:
                 	CommonView.printNavbar("FYPMS > Student Menu > Available Projects");
-                    projectView = new AvailableProjectView();
+                    projectView = new ProjectAvailableView();
                     viewAvailableProject(projectView);
                     break;
                 case 3:
                 	CommonView.printNavbar("FYPMS > Student Menu > Allocated Project");
-                    projectView = new AllocatedProjectView();
+                    projectView = new ProjectAllocatedView();
                     viewAllocatedProject(projectView);
                     break;
                 case 4:
@@ -199,7 +199,7 @@ public class StudentController extends UserController {
             return;
         }
 
-        AllocatedProjectView projectView = new AllocatedProjectView();
+        ProjectAllocatedView projectView = new ProjectAllocatedView();
         projectView.displayProjectInfo(project);
 
         String option;

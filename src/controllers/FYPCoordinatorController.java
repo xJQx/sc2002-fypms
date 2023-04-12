@@ -20,7 +20,7 @@ import stores.AuthStore;
 import stores.DataStore;
 import utils.SelectorUtils;
 import views.CommonView;
-import views.SubmittedProjectView;
+import views.ProjectSubmittedView;
 
 public class FYPCoordinatorController extends SupervisorController {
     private static final Scanner sc = new Scanner(System.in);
@@ -120,7 +120,7 @@ public class FYPCoordinatorController extends SupervisorController {
         }
 
         ArrayList<Project> projects;
-        IProjectView projectView = new SubmittedProjectView();
+        IProjectView projectView = new ProjectSubmittedView();
 
         switch (option) {
             case 1:

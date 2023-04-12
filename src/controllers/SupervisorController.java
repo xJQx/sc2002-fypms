@@ -26,7 +26,7 @@ import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
 import views.RequestDeregisterProjectView;
 import views.RequestTransferStudentView;
-import views.SubmittedProjectView;
+import views.ProjectSubmittedView;
 
 public class SupervisorController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
@@ -136,7 +136,7 @@ public class SupervisorController extends UserController {
     }
 
     protected void viewProjects() {
-        projectView = new SubmittedProjectView();
+        projectView = new ProjectSubmittedView();
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         ArrayList<Project> projects = projectSupervisorService.getSubmittedProjects(supervisorID);
 

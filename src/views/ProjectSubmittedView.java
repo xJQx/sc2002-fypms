@@ -6,7 +6,7 @@ import models.Project;
 import models.Student;
 import models.Supervisor;
 
-public class SubmittedProjectView implements IProjectView {
+public class ProjectSubmittedView implements IProjectView {
 
     @Override
     public void displayProjectInfo(Project project) {

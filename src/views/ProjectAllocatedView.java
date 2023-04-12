@@ -5,8 +5,9 @@ import models.Project;
 import models.Student;
 import models.Supervisor;
 
-public class AllocatedProjectView implements IProjectView {
+public class ProjectAllocatedView implements IProjectView {
 
+	@Override
 	public void displayProjectInfo(Project project) {
 		Supervisor supervisor = project.getSupervisor();
 		Student student = project.getStudent();
