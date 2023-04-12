@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import enums.ProjectStatus;
 import enums.RequestStatus;
-import store.DataStore;
+import stores.DataStore;
 
 public class DeregisterProjectRequest extends Request {
 

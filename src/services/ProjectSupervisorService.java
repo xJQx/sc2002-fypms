@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import enums.ProjectStatus;
 import interfaces.IProjectSupervisorService;
 import models.Project;
-import store.DataStore;
+import stores.DataStore;
 
 public class ProjectSupervisorService implements IProjectSupervisorService {
 

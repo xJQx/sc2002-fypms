@@ -5,8 +5,8 @@ import controllers.FYPCoordinatorController;
 import controllers.StudentController;
 import controllers.SupervisorController;
 import models.User;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 import views.CommonView;
 
 public class FypmsApp {

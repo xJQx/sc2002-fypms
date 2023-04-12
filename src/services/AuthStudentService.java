@@ -3,9 +3,8 @@ package services;
 import java.util.Map;
 
 import models.Student;
-
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 public class AuthStudentService extends AuthService {
     @Override

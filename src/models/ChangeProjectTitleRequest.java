@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import enums.RequestStatus;
-import store.DataStore;
+import stores.DataStore;
 
 public class ChangeProjectTitleRequest extends Request {
 	private String newTitle;

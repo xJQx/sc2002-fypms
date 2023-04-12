@@ -2,7 +2,7 @@ package services;
 
 import interfaces.IAuthService;
 import models.User;
-import store.AuthStore;
+import stores.AuthStore;
 
 public abstract class AuthService implements IAuthService {
 	public abstract boolean login(String userID, String password);

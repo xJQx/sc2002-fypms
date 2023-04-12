@@ -2,8 +2,8 @@ package services;
 
 import interfaces.IUserService;
 import models.User;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 public class UserService implements IUserService {
 

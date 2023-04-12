@@ -3,7 +3,7 @@ package views;
 import models.Project;
 import models.Request;
 import models.TransferStudentRequest;
-import store.DataStore;
+import stores.DataStore;
 import utils.RequestViewUtils;
 import interfaces.IRequestView;
 

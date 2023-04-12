@@ -16,9 +16,8 @@ import models.Student;
 
 import services.ProjectStudentService;
 import services.RequestStudentService;
-
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 import utils.SelectorUtils;
 import views.AvailableProjectView;
 import views.RequestAllocateProjectView;

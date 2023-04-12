@@ -8,7 +8,7 @@ import enums.UserRole;
 import interfaces.IRequestSupervisorService;
 import models.Request;
 import models.TransferStudentRequest;
-import store.DataStore;
+import stores.DataStore;
 
 public class RequestSupervisorService implements IRequestSupervisorService {
 

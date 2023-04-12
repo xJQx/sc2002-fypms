@@ -9,7 +9,7 @@ import models.AllocateProjectRequest;
 import models.ChangeProjectTitleRequest;
 import models.DeregisterProjectRequest;
 import models.Request;
-import store.DataStore;
+import stores.DataStore;
 
 public class RequestStudentService implements IRequestStudentService {
 

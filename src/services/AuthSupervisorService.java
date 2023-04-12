@@ -3,9 +3,8 @@ package services;
 import java.util.Map;
 
 import models.Supervisor;
-
-import store.DataStore;
-import store.AuthStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 public class AuthSupervisorService extends AuthService {
     @Override

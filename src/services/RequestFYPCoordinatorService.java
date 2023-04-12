@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import enums.UserRole;
 import interfaces.IRequestFYPCoordinatorService;
 import models.Request;
-import store.DataStore;
+import stores.DataStore;
 
 public class RequestFYPCoordinatorService extends RequestSupervisorService implements IRequestFYPCoordinatorService {
 

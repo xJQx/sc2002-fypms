@@ -1,7 +1,7 @@
 package models;
 
 import enums.ProjectStatus;
-import store.DataStore;
+import stores.DataStore;
 
 public class Project {
 	private static int lastProjectID = 0;
