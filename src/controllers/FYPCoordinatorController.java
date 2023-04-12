@@ -330,7 +330,7 @@ public class FYPCoordinatorController extends SupervisorController {
             projectView.displayProjectInfo(project);
             System.out.println();
         });
-        System.out.println("\nDisplayed all projects:");
+        System.out.println("\nDisplayed all projects.");
     }
 
     @Override
@@ -338,6 +338,6 @@ public class FYPCoordinatorController extends SupervisorController {
         ArrayList<Request> allRequests = requestFYPCoordinatorService.getAllRequests();
         System.out.println("Displaying all requests:\n");
         displayRequests(allRequests);
-        System.out.println("\nDisplayed all requests:");
+        System.out.println("\nDisplayed all requests.");
     }
 }
