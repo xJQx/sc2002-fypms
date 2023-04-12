@@ -104,21 +104,24 @@ public class FYPCoordinatorController extends SupervisorController {
     // ---------- Helper Methods ---------- //
     private void viewProjectsByFilter() {
         System.out.println("\nSelect project by filter menu");
-        System.out.println("Choose an option");
         System.out.println("1. Filter by project status");
         System.out.println("2. Filter by supervisorID");
-        System.out.println("(To quit, do not enter 1 or 2)");
+        System.out.printf("Select option (Enter to return): ");
 
-        if (!sc.hasNextInt()) {
-            sc.nextLine();
-            return;
-        }
+        int option;
 
-        int option = sc.nextInt();
-        sc.nextLine();
+        while (true) {
+            String input = sc.nextLine();
 
-        if (option != 1 && option != 2) {
-            return;
+            if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
+                return;
+            } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                option = Integer.parseInt(input);
+                break;
+            } else { // If the input is not empty and not an integer, prompt the user to enter again
+                System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                continue;
+            }
         }
 
         ArrayList<Project> projects;
@@ -154,18 +157,22 @@ public class FYPCoordinatorController extends SupervisorController {
         String fypCoordinatorID = AuthStore.getCurrentUser().getUserID();
 
         while (true) {
-            System.out.println("Select request option (Enter non-int to exit):");
             System.out.println("1. Supervisor requests");
             System.out.println("2. Allocation requests");
             System.out.println("3. Deallocation requests");
+            System.out.printf("Select request option (Enter to return): ");
 
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
+            int option;
+            String input = sc.nextLine();
+
+            if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
                 return;
+            } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                option = Integer.parseInt(input);
+            } else { // If the input is not empty and not an integer, prompt the user to enter again
+                System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                continue;
             }
-
-            int option = sc.nextInt();
-            sc.nextLine();
 
             if (option < 1 || option > 3) {
                 System.out.println("Invalid option!");
@@ -200,17 +207,21 @@ public class FYPCoordinatorController extends SupervisorController {
             }
 
             while (true) {
-                System.out.println("Select approve/reject (Enter non-int to exit)");
                 System.out.println("1. Approve");
                 System.out.println("2. Reject");
+                System.out.printf("Select approve/reject (Enter to return): ");
 
-                if (!sc.hasNextInt()) {
-                    sc.nextLine();
+                int choice;
+                input = sc.nextLine();
+
+                if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
                     return;
+                } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                    choice = Integer.parseInt(input);
+                } else { // If the input is not empty and not an integer, prompt the user to enter again
+                    System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                    continue;
                 }
-
-                int choice = sc.nextInt();
-                sc.nextLine();
 
                 if (choice < 1 || choice > 2) {
                     System.out.println("Invalid option!");
