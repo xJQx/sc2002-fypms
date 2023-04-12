@@ -37,7 +37,7 @@ public class SupervisorController extends UserController {
         int choice;
 
         do {
-        	CommonView.printNavbar("FYPMS > Supervisor Menu");
+            CommonView.printNavbar("FYPMS > Supervisor Menu");
             System.out.println("1. Change password");
             System.out.println("2. Create projects");
             System.out.println("3. Update submitted project");
@@ -52,35 +52,35 @@ public class SupervisorController extends UserController {
 
             switch (choice) {
                 case 1:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > Change Password");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > Change Password");
                     if (changePassword()) {
-                    	// Restart session by logging out
+                        // Restart session by logging out
                         AuthController.endSession();
                         return;
                     }
                     break;
                 case 2:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > Create Projects");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > Create Projects");
                     createProjects();
                     break;
                 case 3:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > Update Submitted Project");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > Update Submitted Project");
                     updateProject();
                     break;
                 case 4:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > View Submitted Projects");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > View Submitted Projects");
                     viewProjects();
                     break;
                 case 5:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > Pending Requests (View/Approve/Reject)");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > Pending Requests (View/Approve/Reject)");
                     viewApproveRejectPendingRequest();
                     break;
                 case 6:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > View Requests");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > View Requests");
                     viewRequests();
                     break;
                 case 7:
-                	CommonView.printNavbar("FYPMS > Supervisor Menu > Request to Transfer Student");
+                    CommonView.printNavbar("FYPMS > Supervisor Menu > Request to Transfer Student");
                     requestStudentTransfer();
                     break;
                 case 8:
@@ -93,11 +93,11 @@ public class SupervisorController extends UserController {
             }
 
             if (2 <= choice && choice <= 7) {
-            	CommonView.pressEnterToContinue();
+                CommonView.pressEnterToContinue();
             }
         } while (true);
     }
-    
+
     // ---------- Helper Methods ---------- //
     protected void createProjects() {
         System.out.print("Enter the number of projects to create: ");
@@ -152,13 +152,19 @@ public class SupervisorController extends UserController {
             System.out.println("requestID\tTitle");
             requests.forEach(request -> requestView.displayRequestInfo(request));
 
-            System.out.println("Select requestID to approve/reject (Enter non-int to exit)");
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
+            System.out.println("Select requestID to approve/reject (Enter to return)");
+
+            int requestID;
+            String input = sc.nextLine();
+
+            if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
                 return;
+            } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                requestID = Integer.parseInt(input);
+            } else { // If the input is not empty and not an integer, prompt the user to enter again
+                System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                continue;
             }
-            int requestID = sc.nextInt();
-            sc.nextLine();
 
             Optional<Request> optionalSelectedRequest = requests.stream()
                     .filter(request -> request.getRequestID() == requestID)
@@ -166,16 +172,25 @@ public class SupervisorController extends UserController {
 
             if (optionalSelectedRequest.isPresent()) {
                 Request selectedRequest = optionalSelectedRequest.get();
-                System.out.println("\nSelect option (Enter non-int to exit):");
+                System.out.println();
                 System.out.println("1. Approve");
                 System.out.println("2. Reject");
+                System.out.printf("Select option (Enter to return): ");
 
-                if (!sc.hasNextInt()) {
-                    sc.nextLine();
-                    return;
+                int option;
+                while (true) {
+                    input = sc.nextLine();
+
+                    if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
+                        return;
+                    } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                        option = Integer.parseInt(input);
+                        break;
+                    } else { // If the input is not empty and not an integer, prompt the user to enter again
+                        System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                        continue;
+                    }
                 }
-                int option = sc.nextInt();
-                sc.nextLine();
 
                 switch (option) {
                     case 1:
@@ -205,26 +220,32 @@ public class SupervisorController extends UserController {
         ArrayList<Request> incomingRequests = requestSupervisorService.getIncomingRequests(supervisorID);
         ArrayList<Request> outgoingRequests = requestSupervisorService.getOutgoingRequests(supervisorID);
 
-        System.out.println("View incoming/outgoing requests");
-        System.out.println("1. Incoming requests");
-        System.out.println("2. Outgoing requests");
-        System.out.println("(Enter non-int to exit)");
+        while (true) {
+            System.out.println("View incoming/outgoing requests");
+            System.out.println("1. Incoming requests");
+            System.out.println("2. Outgoing requests");
+            System.out.printf("Select option (Enter to return): ");
 
-        if (!sc.hasNextInt()) {
-            sc.nextLine();
-            return;
-        }
+            String input = sc.nextLine();
+            int option;
 
-        int option = sc.nextInt();
-        sc.nextLine();
+            if (input.isEmpty()) {
+                return;
+            } else if (input.matches("[0-9]+")) {
+                option = Integer.parseInt(input);
+            } else {
+                System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                continue;
+            }
 
-        switch (option) {
-            case 1:
-                displayRequests(incomingRequests);
-                break;
-            case 2:
-                displayRequests(outgoingRequests);
-                break;
+            switch (option) {
+                case 1:
+                    displayRequests(incomingRequests);
+                    return;
+                case 2:
+                    displayRequests(outgoingRequests);
+                    return;
+            }
         }
     }
 

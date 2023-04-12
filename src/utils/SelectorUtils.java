@@ -24,13 +24,18 @@ public class SelectorUtils {
             System.out.println("projectID\t\tTitle");
             projects.forEach(project -> System.out.printf("%-20d\t%s\n", project.getProjectID(), project.getTitle()));
 
-            System.out.println("Select projectID (Enter non-int to exit)");
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
+            System.out.printf("\nSelect projectID (Enter to return): ");
+            String input = sc.nextLine();
+            int projectID;
+
+            if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
                 return null;
+            } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                projectID = Integer.parseInt(input);
+            } else { // If the input is not empty and not an integer, prompt the user to enter again
+                System.out.println("Invalid input. Please enter a projectID or press Enter to return.\n");
+                continue;
             }
-            int projectID = sc.nextInt();
-            sc.nextLine();
 
             Optional<Project> optionalSelectedProject = projects.stream()
                     .filter(project -> project.getProjectID() == projectID)
@@ -51,7 +56,7 @@ public class SelectorUtils {
                 System.out.printf("%-20s\t%s\n", supervisor.getSupervisorID(), supervisor.getName());
             });
 
-            System.out.println("\nSelect supervisorID (Enter to return)");
+            System.out.printf("\nSelect supervisorID (Enter to return): ");
             String supervisorID = sc.nextLine().trim();
 
             if (supervisorID.isEmpty()) {
@@ -71,19 +76,24 @@ public class SelectorUtils {
 
     public static ProjectStatus projectStatusSelector() {
         while (true) {
-            System.out.println("Select Project Status (Enter non-int to return)");
+            System.out.println("Project Status");
             System.out.println("1. AVAILABLE");
             System.out.println("2. RESERVED");
             System.out.println("3. UNAVAILABLE");
             System.out.println("4. ALLOCATED");
+            System.out.printf("Select Project Status (Enter to return): ");
 
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
+            String input = sc.nextLine();
+            int option;
+
+            if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
                 return null;
+            } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                option = Integer.parseInt(input);
+            } else { // If the input is not empty and not an integer, prompt the user to enter again
+                System.out.println("Invalid input. Please enter an option or press Enter to return.\n");
+                continue;
             }
-
-            int option = sc.nextInt();
-            sc.nextLine();
 
             if (option < 1 || option > 4) {
                 System.out.println("Invalid option!");
@@ -117,13 +127,19 @@ public class SelectorUtils {
                 requestView.displayRequestInfo(request);
             }
 
-            System.out.println("Select request ID (Enter non-int to exit):");
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
+            System.out.printf("Select request ID (Enter to return): ");
+
+            String input = sc.nextLine();
+            int requestID;
+
+            if (input.isEmpty()) { // If the input is empty (user pressed Enter), return
                 return null;
+            } else if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                requestID = Integer.parseInt(input);
+            } else { // If the input is not empty and not an integer, prompt the user to enter again
+                System.out.println("Invalid input. Please enter a requestID or press Enter to return.\n");
+                continue;
             }
-            int requestID = sc.nextInt();
-            sc.nextLine();
 
             Optional<Request> optionalSelectedRequest = requests.stream()
                     .filter(request -> request.getRequestID() == requestID)
