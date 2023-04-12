@@ -56,6 +56,44 @@ If you prefer to use Eclipse as your IDE, you can also set up the project there.
 
 That's it! You should now have the project up and running in Eclipse.
 
+## Login Credentials
+
+This section contains some login credentials for users with different roles. The full list is available in `data/user.csv` file.
+
+**Students:**
+
+   ```bash
+   # Student 1
+   USERID: YCHERN
+   PASSWORD: password
+
+   # Student 2
+   USERID: KOH1
+   PASSWORD: password
+
+   # Student 3
+   USERID: CT113
+   PASSWORD: password
+   ```
+**Supervisors:**
+
+   ```bash
+   # Supervisor 1
+   USERID: BOAN
+   PASSWORD: password
+
+   # Supervisor 2
+   USERID: LIMO
+   PASSWORD: password
+   ```
+**FYP Coordinator:**
+
+   ```bash
+   # FYP Coordinator 1
+   USERID: ASFLI
+   PASSWORD: password
+   ```
+
 ## Authors:
 
 - [<img src="https://github.com/xJQx.png" height="20" width="20" /> Jing Qiang](https://github.com/xJQx)
