@@ -20,6 +20,9 @@ public class AllocateProjectRequest extends Request {
 	public AllocateProjectRequest(String senderID, String receiverID, int projectID) {
 		super(senderID, receiverID, projectID);
 		super.setType(RequestType.ALLOCATE_PROJECT);
+		super.getProject().setStatus(ProjectStatus.RESERVED);
+		super.getProject().setStudent(senderID);
+		DataStore.saveData();
 	}
 
 	// ---------- Methods ---------- //
