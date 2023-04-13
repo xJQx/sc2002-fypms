@@ -33,10 +33,28 @@ import views.ProjectSubmittedView;
  * and perform necessary operations.
  */
 public class FYPCoordinatorController extends SupervisorController {
+    /**
+     * {@link Scanner} object to get input from the user.
+     */
     private static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * An instance of the {@link IRequestFYPCoordinatorService} interface
+     * used to perform operations related to requests in the FYPMS system.
+     */
     private static final IRequestFYPCoordinatorService requestFYPCoordinatorService = new RequestFYPCoordinatorService();
+
+    /**
+     * An instance of the {@link IProjectFYPCoordinatorService} interface
+     * used to perform operations related to projects in the FYPMS system.
+     */
     private static final IProjectFYPCoordinatorService projectFYPCoordinatorService = new ProjectFYPCoordinatorService();
+
+    /**
+     * Constructs an instance of the {@link FYPCoordinatorController} class.
+     */
+    public FYPCoordinatorController() {
+    };
 
     /**
      * Starts the FYP Coordinator menu and prompts the user to select an action.

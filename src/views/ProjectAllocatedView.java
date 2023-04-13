@@ -7,22 +7,28 @@ import models.Supervisor;
 
 /**
  * The {@link ProjectAllocatedView} class implements {@link IProjectView} and
- * provides methods for displaying project information when the project is allocated.
+ * provides methods for displaying project information when the project is
+ * allocated.
  */
 public class ProjectAllocatedView implements IProjectView {
+	/**
+	 * Constructs an instance of the {@link ProjectAllocatedView} class.
+	 */
+	public ProjectAllocatedView() {
+	};
 
 	@Override
 	public void displayProjectInfo(Project project) {
 		Supervisor supervisor = project.getSupervisor();
 		Student student = project.getStudent();
-		
+
 		System.out.println("Project ID: " + project.getProjectID());
 		System.out.println("Project Title: " + project.getTitle());
 		System.out.println("Project Status: " + project.getStatus());
-		
+
 		System.out.println("Supervisor's name: " + supervisor.getName());
 		System.out.println("Supervisor's email address: " + supervisor.getEmail());
-		
+
 		System.out.println("Student's name: " + student.getName());
 		System.out.println("Student's email address: " + student.getEmail());
 	}

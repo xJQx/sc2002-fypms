@@ -2,15 +2,41 @@ package models;
 
 import enums.UserRole;
 
+/**
+ * The {@link User} class represents a user in the system.
+ * Users have a unique ID, a name, an email address, and a password.
+ * Each user also has a role, which determines their level of access
+ * to the system.
+ */
 public class User {
+	/**
+	 * The ID of the user.
+	 */
 	private String userID;
+
+	/**
+	 * The password of the user.
+	 */
 	private String password;
+
+	/**
+	 * The name of the user.
+	 */
 	private String name;
+
+	/**
+	 * The email address of the user.
+	 */
 	private String email;
+
+	/**
+	 * The {@link UserRole} of the user.
+	 */
 	private UserRole role;
 
 	/**
-	 * Constructs a {@link User} object with given user ID, name, email, and password.
+	 * Constructs a {@link User} object with given user ID, name, email, and
+	 * password.
 	 * 
 	 * @param userID   the ID of the user
 	 * @param name     the name of the user
@@ -89,7 +115,8 @@ public class User {
 	 * @return true if password change is successful, false otherwise
 	 */
 	public Boolean setPassword(String oldPassword, String newPassword) {
-		if (!oldPassword.equals(this.password)) return false;
+		if (!oldPassword.equals(this.password))
+			return false;
 		this.password = newPassword;
 		return true;
 	}

@@ -72,6 +72,12 @@ public class CsvDataService implements IFileDataService {
 	 */
 	private static List<String> changeProjectTitleRequestCsvHeaders = new ArrayList<String>();
 
+	/**
+	 * Constructs an instance of the {@link CsvDataService} class.
+	 */
+    public CsvDataService() {
+    };
+
 	// ---------- Helper Function ---------- //
 	/**
 	 * Reads data from the CSV file located at the given file path and returns it as

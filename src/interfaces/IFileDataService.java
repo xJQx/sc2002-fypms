@@ -8,6 +8,10 @@ import models.Request;
 import models.Student;
 import models.Supervisor;
 
+/**
+ * The {@link IFileDataService} interface defines a contract for importing and
+ * exporting data to and from files.
+ */
 public interface IFileDataService {
 	// ---------- Student ---------- //
 	/**

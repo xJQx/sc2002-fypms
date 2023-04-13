@@ -16,8 +16,21 @@ import services.AuthFYPCoordinatorService;
  * authentication process.
  */
 public class AuthController {
+    /**
+     * {@link Scanner} object to get input from the user.
+     */
     private static final Scanner sc = new Scanner(System.in);
+
+    /**
+     * {@link IAuthService} object to authenticate the user.
+     */
     private static IAuthService authService;
+
+    /**
+     * Private constructor to prevent instantiation of the class.
+     */
+    private AuthController() {
+    };
 
     /**
      * Starts a user session by prompting the user to select their role and

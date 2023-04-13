@@ -17,6 +17,12 @@ import stores.DataStore;
  */
 public class ProjectSupervisorService implements IProjectSupervisorService {
 
+    /**
+     * Constructs an instance of the {@link ProjectSupervisorService} class.
+     */
+    public ProjectSupervisorService() {
+    };
+
     @Override
     public ArrayList<Project> getSubmittedProjects(String supervisorID) {
         Map<Integer, Project> projectsData = DataStore.getProjectsData();

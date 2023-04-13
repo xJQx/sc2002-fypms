@@ -11,6 +11,12 @@ import models.User;
  */
 public class RequestViewUtils {
 	/**
+	 * Constructs an instance of the {@link RequestViewUtils} class.
+	 */
+	public RequestViewUtils() {
+	};
+
+	/**
 	 * Prints the header for a request, including its ID, type, and status.
 	 *
 	 * @param request           the request object to be displayed

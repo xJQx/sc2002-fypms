@@ -22,7 +22,16 @@ import views.RequestTransferStudentView;
  * input.
  */
 public class SelectorUtils {
+    /**
+     * {@link Scanner} object to get input from the user.
+     */
     private static final Scanner sc = new Scanner(System.in);
+
+    /**
+     * Constructs an instance of the {@link SelectorUtils} class.
+     */
+    public SelectorUtils() {
+    };
 
     /**
      * Selects a project from a list of projects by getting user input.

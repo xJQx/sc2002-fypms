@@ -18,6 +18,12 @@ import stores.DataStore;
  */
 public class RequestStudentService implements IRequestStudentService {
 
+	/**
+	 * Constructs an instance of the {@link RequestStudentService} class.
+	 */
+	public RequestStudentService() {
+	};
+
 	// Get Requests sent by Students themselves
 	@Override
 	public ArrayList<Request> getStudentRequests(String studentID) {

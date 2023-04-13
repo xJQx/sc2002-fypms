@@ -16,6 +16,11 @@ import stores.DataStore;
  * functionalities for FYP Coordinators.
  */
 public class ProjectFYPCoordinatorService extends ProjectSupervisorService implements IProjectFYPCoordinatorService {
+    /**
+     * Constructs an instance of the {@link ProjectFYPCoordinatorService} class.
+     */
+    public ProjectFYPCoordinatorService() {
+    };
 
     @Override
     public ArrayList<Project> getAllProjects() {

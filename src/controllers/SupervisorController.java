@@ -35,12 +35,36 @@ import views.ProjectSubmittedView;
  * perform necessary operations.
  */
 public class SupervisorController extends UserController {
+    /**
+     * {@link Scanner} object to get input from the user.
+     */
     private static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * The project supervisor service used to perform operations on projects.
+     */
     protected static final IProjectSupervisorService projectSupervisorService = new ProjectSupervisorService();
+
+    /**
+     * The request supervisor service used to perform operations on requests.
+     */
     protected static final IRequestSupervisorService requestSupervisorService = new RequestSupervisorService();
+
+    /**
+     * The project view used to display project information.
+     */
     protected static IProjectView projectView;
+
+    /**
+     * The request view used to display request information.
+     */
     protected static IRequestView requestView;
+
+    /**
+     * Constructs an instance of the {@link SupervisorController} class.
+     */
+    public SupervisorController() {
+    };
 
     /**
      * Starts the supervisor controller and displays the main menu for the

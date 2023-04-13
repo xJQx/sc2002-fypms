@@ -18,6 +18,12 @@ import stores.DataStore;
  */
 public class RequestFYPCoordinatorService extends RequestSupervisorService implements IRequestFYPCoordinatorService {
 
+	/**
+	 * Constructs an instance of the {@link RequestFYPCoordinatorService} class.
+	 */
+	public RequestFYPCoordinatorService() {
+	};
+
 	// Get All Requests
 	@Override
 	public ArrayList<Request> getAllRequests() {

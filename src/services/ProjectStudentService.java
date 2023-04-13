@@ -16,6 +16,11 @@ import stores.DataStore;
  * project-related functionalities for students.
  */
 public class ProjectStudentService implements IProjectStudentService {
+        /**
+         * Constructs an instance of the {@link ProjectStudentService} class.
+         */
+        public ProjectStudentService() {
+        };
 
         @Override
         public ArrayList<Project> getAvailableProjects() {

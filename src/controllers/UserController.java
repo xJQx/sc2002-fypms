@@ -13,7 +13,16 @@ import services.UserService;
  * {@link FYPCoordinatorController}.
  */
 public class UserController {
+    /**
+     * {@link Scanner} object to get input from the user.
+     */
     private static final Scanner sc = new Scanner(System.in);
+
+    /**
+     * Constructs an instance of the {@link UserController} class.
+     */
+    public UserController() {
+    };
 
     /**
      * Changes the user's password by prompting for their old and new passwords.

@@ -12,6 +12,12 @@ import stores.AuthStore;
 public abstract class AuthService implements IAuthService {
     public abstract boolean login(String userID, String password);
 
+    /**
+     * Constructs an instance of the {@link AuthService} class.
+     */
+    public AuthService() {
+    };
+
     @Override
     public boolean logout() {
         AuthStore.setCurrentUser(null);

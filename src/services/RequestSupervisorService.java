@@ -17,6 +17,12 @@ import stores.DataStore;
  */
 public class RequestSupervisorService implements IRequestSupervisorService {
 
+	/**
+	 * Constructs an instance of the {@link RequestSupervisorService} class.
+	 */
+	public RequestSupervisorService() {
+	};
+
 	// View pending requests from students
 	@Override
 	public ArrayList<Request> getStudentPendingRequests(String supervisorID) {
