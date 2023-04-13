@@ -24,12 +24,26 @@ import views.RequestDeregisterProjectView;
 import views.CommonView;
 import views.ProjectAllocatedView;
 
+/**
+ * The {@link StudentController} class is responsible for handling the
+ * student-specific user interface and user interactions. It extends the
+ * {@link UserController} class and provides functionality for students to
+ * view available projects, view allocated projects, send project allocation
+ * requests, request project title changes, and request FYP deregistration.
+ * This class utilizes {@link IProjectStudentService} and
+ * {@link IRequestStudentService} to interact with the underlying data and
+ * perform necessary operations.
+ */
 public class StudentController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
     private static final IProjectStudentService projectStudentService = new ProjectStudentService();
     private static final IRequestStudentService requestStudentService = new RequestStudentService();
     protected static IRequestView requestView;
 
+    /**
+     * Starts the student menu and prompts the user to select an action.
+     * The method loops until the user chooses to exit the student menu.
+     */
     public void start() {
         IProjectView projectView;
         int choice;
@@ -99,6 +113,12 @@ public class StudentController extends UserController {
     }
 
     // ---------- Helper Methods ---------- //
+    /**
+     * Displays the allocated project for the current student.
+     *
+     * @param projectView the {@link IProjectView} instance for displaying project
+     *                    information
+     */
     private void viewAllocatedProject(IProjectView projectView) {
         Project project = projectStudentService.getAllocatedProject(AuthStore.getCurrentUser().getUserID());
 
@@ -109,6 +129,12 @@ public class StudentController extends UserController {
         }
     }
 
+    /**
+     * Displays the list of available projects for the current student.
+     *
+     * @param projectView the {@link IProjectView} instance for displaying project
+     *                    information
+     */
     private void viewAvailableProject(IProjectView projectView) {
         Student student = (Student) AuthStore.getCurrentUser();
         if (student.getIsDeregistered()) {
@@ -130,6 +156,9 @@ public class StudentController extends UserController {
         }
     }
 
+    /**
+     * Displays the request status and history for the current student.
+     */
     private void viewRequests() {
         System.out.println("Displaying all student requests");
         ArrayList<Request> requests = requestStudentService.getStudentRequests(AuthStore.getCurrentUser().getUserID());
@@ -148,6 +177,9 @@ public class StudentController extends UserController {
         }
     }
 
+    /**
+     * Sends a project allocation request to the FYP coordinator.
+     */
     private void sendProjectToCoordinator() {
         String studentID = AuthStore.getCurrentUser().getUserID();
         Project reservedProject = projectStudentService.getReservedProject(studentID);
@@ -176,6 +208,9 @@ public class StudentController extends UserController {
         System.out.println("Request sent to FYP coordinator successfully!");
     }
 
+    /**
+     * Sends a request for a project title change.
+     */
     private void requestTitleChange() {
         String studentID = AuthStore.getCurrentUser().getUserID();
         Project project = projectStudentService.getAllocatedProject(studentID);
@@ -200,6 +235,9 @@ public class StudentController extends UserController {
         System.out.println("Title request sent successfully!");
     }
 
+    /**
+     * Sends a request for FYP deregistration.
+     */
     private void requestFYPDeregistration() {
         String studentID = AuthStore.getCurrentUser().getUserID();
         String fypCoordinatorID = DataStore.getFYPCoordinatorsData().keySet().iterator().next();
