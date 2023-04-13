@@ -6,6 +6,11 @@ import models.Project;
 import models.Student;
 import models.Supervisor;
 
+/**
+ * The {@link ProjectSubmittedView} class implements {@link IProjectView} and
+ * provides methods for displaying project information when the project
+ * is submitted.
+ */
 public class ProjectSubmittedView implements IProjectView {
 
     @Override

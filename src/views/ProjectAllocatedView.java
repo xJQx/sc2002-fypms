@@ -5,6 +5,10 @@ import models.Project;
 import models.Student;
 import models.Supervisor;
 
+/**
+ * The {@link ProjectAllocatedView} class implements {@link IProjectView} and
+ * provides methods for displaying project information when the project is allocated.
+ */
 public class ProjectAllocatedView implements IProjectView {
 
 	@Override

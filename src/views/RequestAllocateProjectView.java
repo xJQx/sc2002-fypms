@@ -5,6 +5,11 @@ import models.Request;
 import utils.RequestViewUtils;
 import interfaces.IRequestView;
 
+/**
+ * The {@link RequestAllocateProjectView} class implements {@link IRequestView}
+ * and provides methods for displaying request information related to 
+ * allocating a project to a student.
+ */
 public class RequestAllocateProjectView implements IRequestView {
 
 	@Override

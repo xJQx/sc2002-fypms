@@ -7,6 +7,12 @@ import utils.RequestViewUtils;
 import enums.RequestType;
 import interfaces.IRequestView;
 
+/**
+ * The {@link RequestDeregisterProjectView} class implements
+ * {@link IRequestView} and provides methods for displaying 
+ * request information related to deregistering a student
+ * from a project.
+ */
 public class RequestDeregisterProjectView implements IRequestView{
 
 	@Override

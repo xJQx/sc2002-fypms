@@ -8,6 +8,11 @@ import utils.RequestViewUtils;
 import enums.RequestType;
 import interfaces.IRequestView;
 
+/**
+ * The {@link RequestTransferStudentView} class implements {@link IRequestView}
+ * and provides methods for displaying request information related
+ * to transferring a student to a replacement supervisor.
+ */
 public class RequestTransferStudentView implements IRequestView{
 
 	@Override
