@@ -16,9 +16,20 @@ import views.RequestChangeProjectTitleView;
 import views.RequestDeregisterProjectView;
 import views.RequestTransferStudentView;
 
+/**
+ * The {@link SelectorUtils} class provides utility methods to select various
+ * entities like projects, supervisors, and requests from a list by getting user
+ * input.
+ */
 public class SelectorUtils {
     private static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Selects a project from a list of projects by getting user input.
+     *
+     * @param projects the list of projects
+     * @return the selected project or null if no project is selected
+     */
     public static Project projectSelector(ArrayList<Project> projects) {
         while (true) {
             System.out.println("projectID\t\tTitle");
@@ -49,6 +60,12 @@ public class SelectorUtils {
         }
     }
 
+    /**
+     * Selects a supervisor from a map of supervisors by getting user input.
+     *
+     * @param supervisors the map of supervisors
+     * @return the selected supervisor or null if no supervisor is selected
+     */
     public static Supervisor supervisorSelector(Map<String, Supervisor> supervisors) {
         while (true) {
             System.out.println("supervisorID\t\tName");
@@ -74,6 +91,11 @@ public class SelectorUtils {
         }
     }
 
+    /**
+     * Selects a project status by getting user input.
+     *
+     * @return the selected project status or null if no status is selected
+     */
     public static ProjectStatus projectStatusSelector() {
         while (true) {
             System.out.println("Project Status");
@@ -104,6 +126,12 @@ public class SelectorUtils {
         }
     }
 
+    /**
+     * Selects a request from a list of requests by getting user input.
+     *
+     * @param requests the list of requests
+     * @return the selected request or null if no request is selected
+     */
     public static Request requestSelector(ArrayList<Request> requests) {
         if (requests == null) {
             return null;
