@@ -1,8 +1,28 @@
 # Final Year Project Management System
 
+**Team:** [<img src="https://github.com/xJQx.png" height="20" width="20" /> Jing Qiang](https://github.com/xJQx) |
+[<img src="https://github.com/ztjhz.png" height="20" width="20" /> Jing Hua](https://github.com/ztjhz) |
+[<img src="https://github.com/trinionggg.png" height="20" width="20" /> Trini](https://github.com/trinionggg)
+
 This project is a Java-based application for managing final year projects (FYP) for students in tertiary institutions. It features authentication, user management, project management, and communication between supervisors and students. This README file provides instructions on how to clone, compile, and run the project.
 
-## FYPMS setup instructions
+## Table of Contents
+
+- [Final Year Project Management System](#final-year-project-management-system)
+  - [Table of Contents](#table-of-contents)
+- [FYPMS setup instructions](#fypms-setup-instructions)
+  - [Compiling and Running the project](#compiling-and-running-the-project)
+    - [Using the terminal](#using-the-terminal)
+    - [Using Eclipse](#using-eclipse)
+  - [Generating JavaDocs](#generating-javadocs)
+    - [Using the terminal](#using-the-terminal-1)
+    - [Using Eclipse](#using-eclipse-1)
+- [Usage](#usage)
+  - [Login Credentials](#login-credentials)
+
+# FYPMS setup instructions
+
+## Compiling and Running the project
 
 ### Using the terminal
 
@@ -56,46 +76,90 @@ If you prefer to use Eclipse as your IDE, you can also set up the project there.
 
 That's it! You should now have the project up and running in Eclipse.
 
+## Generating JavaDocs
+
+### Using the terminal
+
+Follow the steps below to generate JavaDocs using the terminal:
+
+1. Open you terminal.
+2. Navigate to the root directory of the project.
+3. Run the following command in the terminal:
+
+   ```bash
+    javadoc -d docs -sourcepath src -subpackages controllers:enums:interfaces:main:models:services:stores:utils:views -private
+   ```
+
+   This command will generate the JavaDocs and save them in the docs directory in HTML format.
+
+4. Navigate to the `docs` directory using the following command:
+
+   ```bash
+   cd docs
+   ```
+
+5. Open the `index.html` file in a web browser to view the generated JavaDocs.
+
+Congratulations, you have successfully created and viewed the JavaDocs.
+
+### Using Eclipse
+
+1. Open the Eclipse IDE and open your Java project.
+
+2. Select the package or class for which you want to generate JavaDocs.
+
+3. Go to the "Project" menu and select "Generate Javadoc".
+
+4. In the "Generate Javadoc" dialog box, select the "Private" option to generate JavaDocs for private classes and members.
+
+5. Choose the destination folder where you want to save the generated JavaDocs.
+
+6. In the "Javadoc command line arguments" field, add any additional arguments that you want to include, such as `-classpath`.
+
+7. Click the "Finish" button to start the JavaDocs generation process.
+
+8. Once the JavaDocs have been generated, you can view them by opening the `index.html` file in your web browser.
+
+Congratulations, you have successfully created and viewed the JavaDocs.
+
+# Usage
+
 ## Login Credentials
 
 This section contains some login credentials for users with different roles. The full list is available in `data/user.csv` file.
 
 **Students:**
 
-   ```bash
-   # Student 1
-   USERID: YCHERN
-   PASSWORD: password
+```bash
+# Student 1
+USERID: YCHERN
+PASSWORD: password
 
-   # Student 2
-   USERID: KOH1
-   PASSWORD: password
+# Student 2
+USERID: KOH1
+PASSWORD: password
 
-   # Student 3
-   USERID: CT113
-   PASSWORD: password
-   ```
+# Student 3
+USERID: CT113
+PASSWORD: password
+```
+
 **Supervisors:**
 
-   ```bash
-   # Supervisor 1
-   USERID: BOAN
-   PASSWORD: password
+```bash
+# Supervisor 1
+USERID: BOAN
+PASSWORD: password
 
-   # Supervisor 2
-   USERID: LIMO
-   PASSWORD: password
-   ```
+# Supervisor 2
+USERID: LIMO
+PASSWORD: password
+```
+
 **FYP Coordinator:**
 
-   ```bash
-   # FYP Coordinator 1
-   USERID: ASFLI
-   PASSWORD: password
-   ```
-
-## Authors:
-
-- [<img src="https://github.com/xJQx.png" height="20" width="20" /> Jing Qiang](https://github.com/xJQx)
-- [<img src="https://github.com/ztjhz.png" height="20" width="20" /> Jing Hua](https://github.com/ztjhz)
-- [<img src="https://github.com/trinionggg.png" height="20" width="20" /> Trini](https://github.com/trinionggg)
+```bash
+# FYP Coordinator 1
+USERID: ASFLI
+PASSWORD: password
+```
