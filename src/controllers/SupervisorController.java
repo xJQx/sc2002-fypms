@@ -25,6 +25,15 @@ import views.RequestDeregisterProjectView;
 import views.RequestTransferStudentView;
 import views.ProjectSubmittedView;
 
+/**
+ * The {@link SupervisorController} class handles the user interactions for
+ * supervisors. It is responsible for displaying the supervisor menu, executing
+ * actions based on user input, and managing the views and services associated
+ * with the supervisor's tasks.
+ * This class utilizes {@link IProjectSupervisorService} and
+ * {@link IRequestSupervisorService} to interact with the underlying data and
+ * perform necessary operations.
+ */
 public class SupervisorController extends UserController {
     private static final Scanner sc = new Scanner(System.in);
 
@@ -33,6 +42,12 @@ public class SupervisorController extends UserController {
     protected static IProjectView projectView;
     protected static IRequestView requestView;
 
+    /**
+     * Starts the supervisor controller and displays the main menu for the
+     * supervisor. The user can interact with the menu to perform actions like
+     * changing password, creating projects, updating projects, viewing projects,
+     * and handling requests.
+     */
     public void start() {
         int choice;
 
@@ -99,6 +114,10 @@ public class SupervisorController extends UserController {
     }
 
     // ---------- Helper Methods ---------- //
+    /**
+     * Creates new projects based on user input and adds them to the supervisor's
+     * project list.
+     */
     protected void createProjects() {
         System.out.print("Enter the number of projects to create: ");
         int projectCount = sc.nextInt();
@@ -118,6 +137,9 @@ public class SupervisorController extends UserController {
         projectSupervisorService.createProjects(projects);
     }
 
+    /**
+     * Allows the supervisor to update the title of a selected project.
+     */
     protected void updateProject() {
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         ArrayList<Project> projects = projectSupervisorService.getSubmittedProjects(supervisorID);
@@ -132,6 +154,9 @@ public class SupervisorController extends UserController {
         }
     }
 
+    /**
+     * Displays the submitted projects of the supervisor.
+     */
     protected void viewProjects() {
         projectView = new ProjectSubmittedView();
         String supervisorID = AuthStore.getCurrentUser().getUserID();
@@ -143,6 +168,9 @@ public class SupervisorController extends UserController {
         }
     }
 
+    /**
+     * Displays a list of pending requests for the supervisor to approve or reject.
+     */
     protected void viewApproveRejectPendingRequest() {
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         requestView = new RequestChangeProjectTitleView();
@@ -215,6 +243,9 @@ public class SupervisorController extends UserController {
         }
     }
 
+    /**
+     * Displays the incoming and outgoing requests for the supervisor.
+     */
     protected void viewRequests() {
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         ArrayList<Request> incomingRequests = requestSupervisorService.getIncomingRequests(supervisorID);
@@ -249,6 +280,12 @@ public class SupervisorController extends UserController {
         }
     }
 
+    /**
+     * Helper method to display the request information for a list of requests.
+     * 
+     * @param requests an {@link ArrayList} of {@link Request} objects to be
+     *                 displayed
+     */
     protected void displayRequests(ArrayList<Request> requests) {
         for (Request request : requests) {
             if (request.getType() == RequestType.ALLOCATE_PROJECT) {
@@ -267,6 +304,10 @@ public class SupervisorController extends UserController {
         }
     }
 
+    /**
+     * Allows the supervisor to initiate a student transfer request by selecting a
+     * project and a replacement supervisor.
+     */
     protected void requestStudentTransfer() {
         String supervisorID = AuthStore.getCurrentUser().getUserID();
         String coordinatorID = DataStore.getFYPCoordinatorsData().keySet().iterator().next();

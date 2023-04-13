@@ -8,10 +8,22 @@ import services.AuthStudentService;
 import services.AuthSupervisorService;
 import services.AuthFYPCoordinatorService;
 
+/**
+ * The {@link AuthController} class provides utility methods for managing
+ * user authentication within the application. It offers methods to start
+ * and end user sessions, as well as handle user login and logout. This
+ * class utilizes the {@link IAuthService} interface for handling the
+ * authentication process.
+ */
 public class AuthController {
     private static final Scanner sc = new Scanner(System.in);
     private static IAuthService authService;
 
+    /**
+     * Starts a user session by prompting the user to select their role and
+     * enter their credentials. The method loops until valid credentials are
+     * provided or the system is shut down.
+     */
     public static void startSession() {
         int choice = 0;
         boolean authenticated = false;
@@ -29,9 +41,9 @@ public class AuthController {
             } while (choice < 0 || choice > 3);
 
             switch (choice) {
-            	case 0:
-            		System.out.println("Shutting down FYPMS...");
-            		return;
+                case 0:
+                    System.out.println("Shutting down FYPMS...");
+                    return;
                 case 1:
                     authService = new AuthStudentService();
                     break;
@@ -60,6 +72,10 @@ public class AuthController {
         } while (!authenticated);
     }
 
+    /**
+     * Ends the current user session by logging the user out and displaying a
+     * logout message.
+     */
     public static void endSession() {
         authService.logout();
         System.out.println("User logged out!");

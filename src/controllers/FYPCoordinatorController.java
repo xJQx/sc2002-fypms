@@ -24,12 +24,24 @@ import utils.SelectorUtils;
 import views.CommonView;
 import views.ProjectSubmittedView;
 
+/**
+ * The {@link FYPCoordinatorController} class extends
+ * {@link SupervisorController} and provides utility methods for managing the
+ * FYP Coordinator user role within the application.
+ * This class utilizes {@link IRequestFYPCoordinatorService} and
+ * {@link IProjectFYPCoordinatorService} to interact with the underlying data
+ * and perform necessary operations.
+ */
 public class FYPCoordinatorController extends SupervisorController {
     private static final Scanner sc = new Scanner(System.in);
 
     private static final IRequestFYPCoordinatorService requestFYPCoordinatorService = new RequestFYPCoordinatorService();
     private static final IProjectFYPCoordinatorService projectFYPCoordinatorService = new ProjectFYPCoordinatorService();
 
+    /**
+     * Starts the FYP Coordinator menu and prompts the user to select an action.
+     * The method loops until the user chooses to exit the FYP Coordinator menu.
+     */
     @Override
     public void start() {
         int choice;
@@ -102,6 +114,9 @@ public class FYPCoordinatorController extends SupervisorController {
     }
 
     // ---------- Helper Methods ---------- //
+    /**
+     * Displays all projects with filters applied.
+     */
     private void viewProjectsByFilter() {
         System.out.println("\nSelect project by filter menu");
         System.out.println("1. Filter by project status");
@@ -152,6 +167,12 @@ public class FYPCoordinatorController extends SupervisorController {
         });
     }
 
+    /**
+     * Overrides the {@link SupervisorController}'s method for viewing, approving,
+     * and rejecting pending requests. This implementation is tailored for the FYP
+     * Coordinator role, handling additional request types and updating project
+     * availability when necessary.
+     */
     @Override
     protected void viewApproveRejectPendingRequest() {
         String fypCoordinatorID = AuthStore.getCurrentUser().getUserID();
@@ -250,6 +271,12 @@ public class FYPCoordinatorController extends SupervisorController {
         }
     }
 
+    /**
+     * A utility function that updates the availability of projects after a request
+     * (allocate, transfer, deregister) has been completed.
+     *
+     * @param request A {@link Request} object representing the request.
+     */
     private void updateAvailabilityOfProjects(Request request) {
         if (request.getType() == RequestType.TRANSFER_STUDENT) {
             TransferStudentRequest transferRequest = (TransferStudentRequest) request;
@@ -308,19 +335,39 @@ public class FYPCoordinatorController extends SupervisorController {
         }
     }
 
+    /**
+     * Logs the status of the supervisor, including their name, ID, and the number
+     * of projects they are currently supervising.
+     *
+     * @param name          The supervisor's name.
+     * @param id            The supervisor's ID.
+     * @param numOfProjects The number of projects the supervisor is currently
+     *                      supervising.
+     */
     private void logSupervisorStatus(String name, String id, int numOfProjects) {
         System.out.printf("\n%s (%s) is now supervising %d projects.\n", name, id, numOfProjects);
     }
 
+    /**
+     * Logs a message indicating that a supervisor's maximum project capacity has
+     * been reached adn that remaining available projects are now unavailable.
+     */
     private void logMaxCapacityReached() {
         System.out.println("Max supervising projects reached!");
         System.out.println("Remaining available projects are now unavailable.");
     }
 
+    /**
+     * Logs a message indicating that a supervisor's maximum project capacity has
+     * not been reached and that unavailable projects are not available.
+     */
     private void logMaxCapacityUnreached() {
         System.out.println("Unavailable projects are now available.");
     }
 
+    /**
+     * Displays all projects
+     */
     @Override
     protected void viewProjects() {
         ArrayList<Project> allProjects = projectFYPCoordinatorService.getAllProjects();
@@ -333,6 +380,9 @@ public class FYPCoordinatorController extends SupervisorController {
         System.out.println("\nDisplayed all projects.");
     }
 
+    /**
+     * Displays all requests
+     */
     @Override
     protected void viewRequests() {
         ArrayList<Request> allRequests = requestFYPCoordinatorService.getAllRequests();
