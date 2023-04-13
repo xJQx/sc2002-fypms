@@ -1,0 +1,87 @@
+UserID,Password,Email,Role,Name
+YCHERN,password,YCHERN@e.ntu.edu.sg;,student,CHERN 
+KOH1,password,KOH1@e.ntu.edu.sg;,student,KOH 
+BR015,password,BR015@e.ntu.edu.sg;,student,BRANDON 
+CT113,password,CT113@e.ntu.edu.sg;,student,CALVIN 
+YCN019,password,YCN019@e.ntu.edu.sg;,student,CHAN
+DL007,password,DL007@e.ntu.edu.sg;,student,DENISE
+DON84,password,DON84@e.ntu.edu.sg;,student,DONG
+ELI34,password,ELI34@e.ntu.edu.sg;,student,ERNEST
+LE51,password,LE51@e.ntu.edu.sg;,student,LEE 
+SL22,password,SL22@e.ntu.edu.sg;,student,LIU 
+AKY013,password,AKY013@e.ntu.edu.sg;,student,RAWAL
+ASMADHUKUMAR,password,ASMADHUKUMAR@NTU.EDU.SG,supervisor,A S Madhukumar
+ASSOURIN,password,ASSOURIN@ntu.edu.sg,supervisor,Alexei Sourin
+ANUPAM,password,ANUPAM@NTU.EDU.SG,supervisor,Anupam Chattopadhyay
+ANWITAMAN,password,ANWITAMAN@NTU.EDU.SG,supervisor,Anwitaman Datta
+ARVINDE,password,ARVINDE@NTU.EDU.SG,supervisor,Arvind Easwaran
+BOAN,password,BOAN@NTU.EDU.SG,supervisor,Bo An
+ASWTCAI,password,ASWTCAI@ntu.edu.sg,supervisor,Cai Wentong
+ASTJCHAM,password,ASTJCHAM@NTU.EDU.SG,supervisor,Cham Tat Jen
+ASSCHAN,password,ASSCHAN@NTU.EDU.SG,supervisor,Chan Syin
+CCLOY,password,CCLOY@NTU.EDU.SG,supervisor,Chen Change Loy
+ASLTCHIA,password,ASLTCHIA@ntu.edu.sg,supervisor,Chia Liang Tien
+ASESCHNG,password,ASESCHNG@NTU.EDU.SG,supervisor,Chng Eng Siong
+GAOCONG,password,GAOCONG@NTU.EDU.SG,supervisor,Cong Gao
+ASDRAJAN,password,ASDRAJAN@NTU.EDU.SG,supervisor,Deepu Rajan
+ASDOUGLAS,password,ASDOUGLAS@NTU.EDU.SG,supervisor,Douglas Leslie Maskell
+DNIYATO,password,DNIYATO@NTU.EDU.SG,supervisor,Dusit Niyato
+CAMBRIA,password,CAMBRIA@NTU.EDU.SG,supervisor,Erik Cambria
+xyfan,password,xyfan@ntu.edu.sg,supervisor,Fan Xiuyi
+ASWBGOH,password,ASWBGOH@ntu.edu.sg,supervisor,Goh Wooi Boon
+CTGUAN,password,CTGUAN@NTU.EDU.SG,supervisor,Guan Cuntai
+YHE,password,YHE@NTU.EDU.SG,supervisor,He Ying
+ASSYHUANG,password,ASSYHUANG@ntu.edu.sg,supervisor,Huang Shell Ying
+ASSCHUI,password,ASSCHUI@ntu.edu.sg,supervisor,Hui Siu Cheung
+SRJOTY,password,SRJOTY@NTU.EDU.SG,supervisor,Joty Shafiq Rayhan
+YPKE,password,YPKE@NTU.EDU.SG,supervisor,"Ke Yiping, Kelly"
+ADAMSKONG,password,ADAMSKONG@NTU.EDU.SG,supervisor,Kong Wai-Kin Adams
+ASCKKWOH,password,ASCKKWOH@ntu.edu.sg,supervisor,Kwoh Chee Keong
+ASSKLAM,password,ASSKLAM@NTU.EDU.SG,supervisor,Lam Siew Kei
+ASCTLAU,password,ASCTLAU@NTU.EDU.SG,supervisor,Lau Chiew Tong
+EBSLEE,password,EBSLEE@ntu.edu.sg,supervisor,Lee Bu Sung
+boyang.li,password,boyang.li@ntu.edu.sg,supervisor,Li Boyang
+ASFLI,password,ASFLI@NTU.EDU.SG,fypcoordinator,Li Fang
+LIMO,password,LIMO@NTU.EDU.SG,supervisor,Li Mo
+YI_LI,password,YI_LI@NTU.EDU.SG,supervisor,Li Yi
+gslin,password,gslin@ntu.edu.sg,supervisor,Lin Guosheng
+SHANG-WEI.LIN,password,SHANG-WEI.LIN@NTU.EDU.SG,supervisor,Lin Shang-Wei
+WSLIN,password,WSLIN@NTU.EDU.SG,supervisor,Lin Weisi
+LIU,password,LIU@NTU.EDU.SG,supervisor,Liu Weichen
+YANGLIU,password,YANGLIU@NTU.EDU.SG,supervisor,Liu Yang
+ziwei.liu,password,ziwei.liu@ntu.edu.sg,supervisor,Liu Ziwei
+anhtuan.luu,password,anhtuan.luu@ntu.edu.sg,supervisor,Luu Anh Tuan
+YRLOKE,password,YRLOKE@NTU.EDU.SG,supervisor,Loke Yuan Ren
+C.LONG,password,C.LONG@NTU.EDU.SG,supervisor,Long Cheng
+SHIJIAN.LU,password,SHIJIAN.LU@NTU.EDU.SG,supervisor,Lu Shijian
+JUNLUO,password,JUNLUO@NTU.EDU.SG,supervisor,Luo Jun
+siqiang.luo,password,siqiang.luo@ntu.edu.sg,supervisor,Luo Siqiang
+MSABRY,password,MSABRY@NTU.EDU.SG,supervisor,Mohamed M. Sabry
+AWKNG,password,AWKNG@ntu.edu.sg,supervisor,Ng Wee Keong
+HLOH,password,HLOH@NTU.EDU.SG,supervisor,Oh Hong Lye
+ASYSOng,password,ASYSOng@ntu.edu.sg,supervisor,Ong Yew Soon
+OFERNANDO,password,OFERNANDO@NTU.EDU.SG,supervisor,Owen Noel Newton Fernando
+SINNOPAN,password,SINNOPAN@NTU.EDU.SG,supervisor,"Pan, Sinno Jialin"
+MKMQIAN,password,MKMQIAN@NTU.EDU.SG,supervisor,Qian Kemao
+ASHCQUEK,password,ASHCQUEK@ntu.edu.sg,supervisor,Quek Hiok Chai
+ASJAGATH,password,ASJAGATH@NTU.EDU.SG,supervisor,Rajapakse Jagath Chandana
+ASHSSEAH,password,ASHSSEAH@ntu.edu.sg,supervisor,Seah Hock Soon
+ZQSHEN,password,ZQSHEN@NTU.EDU.SG,supervisor,Shen Zhiqi
+SMITHA,password,SMITHA@NTU.EDU.SG,supervisor,Smitha K G
+ASSOURAV,password,ASSOURAV@NTU.EDU.SG,supervisor,Sourav Saha Bhowmick
+AXSUN,password,AXSUN@NTU.EDU.SG,supervisor,Sun Aixin
+cheewei.tan,password,cheewei.tan@ntu.edu.sg,supervisor,Tan Chee Wei
+TANRUI,password,TANRUI@NTU.EDU.SG,supervisor,Tan Rui
+ASXYTANG,password,ASXYTANG@NTU.EDU.SG,supervisor,Tang Xueyan
+kianboon.tay,password,kianboon.tay@ntu.edu.sg,supervisor,Tay Kian Boon
+ASTSRIKAN,password,ASTSRIKAN@ntu.edu.sg,supervisor,Thambipillai Srikanthan
+vidya.sudarshan,password,vidya.sudarshan@ntu.edu.sg,supervisor,Vidya Sudarshan
+ASCHVUN,password,ASCHVUN@ntu.edu.sg,supervisor,"Vun Chan Hua, Nicholas"
+YGWEN,password,YGWEN@ntu.edu.sg,supervisor,Wen Yonggang
+ASCKYEO,password,ASCKYEO@ntu.edu.sg,supervisor,Yeo Chai Kiat
+HAN.YU,password,HAN.YU@NTU.EDU.SG,supervisor,Yu Han
+HANWANGZHANG,password,HANWANGZHANG@NTU.EDU.SG,supervisor,Zhang Hanwang
+ZHANGJ,password,ZHANGJ@NTU.EDU.SG,supervisor,Zhang Jie
+tianwei.zhang,password,tianwei.zhang@ntu.edu.sg,supervisor,Zhang Tianwei
+JUNZHAO,password,JUNZHAO@NTU.EDU.SG,supervisor,Zhao Jun
+ASJMZHENG,password,ASJMZHENG@NTU.EDU.SG,supervisor,Zheng Jianmin
