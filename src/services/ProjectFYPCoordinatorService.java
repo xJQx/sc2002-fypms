@@ -9,6 +9,12 @@ import interfaces.IProjectFYPCoordinatorService;
 import models.Project;
 import stores.DataStore;
 
+/**
+ * The {@link ProjectFYPCoordinatorService} class extends
+ * {@link ProjectSupervisorService} and implements
+ * {@link IProjectFYPCoordinatorService}, providing project-related
+ * functionalities for FYP Coordinators.
+ */
 public class ProjectFYPCoordinatorService extends ProjectSupervisorService implements IProjectFYPCoordinatorService {
 
     @Override
