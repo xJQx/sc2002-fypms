@@ -7,7 +7,11 @@ import utils.RequestViewUtils;
 import enums.RequestType;
 import interfaces.IRequestView;
 
-
+/**
+ * The {@link RequestChangeProjectTitleView} class implements
+ * {@link IRequestView} and provides methods for displaying 
+ * request information related to changing a project's title.
+ */
 public class RequestChangeProjectTitleView implements IRequestView {
 
 	@Override

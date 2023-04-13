@@ -4,6 +4,11 @@ import interfaces.IProjectView;
 import models.Project;
 import models.Supervisor;
 
+/**
+ * The {@link ProjectAvailableView} class implements {@link IProjectView} and
+ * provides methods for displaying project information when the project is 
+ * available.
+ */
 public class ProjectAvailableView implements IProjectView{
 
 	@Override
