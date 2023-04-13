@@ -14,6 +14,12 @@ import interfaces.IRequestView;
  */
 public class RequestChangeProjectTitleView implements IRequestView {
 
+	/**
+	 * Constructs an instance of the {@link RequestChangeProjectTitleView} class.
+	 */
+	public RequestChangeProjectTitleView() {
+	};
+
 	@Override
 	public void displayRequestInfo(Request request) {
 		if (!(request.getType() == RequestType.CHANGE_PROJECT_TITLE)) return;

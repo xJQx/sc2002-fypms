@@ -15,6 +15,12 @@ import interfaces.IRequestView;
  */
 public class RequestTransferStudentView implements IRequestView{
 
+	/**
+	 * Constructs an instance of the {@link RequestTransferStudentView} class.
+	 */
+	public RequestTransferStudentView() {
+	};
+
 	@Override
 	public void displayRequestInfo(Request request) {
 		if (!(request.getType() == RequestType.TRANSFER_STUDENT)) return;

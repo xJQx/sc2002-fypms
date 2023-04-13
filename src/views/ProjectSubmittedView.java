@@ -12,6 +12,11 @@ import models.Supervisor;
  * is submitted.
  */
 public class ProjectSubmittedView implements IProjectView {
+    /**
+     * Constructs an instance of the {@link ProjectSubmittedView} class.
+     */
+    public ProjectSubmittedView() {
+    };
 
     @Override
     public void displayProjectInfo(Project project) {
@@ -21,7 +26,7 @@ public class ProjectSubmittedView implements IProjectView {
         System.out.println("Project ID: " + project.getProjectID());
         System.out.println("Project Title: " + project.getTitle());
         System.out.println("Project Status: " + project.getStatus());
-        
+
         System.out.println("Supervisor's name: " + supervisor.getName());
         System.out.println("Supervisor's email address: " + supervisor.getEmail());
 

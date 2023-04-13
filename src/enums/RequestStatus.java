@@ -10,7 +10,18 @@ package enums;
  * </ul>
  */
 public enum RequestStatus {
+	/**
+	 * Represents a request that is awaiting approval or rejection.
+	 */
 	PENDING,
+
+	/**
+	 * Represents a request that has been approved.
+	 */
 	APPROVED,
+
+	/**
+	 * Represents a request that has been rejected.
+	 */
 	REJECTED
 }

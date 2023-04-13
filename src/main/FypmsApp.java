@@ -22,6 +22,12 @@ import views.CommonView;
  */
 public class FypmsApp {
 	/**
+	 * Private constructor to prevent instantiation of the class.
+	 */
+	private FypmsApp() {
+	};
+
+	/**
 	 * The entry point for the FYPMS application. This method is responsible for
 	 * running an infinite loop to allow multiple users to operate the application.
 	 * 

@@ -11,6 +11,12 @@ import stores.DataStore;
  * provides the login functionality for students.
  */
 public class AuthStudentService extends AuthService {
+    /**
+     * Constructs an instance of the {@link AuthStudentService} class.
+     */
+    public AuthStudentService() {
+    };
+
     @Override
     public boolean login(String userID, String password) {
         Map<String, Student> studentData = DataStore.getStudentsData();

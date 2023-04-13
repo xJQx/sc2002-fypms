@@ -2,6 +2,9 @@
  * 
  */
 /**
+ * This project is a Java-based application for managing final year projects
+ * (FYP) for students in tertiary institutions.
+ * 
  * @author Toh Jing Qiang
  * @author Toh Jing Hua
  * @author Trini

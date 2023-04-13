@@ -3,6 +3,9 @@ package models;
 import enums.ProjectStatus;
 import stores.DataStore;
 
+/**
+ * The {@link Project} class represents a project that a supervisor has created
+ */
 public class Project {
 	/**
 	 * The ID of the last project that was created.

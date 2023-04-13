@@ -12,8 +12,23 @@ package enums;
  * </ul>
  */
 public enum ProjectStatus {
+	/**
+	 * The project is open for students to reserve.
+	 */
 	AVAILABLE,
+
+	/**
+	 * The project is reserved by a student and awaiting approval.
+	 */
 	RESERVED,
+
+	/**
+	 * The project is not available for reservation.
+	 */
 	UNAVAILABLE,
+
+	/**
+	 * The project is assigned to a student.
+	 */
 	ALLOCATED
 }

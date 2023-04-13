@@ -11,6 +11,12 @@ import stores.DataStore;
  * provides the login functionality for supervisors.
  */
 public class AuthSupervisorService extends AuthService {
+    /**
+     * Constructs an instance of the {@link AuthSupervisorService} class.
+     */
+    public AuthSupervisorService() {
+    };
+
     @Override
     public boolean login(String userID, String password) {
         Map<String, Supervisor> supervisorData = DataStore.getSupervisorsData();

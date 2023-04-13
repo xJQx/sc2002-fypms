@@ -15,6 +15,12 @@ import interfaces.IRequestView;
  */
 public class RequestDeregisterProjectView implements IRequestView{
 
+	/**
+	 * Constructs an instance of the {@link RequestDeregisterProjectView} class.
+	 */
+	public RequestDeregisterProjectView() {
+	};
+
 	@Override
 	public void displayRequestInfo(Request request) {
 		if (!(request.getType() == RequestType.DEREGISTER_PROJECT)) return;

@@ -35,10 +35,33 @@ import views.ProjectAllocatedView;
  * perform necessary operations.
  */
 public class StudentController extends UserController {
+    /**
+     * {@link Scanner} object to get input from the user.
+     */
     private static final Scanner sc = new Scanner(System.in);
+
+    /**
+     * The {@link IProjectStudentService} instance used for accessing project data
+     * and services for students.
+     */
     private static final IProjectStudentService projectStudentService = new ProjectStudentService();
+
+    /**
+     * The {@link IRequestStudentService} instance used for accessing request data
+     * and services for students.
+     */
     private static final IRequestStudentService requestStudentService = new RequestStudentService();
+
+    /**
+     * The project view used to display project information.
+     */
     protected static IRequestView requestView;
+
+    /**
+     * Constructs an instance of the {@link StudentController} class.
+     */
+    public StudentController() {
+    };
 
     /**
      * Starts the student menu and prompts the user to select an action.

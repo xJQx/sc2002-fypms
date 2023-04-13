@@ -8,8 +8,14 @@ import models.User;
  * the current user, as well as check if the user is logged in.
  */
 public class AuthStore {
+	/**
+	 * The currently authenticated user.
+	 */
 	private static User currentUser;
 
+	/**
+	 * Private constructor to prevent instantiation of the class.
+	 */
 	private AuthStore() {
 	}
 

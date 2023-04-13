@@ -2,7 +2,19 @@ package models;
 
 import enums.UserRole;
 
+/**
+ * The {@link FYPCoordinator} class represents a faculty member who serves as
+ * the coordinator for the final year project.
+ * 
+ * <p>
+ * The class extends {@link Supervisor} class and inherits its attributes and
+ * methods.
+ * </p>
+ */
 public class FYPCoordinator extends Supervisor {
+	/**
+	 * The ID of the FYPCoordinator.
+	 */
 	private String fypCoordinatorID;
 
 	/**

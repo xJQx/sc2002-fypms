@@ -7,18 +7,28 @@ import java.util.Scanner;
  * interface components in the console.
  */
 public class CommonView {
-    private static final Scanner sc = new Scanner(System.in);
-    
+	/**
+	 * {@link Scanner} object to get input from the user.
+	 */
+	private static final Scanner sc = new Scanner(System.in);
+
+	/**
+	 * Private constructor to prevent instantiation of the class.
+	 */
+	private CommonView() {
+	};
+
 	/**
 	 * Prints the splash screen for the Final Year Project Management System
 	 * (FYPMS).
 	 */
 	public static void printSplashScreen() {
 		System.out.println("\u250F" + "\u2501".repeat(98) + "\u2513");
-		System.out.println("\u2503                           Final Year Project Management System (FYPMS)                           \u2503");
+		System.out.println(
+				"\u2503                           Final Year Project Management System (FYPMS)                           \u2503");
 		System.out.println("\u2517" + "\u2501".repeat(98) + "\u251B");
 	}
-	
+
 	/**
 	 * Prints the navigation bar with the given path.
 	 *
@@ -26,21 +36,21 @@ public class CommonView {
 	 */
 	public static void printNavbar(String path) {
 		String spaces = String.format("%" + (97 - path.length()) + "s", "");
-		
+
 		// Display
-        System.out.println();
-        System.out.println();
-        
+		System.out.println();
+		System.out.println();
+
 		System.out.println("\u250F" + "\u2501".repeat(98) + "\u2513");
 		System.out.println("\u2503 " + path + spaces + "\u2503");
 		System.out.println("\u2517" + "\u2501".repeat(98) + "\u251B");
 	}
-	
+
 	/**
 	 * Prompts the user to press the "Enter" key to continue with the application.
 	 */
 	public static void pressEnterToContinue() {
-	    System.out.println("Press Enter key to continue...");
-	    sc.nextLine();
+		System.out.println("Press Enter key to continue...");
+		sc.nextLine();
 	}
 }

@@ -14,8 +14,23 @@ package enums;
  * </ul>
  */
 public enum RequestType {
+	/**
+	 * A request to transfer a student from one supervisor to another.
+	 */
 	TRANSFER_STUDENT,
+
+	/**
+	 * A request to change the title of a project.
+	 */
 	CHANGE_PROJECT_TITLE,
+
+	/**
+	 * A request to allocate a project to a student.
+	 */
 	ALLOCATE_PROJECT,
+
+	/**
+	 * A request to deregister a project.
+	 */
 	DEREGISTER_PROJECT
 }

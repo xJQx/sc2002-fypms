@@ -11,6 +11,13 @@ import stores.DataStore;
  * provides the login functionality for FYP Coordinators.
  */
 public class AuthFYPCoordinatorService extends AuthService {
+    /**
+     * Constructs an instance of the {@link AuthFYPCoordinatorService} class.
+     */
+    public AuthFYPCoordinatorService() {
+        super();
+    };
+
     @Override
     public boolean login(String userID, String password) {
         Map<String, FYPCoordinator> fypCoordinatorData = DataStore.getFYPCoordinatorsData();

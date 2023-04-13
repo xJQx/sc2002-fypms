@@ -2,13 +2,24 @@ package models;
 
 import enums.UserRole;
 
+/**
+ * The {@link Student} class represents a student user in the system.
+ * It extends the {@link User} class, which contains the basic user information.
+ */
 public class Student extends User {
+	/**
+	 * The ID of the student.
+	 */
 	private String studentID;
+
+	/**
+	 * The registration status of the student.
+	 */
 	private Boolean isDeregistered;
 
 	/**
-	 * Constructs a {@link Student} object with given student ID, name, email, password, and
-	 * registration status.
+	 * Constructs a {@link Student} object with given student ID, name, email,
+	 * password, and registration status.
 	 * 
 	 * @param studentID      the ID of the student
 	 * @param name           the name of the student

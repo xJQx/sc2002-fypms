@@ -17,15 +17,49 @@ import models.Supervisor;
  * data maps for various data types.
  */
 public class DataStore {
+	/**
+	 * The {@link IFileDataService} instance used for data operations.
+	 */
 	private static IFileDataService fileDataService;
+
+	/**
+	 * A {@link Map} containing file paths for various data types.
+	 */
 	private static Map<String, String> filePathsMap;
 
+	/**
+	 * A {@link Map} containing student ID as the key and {@link Student} objects
+	 * as the value.
+	 */
 	private static Map<String, Student> studentsData = new HashMap<String, Student>();
+
+	/**
+	 * A {@link Map} containing supervisor ID as the key and {@link Supervisor}
+	 * objects as the value.
+	 */
 	private static Map<String, Supervisor> supervisorsData = new HashMap<String, Supervisor>();
+
+	/**
+	 * A {@link Map} containing FYP coordinator ID as the key and
+	 * {@link FYPCoordinator} objects as the value.
+	 */
 	private static Map<String, FYPCoordinator> fypcoordinatorsData = new HashMap<String, FYPCoordinator>();
+
+	/**
+	 * A {@link Map} containing project ID as the key and {@link Project} objects
+	 * as the value.
+	 */
 	private static Map<Integer, Project> projectsData = new HashMap<Integer, Project>();
+
+	/**
+	 * A {@link Map} containing request ID as the key and {@link Request} objects
+	 * as the value.
+	 */
 	private static Map<Integer, Request> requestData = new HashMap<Integer, Request>();
 
+	/**
+	 * Private constructor to prevent instantiation of the class.
+	 */
 	private DataStore() {
 	}
 
