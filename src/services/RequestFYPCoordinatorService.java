@@ -10,6 +10,12 @@ import interfaces.IRequestFYPCoordinatorService;
 import models.Request;
 import stores.DataStore;
 
+/**
+ * The {@link RequestFYPCoordinatorService} class extends
+ * {@link RequestSupervisorService} and
+ * implements {@link IRequestFYPCoordinatorService},
+ * providing request-related functionalities for FYP Coordinators.
+ */
 public class RequestFYPCoordinatorService extends RequestSupervisorService implements IRequestFYPCoordinatorService {
 
 	// Get All Requests

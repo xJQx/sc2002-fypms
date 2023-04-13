@@ -6,6 +6,10 @@ import models.FYPCoordinator;
 import stores.AuthStore;
 import stores.DataStore;
 
+/**
+ * The {@link AuthFYPCoordinatorService} class extends {@link AuthService} and
+ * provides the login functionality for FYP Coordinators.
+ */
 public class AuthFYPCoordinatorService extends AuthService {
     @Override
     public boolean login(String userID, String password) {

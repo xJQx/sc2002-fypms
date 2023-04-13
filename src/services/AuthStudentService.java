@@ -6,6 +6,10 @@ import models.Student;
 import stores.AuthStore;
 import stores.DataStore;
 
+/**
+ * The {@link AuthStudentService} class extends {@link AuthService} and
+ * provides the login functionality for students.
+ */
 public class AuthStudentService extends AuthService {
     @Override
     public boolean login(String userID, String password) {

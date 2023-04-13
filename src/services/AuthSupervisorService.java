@@ -6,6 +6,10 @@ import models.Supervisor;
 import stores.AuthStore;
 import stores.DataStore;
 
+/**
+ * The {@link AuthSupervisorService} class extends {@link AuthService} and
+ * provides the login functionality for supervisors.
+ */
 public class AuthSupervisorService extends AuthService {
     @Override
     public boolean login(String userID, String password) {

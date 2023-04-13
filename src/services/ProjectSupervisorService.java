@@ -10,6 +10,11 @@ import interfaces.IProjectSupervisorService;
 import models.Project;
 import stores.DataStore;
 
+/**
+ * The {@link ProjectSupervisorService} class implements
+ * {@link IProjectSupervisorService},
+ * providing project-related functionalities for supervisors.
+ */
 public class ProjectSupervisorService implements IProjectSupervisorService {
 
     @Override
@@ -43,7 +48,7 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
     public boolean updateProjectTitle(Project project, String title, String supervisorID) {
         if (project.getSupervisor() != null && project.getSupervisor().getSupervisorID().equals(supervisorID)) {
             project.setTitle(title);
-            
+
             return DataStore.saveData();
         } else {
             return false;
@@ -59,7 +64,7 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
                 project.setStatus(ProjectStatus.UNAVAILABLE);
             }
         }
-        
+
         return DataStore.saveData();
     }
 
