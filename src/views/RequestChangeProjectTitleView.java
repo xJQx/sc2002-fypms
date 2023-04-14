@@ -36,7 +36,7 @@ public class RequestChangeProjectTitleView implements IRequestView {
 		System.out.println(" > ProjectID: " + project.getProjectID());
 		System.out.println(" > Title: " + project.getTitle());
 		System.out.println(" > Supervisor: " + project.getSupervisor().getName());
-		System.out.println(" > Student: " + project.getStudent().getName());
+		System.out.println(" > Student: " + (project.getStudent() != null ? project.getStudent().getName() : "Deregistered"));
 		System.out.println();
 		System.out.println("Requested Changes:");
 		System.out.println(" > Title (New): " + newTitle);
