@@ -143,18 +143,23 @@ public class SupervisorController extends UserController {
      * project list.
      */
     protected void createProjects() {
+        // Get number of projects to create from user
         System.out.print("Enter the number of projects to create: ");
         int projectCount = sc.nextInt();
         sc.nextLine();
 
-        String supervisorID = AuthStore.getCurrentUser().getUserID();
+        Supervisor supervisor = (Supervisor) AuthStore.getCurrentUser();
+        String supervisorID = supervisor.getSupervisorID();
         ArrayList<Project> projects = new ArrayList<Project>();
 
+        // Creating Project objects
         for (int i = 0; i < projectCount; i++) {
             System.out.printf("Creating project %d\n", i);
             System.out.print("Project Title: ");
             String title = sc.nextLine();
-            Project project = new Project(title, supervisorID, null, ProjectStatus.AVAILABLE);
+            ProjectStatus status = supervisor.getNumOfProjects() < 2 ? ProjectStatus.AVAILABLE : ProjectStatus.UNAVAILABLE;
+
+            Project project = new Project(title, supervisorID, null, status);
             projects.add(project);
         }
 
