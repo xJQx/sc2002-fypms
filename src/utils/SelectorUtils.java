@@ -11,6 +11,7 @@ import interfaces.IRequestView;
 import models.Project;
 import models.Request;
 import models.Supervisor;
+import views.CommonView;
 import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
 import views.RequestDeregisterProjectView;
@@ -96,7 +97,7 @@ public class SelectorUtils {
                 System.out.println("Invalid supervisorID!");
             }
 
-            sc.nextLine();
+            CommonView.pressEnterToContinue();
         }
     }
 

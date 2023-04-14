@@ -38,20 +38,33 @@ public class AuthController {
      * provided or the system is shut down.
      */
     public static void startSession() {
-        int choice = 0;
+        int choice;
         boolean authenticated = false;
 
         do {
 
-            do {
+            while (true) {
                 System.out.println("<Enter 0 to shutdown system>\n");
                 System.out.println("Login as:");
                 System.out.println("1. Student");
                 System.out.println("2. Supervisor");
                 System.out.println("3. FYP Coordinator");
 
-                choice = sc.nextInt();
-            } while (choice < 0 || choice > 3);
+                String input = sc.nextLine();
+
+                if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                    choice = Integer.parseInt(input);
+
+                    if (choice < 0 || choice > 3) {
+                        System.out.println("Invalid input. Please enter 0-3!");
+                    } else {
+                        break;
+                    }
+                } else { // If the input is not an integer, prompt the user to enter again
+                    System.out.println("Invalid input. Please enter an integer.\n");
+                }
+
+            }
 
             switch (choice) {
                 case 0:
@@ -71,10 +84,10 @@ public class AuthController {
             String userID, password;
 
             System.out.print("UserID: ");
-            userID = sc.next();
+            userID = sc.nextLine();
 
             System.out.print("Password: ");
-            password = sc.next();
+            password = sc.nextLine();
 
             authenticated = authService.login(userID, password);
             if (!authenticated) {
