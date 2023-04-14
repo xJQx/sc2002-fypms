@@ -21,6 +21,7 @@ import services.RequestFYPCoordinatorService;
 import stores.AuthStore;
 import stores.DataStore;
 import utils.SelectorUtils;
+import utils.TextDecorationUtils;
 import views.CommonView;
 import views.ProjectSubmittedView;
 
@@ -66,15 +67,21 @@ public class FYPCoordinatorController extends SupervisorController {
 
         do {
             CommonView.printNavbar("FYPMS > FYP Coordinator Menu");
+            System.out.println(TextDecorationUtils.underlineText("SETTINGS"));
             System.out.println("1. Change password");
+            
+            System.out.println(TextDecorationUtils.underlineText("\nPROJECTS"));
             System.out.println("2. Create projects");
             System.out.println("3. Update project");
-            System.out.println("4. View projects");
-            System.out.println("5. View projects by filters");
-            System.out.println("6. View/Approve/Reject pending requests");
-            System.out.println("7. View request history");
+            System.out.println("4. View all projects");
+            System.out.println("5. View all projects by filters");
+            
+            System.out.println(TextDecorationUtils.underlineText("\nREQUESTS"));
+            System.out.println("6. View/Approve/Reject " + TextDecorationUtils.boldText("PENDING") + " requests");
+            System.out.println("7. View all request history");
             System.out.println("8. Request student transfer");
-            System.out.println("9. Exit");
+            
+            System.out.println("\n9. Exit");
 
             choice = sc.nextInt();
             sc.nextLine(); // consume the remaining newline character
@@ -97,11 +104,11 @@ public class FYPCoordinatorController extends SupervisorController {
                     updateProject();
                     break;
                 case 4:
-                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > All View Projects");
                     viewProjects();
                     break;
                 case 5:
-                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Projects (with filtering)");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > All View Projects (with filtering)");
                     viewProjectsByFilter();
                     break;
                 case 6:
@@ -109,7 +116,7 @@ public class FYPCoordinatorController extends SupervisorController {
                     viewApproveRejectPendingRequest();
                     break;
                 case 7:
-                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View Requests");
+                    CommonView.printNavbar("FYPMS > FYP Coordinator Menu > View All Requests");
                     viewRequests();
                     break;
                 case 8:

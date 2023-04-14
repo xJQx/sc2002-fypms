@@ -17,6 +17,7 @@ import services.ProjectSupervisorService;
 import services.RequestSupervisorService;
 import stores.AuthStore;
 import stores.DataStore;
+import utils.TextDecorationUtils;
 import utils.SelectorUtils;
 import views.CommonView;
 import views.RequestAllocateProjectView;
@@ -77,14 +78,20 @@ public class SupervisorController extends UserController {
 
         do {
             CommonView.printNavbar("FYPMS > Supervisor Menu");
+            System.out.println(TextDecorationUtils.underlineText("SETTINGS"));
             System.out.println("1. Change password");
+            
+            System.out.println(TextDecorationUtils.underlineText("\nPROJECTS"));
             System.out.println("2. Create projects");
             System.out.println("3. Update submitted project");
             System.out.println("4. View submitted projects");
-            System.out.println("5. View/Approve/Reject pending requests");
+            
+            System.out.println(TextDecorationUtils.underlineText("\nREQUESTS"));
+            System.out.println("5. View/Approve/Reject " + TextDecorationUtils.boldText("PENDING") + " requests");
             System.out.println("6. View request history");
             System.out.println("7. Request student transfer");
-            System.out.println("8. Exit");
+            
+            System.out.println("\n8. Exit");
 
             choice = sc.nextInt();
             sc.nextLine(); // consume the remaining newline character
@@ -153,7 +160,7 @@ public class SupervisorController extends UserController {
         ArrayList<Project> projects = new ArrayList<Project>();
 
         // Creating Project objects
-        for (int i = 0; i < projectCount; i++) {
+        for (int i = 1; i <= projectCount; i++) {
             System.out.printf("Creating project %d\n", i);
             System.out.print("Project Title: ");
             String title = sc.nextLine();

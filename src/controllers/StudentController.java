@@ -17,6 +17,7 @@ import services.RequestStudentService;
 import stores.AuthStore;
 import stores.DataStore;
 import utils.SelectorUtils;
+import utils.TextDecorationUtils;
 import views.ProjectAvailableView;
 import views.RequestAllocateProjectView;
 import views.RequestChangeProjectTitleView;
@@ -73,14 +74,20 @@ public class StudentController extends UserController {
 
         do {
             CommonView.printNavbar("FYPMS > Student Menu");
+            System.out.println(TextDecorationUtils.underlineText("SETTINGS"));
             System.out.println("1. Change password");
+            
+            System.out.println(TextDecorationUtils.underlineText("\nPROJECTS"));
             System.out.println("2. View available projects");
             System.out.println("3. View allocated projects");
+            
+            System.out.println(TextDecorationUtils.underlineText("\nREQUESTS"));
             System.out.println("4. View requests status and history");
-            System.out.println("5. Send project to coordinator");
+            System.out.println("5. Request project allocation");
             System.out.println("6. Request project title change");
             System.out.println("7. Request FYP deregistration");
-            System.out.println("8. Exit");
+
+            System.out.println("\n8. Exit");
 
             choice = sc.nextInt();
             sc.nextLine(); // consume the remaining newline character
