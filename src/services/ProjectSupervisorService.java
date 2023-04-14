@@ -66,7 +66,7 @@ public class ProjectSupervisorService implements IProjectSupervisorService {
         ArrayList<Project> submittedProjects = this.getSubmittedProjects(supervisorID);
 
         for (Project project : submittedProjects) {
-            if (project.getStatus() != ProjectStatus.ALLOCATED) {
+            if (project.getStatus() == ProjectStatus.AVAILABLE) {
                 project.setStatus(ProjectStatus.UNAVAILABLE);
             }
         }
