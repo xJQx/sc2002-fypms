@@ -219,11 +219,16 @@ public class FYPCoordinatorController extends SupervisorController {
                                                 .filter(request -> request.getType() == RequestType.DEREGISTER_PROJECT &&
                                                         request.getStatus() == RequestStatus.PENDING)
                                                 .collect(Collectors.toCollection(ArrayList::new));
+            ArrayList<Request> changeProjectTitlePendingReqeusts = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
+                                                .filter(request -> request.getType() == RequestType.CHANGE_PROJECT_TITLE &&
+                                                        request.getStatus() == RequestStatus.PENDING)
+                                                .collect(Collectors.toCollection(ArrayList::new));
 
             // Display Options
             System.out.println("1. Supervisor requests " + (supervisorPendingRequests.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
             System.out.println("2. Allocation requests " + (allocationPendingRequests.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
             System.out.println("3. Deallocation requests " + (deallocationPendingRequests.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
+            System.out.println("4. Change Project Title requests " + (changeProjectTitlePendingReqeusts.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
             System.out.printf("Select request option (Enter to return): ");
 
             int option;
@@ -238,7 +243,7 @@ public class FYPCoordinatorController extends SupervisorController {
                 continue;
             }
 
-            if (option < 1 || option > 3) {
+            if (option < 1 || option > 4) {
                 System.out.println("Invalid option!");
                 continue;
             }
@@ -253,6 +258,9 @@ public class FYPCoordinatorController extends SupervisorController {
                     break;
                 case 3:
                     requests = deallocationPendingRequests;
+                    break;
+                case 4:
+                    requests = changeProjectTitlePendingReqeusts;
                     break;
                 default:
                     requests = null;
