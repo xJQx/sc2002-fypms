@@ -91,7 +91,11 @@ public class AllocateProjectRequest extends Request {
 
 		// Update Project
 		Project project = super.getProject();
-		project.setStatus(ProjectStatus.AVAILABLE);
+		if (project.getSupervisor().getNumOfProjects() >= Supervisor.MAX_PROJECTS) {
+			project.setStatus(ProjectStatus.UNAVAILABLE);
+		} else {
+			project.setStatus(ProjectStatus.AVAILABLE);
+		}
 
 		// Save to CSV
 		return DataStore.saveData();
