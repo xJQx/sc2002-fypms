@@ -36,7 +36,7 @@ public class RequestFYPCoordinatorService extends RequestSupervisorService imple
 
 		ArrayList<Request> supervisorPendingRequests = requestsData.values().stream()
 				.filter(request -> request.getReceiver().getUserID().equals(fypCoordinatorID) &&
-						request.getSender().getRole() == UserRole.SUPERVISOR &&
+						(request.getSender().getRole() == UserRole.SUPERVISOR || request.getSender().getRole() == UserRole.FYPCOORDINATOR) &&
 						request.getStatus() == RequestStatus.PENDING)
 				.collect(Collectors.toCollection(ArrayList::new));
 

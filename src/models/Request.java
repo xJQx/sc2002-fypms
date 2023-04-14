@@ -205,6 +205,10 @@ public abstract class Request {
 		if (supervisorsMap.containsKey(this.senderID))
 			return supervisorsMap.get(this.senderID);
 
+		Map<String, FYPCoordinator> fypCoordinatorsMap = DataStore.getFYPCoordinatorsData();
+		if (fypCoordinatorsMap.containsKey(this.senderID))
+			return fypCoordinatorsMap.get(this.senderID);
+
 		return null;
 	}
 
