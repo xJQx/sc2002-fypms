@@ -66,6 +66,12 @@ public class FYPCoordinatorController extends SupervisorController {
         int choice;
 
         do {
+            // Check if fyp coordinator has pending requests
+            boolean hasPendingRequest = 
+                requestFYPCoordinatorService.getStudentPendingRequests(AuthStore.getCurrentUser().getUserID()).size() +
+                requestFYPCoordinatorService.getSupervisorPendingRequests(AuthStore.getCurrentUser().getUserID()).size() > 0;
+
+            // Options for user
             CommonView.printNavbar("FYPMS > FYP Coordinator Menu");
             System.out.println(TextDecorationUtils.underlineText("SETTINGS"));
             System.out.println("1. Change password");
@@ -77,7 +83,7 @@ public class FYPCoordinatorController extends SupervisorController {
             System.out.println("5. View all projects by filters");
             
             System.out.println(TextDecorationUtils.underlineText("\nREQUESTS"));
-            System.out.println("6. View/Approve/Reject " + TextDecorationUtils.boldText("PENDING") + " requests");
+            System.out.println("6. View/Approve/Reject " + TextDecorationUtils.boldText("PENDING") + " requests " + (hasPendingRequest ? TextDecorationUtils.italicText("(NEW)"): ""));
             System.out.println("7. View all request history");
             System.out.println("8. Request student transfer");
             
@@ -203,9 +209,21 @@ public class FYPCoordinatorController extends SupervisorController {
         String fypCoordinatorID = AuthStore.getCurrentUser().getUserID();
 
         while (true) {
-            System.out.println("1. Supervisor requests");
-            System.out.println("2. Allocation requests");
-            System.out.println("3. Deallocation requests");
+            // Retrieve all the different requests
+            ArrayList<Request> supervisorPendingRequests = requestFYPCoordinatorService.getSupervisorPendingRequests(fypCoordinatorID);
+            ArrayList<Request> allocationPendingRequests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
+                                                .filter(request -> request.getType() == RequestType.ALLOCATE_PROJECT &&
+                                                        request.getStatus() == RequestStatus.PENDING)
+                                                .collect(Collectors.toCollection(ArrayList::new));
+            ArrayList<Request> deallocationPendingRequests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
+                                                .filter(request -> request.getType() == RequestType.DEREGISTER_PROJECT &&
+                                                        request.getStatus() == RequestStatus.PENDING)
+                                                .collect(Collectors.toCollection(ArrayList::new));
+
+            // Display Options
+            System.out.println("1. Supervisor requests " + (supervisorPendingRequests.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
+            System.out.println("2. Allocation requests " + (allocationPendingRequests.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
+            System.out.println("3. Deallocation requests " + (deallocationPendingRequests.size() > 0 ? TextDecorationUtils.italicText("(NEW)"): ""));
             System.out.printf("Select request option (Enter to return): ");
 
             int option;
@@ -228,31 +246,32 @@ public class FYPCoordinatorController extends SupervisorController {
 
             switch (option) {
                 case 1:
-                    requests = requestFYPCoordinatorService
-                            .getSupervisorPendingRequests(fypCoordinatorID);
+                    requests = supervisorPendingRequests;
                     break;
                 case 2:
-                    requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
-                            .filter(request -> request.getType() == RequestType.ALLOCATE_PROJECT &&
-                                    request.getStatus() == RequestStatus.PENDING)
-                            .collect(Collectors.toCollection(ArrayList::new));
+                    requests = allocationPendingRequests;
                     break;
                 case 3:
-                    requests = requestFYPCoordinatorService.getIncomingRequests(fypCoordinatorID).stream()
-                            .filter(request -> request.getType() == RequestType.DEREGISTER_PROJECT &&
-                                    request.getStatus() == RequestStatus.PENDING)
-                            .collect(Collectors.toCollection(ArrayList::new));
+                    requests = deallocationPendingRequests;
                     break;
                 default:
                     requests = null;
             }
 
+            // Select a Request
             Request request = SelectorUtils.requestSelector(requests);
             if (request == null) {
                 return;
             }
 
             while (true) {
+                // Show warning when the supervisor already supervising the maximum allowable number of projects for allocate project requests
+                Supervisor supervisor = request.getProject().getSupervisor();
+                if (request.getType() == RequestType.ALLOCATE_PROJECT && supervisor.getNumOfProjects() >= Supervisor.MAX_PROJECTS) {
+                    System.out.printf("Warning: %s already is supervising %d projects.\n", supervisor.getName(), Supervisor.MAX_PROJECTS);
+                }
+
+                // Approve or Reject
                 System.out.println("1. Approve");
                 System.out.println("2. Reject");
                 System.out.printf("Select approve/reject (Enter to return): ");

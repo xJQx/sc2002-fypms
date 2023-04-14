@@ -77,6 +77,10 @@ public class SupervisorController extends UserController {
         int choice;
 
         do {
+            // Check if supervisor has pending requests
+            boolean hasPendingRequest = requestSupervisorService.getStudentPendingRequests(AuthStore.getCurrentUser().getUserID()).size() > 0;
+
+            // Options for user
             CommonView.printNavbar("FYPMS > Supervisor Menu");
             System.out.println(TextDecorationUtils.underlineText("SETTINGS"));
             System.out.println("1. Change password");
@@ -87,7 +91,7 @@ public class SupervisorController extends UserController {
             System.out.println("4. View submitted projects");
             
             System.out.println(TextDecorationUtils.underlineText("\nREQUESTS"));
-            System.out.println("5. View/Approve/Reject " + TextDecorationUtils.boldText("PENDING") + " requests");
+            System.out.println("5. View/Approve/Reject " + TextDecorationUtils.boldText("PENDING") + " requests " + (hasPendingRequest ? TextDecorationUtils.italicText("(NEW)"): ""));
             System.out.println("6. View request history");
             System.out.println("7. Request student transfer");
             
