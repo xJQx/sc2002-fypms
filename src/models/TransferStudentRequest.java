@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import enums.ProjectStatus;
 import enums.RequestStatus;
 import enums.RequestType;
 import stores.DataStore;
@@ -102,7 +103,9 @@ public class TransferStudentRequest extends Request {
 		project.setSupervisor(this.replacementSupervisorID);
 
 		// Update Supervisor
-		supervisor.setNumOfProjects(supervisor.getNumOfProjects() - 1);
+		if (project.getStatus() == ProjectStatus.ALLOCATED) {
+			supervisor.setNumOfProjects(supervisor.getNumOfProjects() - 1);
+		}
 		replacementSupervisor.setNumOfProjects(replacementSupervisor.getNumOfProjects() + 1);
 
 		// Save to CSV
