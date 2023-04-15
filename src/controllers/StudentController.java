@@ -76,11 +76,11 @@ public class StudentController extends UserController {
             CommonView.printNavbar("FYPMS > Student Menu");
             System.out.println(TextDecorationUtils.underlineText("SETTINGS"));
             System.out.println("1. Change password");
-            
+
             System.out.println(TextDecorationUtils.underlineText("\nPROJECTS"));
             System.out.println("2. View available projects");
             System.out.println("3. View allocated projects");
-            
+
             System.out.println(TextDecorationUtils.underlineText("\nREQUESTS"));
             System.out.println("4. View requests status and history");
             System.out.println("5. Request project allocation");
@@ -211,7 +211,12 @@ public class StudentController extends UserController {
      * Sends a project allocation request to the FYP coordinator.
      */
     private void sendProjectToCoordinator() {
-        String studentID = AuthStore.getCurrentUser().getUserID();
+        Student student = (Student) AuthStore.getCurrentUser();
+        String studentID = student.getUserID();
+        if (student.getIsDeregistered()) {
+            System.out.println("You are not allowed to make selection again as you deregistered your FYP.");
+            return;
+        }
         Project reservedProject = projectStudentService.getReservedProject(studentID);
         Project allocatedProject = projectStudentService.getAllocatedProject(studentID);
 
