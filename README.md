@@ -4,6 +4,9 @@
 [<img src="https://github.com/ztjhz.png" height="20" width="20" /> Jing Hua](https://github.com/ztjhz) |
 [<img src="https://github.com/trinionggg.png" height="20" width="20" /> Trini](https://github.com/trinionggg)
 
+[Report](https://github.com/xJQx/sc2002-fypms/blob/main/report.pdf) | 
+[UML Class Diagram](https://github.com/xJQx/sc2002-fypms/blob/main/uml%20class%20diagram/uml-class-diagram.jpg)
+
 This project is a Java-based application for managing final year projects (FYP) for students in tertiary institutions. It features authentication, user management, project management, and communication between supervisors and students. This README file provides instructions on how to clone, compile, and run the project.
 
 ## Table of Contents
