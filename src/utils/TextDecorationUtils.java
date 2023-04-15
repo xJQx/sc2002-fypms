@@ -1,8 +1,8 @@
 package utils;
 
 /**
- * The {@link TextDecorationUtils} class provides utility methods for coloring
- * console display for the whole application.
+ * The {@link TextDecorationUtils} class provides utility methods for providing
+ * text decoration in the console display for the whole application.
  */
 public class TextDecorationUtils {
     /**
