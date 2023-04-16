@@ -1,13 +1,20 @@
 # Final Year Project Management System
 
+![UML Class Diagram](https://img.shields.io/badge/UML%20Class%20Diagram-1976D2?style=for-the-badge&logoColor=white)
+![Solid Design Principles](https://img.shields.io/badge/SOLID%20Design%20Principles-C71A36?style=for-the-badge&logoColor=white)
+![OOP Concepts](https://img.shields.io/badge/OOP%20Concepts-C71A36?style=for-the-badge&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+
 **Team:** [<img src="https://github.com/xJQx.png" height="20" width="20" /> Jing Qiang](https://github.com/xJQx) |
 [<img src="https://github.com/ztjhz.png" height="20" width="20" /> Jing Hua](https://github.com/ztjhz) |
 [<img src="https://github.com/trinionggg.png" height="20" width="20" /> Trini](https://github.com/trinionggg)
 
-[Report](https://github.com/xJQx/sc2002-fypms/blob/main/report.pdf) | 
-[UML Class Diagram](https://github.com/xJQx/sc2002-fypms/blob/main/uml%20class%20diagram/uml-class-diagram.jpg)
+**Docs:** [Report](https://github.com/xJQx/sc2002-fypms/blob/main/report.pdf) | 
+[UML Class Diagram](https://github.com/xJQx/sc2002-fypms/blob/main/uml%20class%20diagram/uml-class-diagram.jpg) |
+[Java Docs](https://github.com/xJQx/sc2002-fypms#generating-javadocs)
 
-This project is a Java-based application for managing final year projects (FYP) for students in tertiary institutions. It features authentication, user management, project management, and communication between supervisors and students. This README file provides instructions on how to clone, compile, and run the project.
+A Java-based application for managing **final year projects (FYP)** for students in tertiary institutions. It features authentication, user management, project management, and communications between students, supervisors, and fyp coordinators. This README file provides instructions on how to clone, compile, and run the project.
 
 ## Table of Contents
 
