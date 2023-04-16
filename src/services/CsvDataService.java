@@ -344,8 +344,7 @@ public class CsvDataService implements IFileDataService {
 		Map<String, FYPCoordinator> fypCoordinatorsMap = new HashMap<String, FYPCoordinator>();
 
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
-		List<String[]> supervisorsRows = this.readCsvFile(supervisorsFilePath, supervisorCsvHeaders);
-		this.readCsvFile(fypCoordinatorsFilePath, fypCoordinatorCsvHeaders);
+		List<String[]> fypCoordinatorsRows = this.readCsvFile(fypCoordinatorsFilePath, fypCoordinatorCsvHeaders);
 
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
@@ -359,14 +358,13 @@ public class CsvDataService implements IFileDataService {
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
 
-			// get the associated supervisor data since a FYP Coordinator is also a
-			// Supervisor
+			// Number of Projects
 			int numOfProjects = 0;
-			for (String[] supervisorRow : supervisorsRows) {
-				if (!supervisorRow[0].equals(userID))
+			for (String[] fypCoordinatorRow : fypCoordinatorsRows) {
+				if (!fypCoordinatorRow[0].equals(userID))
 					continue;
 
-				numOfProjects = Integer.parseInt(supervisorRow[1]);
+				numOfProjects = Integer.parseInt(fypCoordinatorRow[1]);
 			}
 
 			FYPCoordinator fypCoordinator = new FYPCoordinator(userID, name, email, password, numOfProjects);
@@ -381,7 +379,6 @@ public class CsvDataService implements IFileDataService {
 	public boolean exportFYPCoordinatorData(String usersFilePath, String supervisorsFilePath,
 			String fypCoordinatorsFilePath, Map<String, FYPCoordinator> fypCoordinatorMap) {
 		List<String> fypCoordinatorLines = new ArrayList<String>();
-		List<String> supervisorLines = new ArrayList<String>();
 		List<String> userLines = new ArrayList<String>();
 
 		// User
@@ -409,34 +406,17 @@ public class CsvDataService implements IFileDataService {
 			userLines.add(userLine);
 		}
 
-		// Supervisor
-		List<String[]> supervisorsRows = this.readCsvFile(supervisorsFilePath, supervisorCsvHeaders);
-		for (String[] supervisorRow : supervisorsRows) {
-			String supervisorLine = String.format("%s,%d", supervisorRow[0], Integer.parseInt(supervisorRow[1]));
-
-			if (fypCoordinatorMap.get(supervisorRow[0]) != null) {
-				FYPCoordinator fypCoordinator = fypCoordinatorMap.get(supervisorRow[0]);
-
-				supervisorLine = String.format("%s,%d",
-						fypCoordinator.getSupervisorID(),
-						fypCoordinator.getNumOfProjects());
-			}
-
-			supervisorLines.add(supervisorLine);
-		}
-
 		// FYP Coordinator
 		for (FYPCoordinator fypcoordinator : fypCoordinatorMap.values()) {
-			String fypcoordinatorLine = String.format("%s", fypcoordinator.getSupervisorID());
+			String fypcoordinatorLine = String.format("%s,%d", fypcoordinator.getSupervisorID(), fypcoordinator.getNumOfProjects());
 
 			fypCoordinatorLines.add(fypcoordinatorLine);
 		}
 
 		// Write to CSV
 		boolean success1 = this.writeCsvFile(usersFilePath, userCsvHeaders, userLines);
-		boolean success2 = this.writeCsvFile(supervisorsFilePath, supervisorCsvHeaders, supervisorLines);
-		boolean success3 = this.writeCsvFile(fypCoordinatorsFilePath, fypCoordinatorCsvHeaders, fypCoordinatorLines);
-		return success1 && success2 && success3;
+		boolean success2 = this.writeCsvFile(fypCoordinatorsFilePath, fypCoordinatorCsvHeaders, fypCoordinatorLines);
+		return success1 && success2;
 	}
 
 	// Projects
