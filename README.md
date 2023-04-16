@@ -12,7 +12,7 @@
 
 **Docs:** [Report](https://github.com/xJQx/sc2002-fypms/blob/main/report.pdf) | 
 [UML Class Diagram](https://github.com/xJQx/sc2002-fypms/blob/main/uml%20class%20diagram/uml-class-diagram.jpg) |
-[Java Docs](https://github.com/xJQx/sc2002-fypms#generating-javadocs)
+[Java Docs](https://xjqx.github.io/sc2002-fypms/sc2002_fypms/module-summary.html)
 
 A Java-based application for managing **final year projects (FYP)** for students in tertiary institutions. It features authentication, user management, project management, and communications between students, supervisors, and fyp coordinators. This README file provides instructions on how to clone, compile, and run the project.
 
